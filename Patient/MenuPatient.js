@@ -1,10 +1,25 @@
 import * as React from 'react';
-import {useContext} from 'react';
+import {useContext, useEffect} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {AuthContext} from '../navigaiton/AuthProvider';
+import PushNotification from "react-native-push-notification";
+
 
 export default function homeScreenStudent({navigation}) {
   const {user, logout} = useContext(AuthContext);
+
+  useEffect(() => {
+    createChannels();
+    
+  })
+  const createChannels = () =>{
+    PushNotification.createChannel({
+      channelId: "patient",
+      channelName: "patient"
+    })
+  }
+  
+
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}> Welcome Patient </Text>

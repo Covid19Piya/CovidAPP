@@ -1,20 +1,40 @@
 import * as React from 'react';
-import { useContext, Component } from 'react';
+import { useContext, Component, useEffect } from 'react';
 import { View, StyleSheet, Text, Alert, TouchableOpacity } from 'react-native';
-import { FilledButton } from '../components/FilledButton';
 import { AuthContext } from '../navigaiton/AuthProvider';
-import firestore from '@react-native-firebase/firestore';
+import PushNotification from "react-native-push-notification";
+
 
 export default function homeScreen({ navigation }) {
   const { user, logout } = useContext(AuthContext);
-  console.log(user)
+
+  useEffect(() => {
+    createChannels();
+  })
+  
+  const createChannels = () =>{
+    PushNotification.createChannel({
+      channelId: "test",
+      channelName: "test"
+    })
+  }
+
+  const handleNotification = (item) => {
+    PushNotification.localNotification({
+      channelId: "test",
+      title : "You "+item,
+      message: item
+    })
+    console.log("eiei")
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}> Welcome Volunteer </Text>
       <Text style={styles.head}>"{user.email}"</Text>
 
-      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Find Patient', { user: user })}>
+      <TouchableOpacity style={styles.loginButton} onPress={() => {navigation.navigate('Find Patient', { user: user });
+    handleNotification("eiei")}}>
         <Text style={styles.loginButtonText}>
           Looking for patient
         </Text>

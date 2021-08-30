@@ -4,6 +4,8 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
+import PushNotification from "react-native-push-notification";
+
 
 class ShowData extends Component {
   constructor() {
@@ -11,8 +13,8 @@ class ShowData extends Component {
     this.state = {
       userArr: []
     }
-
   }
+
 
   componentDidMount() {
     this.unsubscribe = this.fireStoreData.onSnapshot(this.getCollection);
@@ -43,6 +45,23 @@ class ShowData extends Component {
       userArr
     })
   }
+
+   handleNotification = (item) => {
+    PushNotification.localNotification({
+      channelId: "test",
+      title : "You "+item,
+      message: item
+    });
+    PushNotification.localNotificationSchedule({
+      channelId: "test",
+      title : "You "+item+"3000",
+      message: item,
+      date: new Date(Date.now() + 10 *1000)
+    })
+    
+  }
+
+
   render() {
 
     const { text, user } = this.props.route.params
@@ -75,6 +94,7 @@ class ShowData extends Component {
 
                     <TouchableOpacity disabled={patientConfirm} style={styles.loginButton} onPress={() => {
                       this.props.navigation.navigate('DeepDetail', { text: item.Name, user: user });
+                      this.handleNotification(item.Name);
                     }}>
                       <Text style={styles.loginButtonText}>
                         {patientConfirmTxt}

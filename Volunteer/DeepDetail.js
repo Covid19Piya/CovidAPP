@@ -11,10 +11,9 @@ class ShowData extends Component {
         super();
         this.state = {
             userArr: [],
-            PhoneNumber1:'',
-            Name1:''
+            PhoneNumber1: '',
+            Name1: ''
         }
-
     }
 
     state = { user: '' }
@@ -52,12 +51,22 @@ class ShowData extends Component {
         })
     }
 
+
+    handleNotification = (item) => {
+        PushNotification.localNotification({
+            channelId: "patient",
+            title: "You " + item,
+            message: item
+        })
+        console.log(item)
+    }
+
     updateData(phone, status, user, name) {
 
         firestore().collection("Volunteer").doc({ user }.user.email).collection("Case")
             .get().then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    console.log(doc.data().Name ," ",name)
+                    console.log(doc.data().Name, " ", name)
 
                     if (doc.data().Name == name) {
                         doc.ref.update({
@@ -69,7 +78,7 @@ class ShowData extends Component {
         firestore().collection('Patient').doc(phone).collection("Case")
             .get().then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    console.log(doc.data().PhoneNumber1," ",phone)
+                    console.log(doc.data().PhoneNumber1, " ", phone)
                     if (doc.data().PhoneNumber1 == phone) {
                         doc.ref.update({
                             Status: status
@@ -90,15 +99,15 @@ class ShowData extends Component {
                 <View>
                     {
                         this.state.userArr.map((item, i) => {
-                            if (item.Name == text)
-                                {this.state.PhoneNumber1 =item.PhoneNumber1
-                                 this.state.Name1 =item.Name
-                                return (                                                                       
+                            if (item.Name == text) {
+                                this.state.PhoneNumber1 = item.PhoneNumber1
+                                this.state.Name1 = item.Name
+                                return (
                                     <ListItem
                                         key={i}
                                         bottomDivider>
                                         <ListItem.Content>
-                                        <Text> รายละเอียดผู้ป่วย </Text>
+                                            <Text> รายละเอียดผู้ป่วย </Text>
                                             <ListItem.Title>ชื่อ : {item.Name}  </ListItem.Title>
                                             <ListItem.Title>อายุ : {item.Age}</ListItem.Title>
                                             <ListItem.Title>ที่อยู่ : {item.Address}</ListItem.Title>
@@ -108,7 +117,8 @@ class ShowData extends Component {
                                         </ListItem.Content>
                                     </ListItem>
                                 );
-                        }})
+                            }
+                        })
                     }
                     <Picker selectedValue={this.state.user} onValueChange={this.updateUser}>
                         <Picker.Item label="รอ" value="Waiting" />
@@ -117,7 +127,8 @@ class ShowData extends Component {
                     </Picker>
                     <TouchableOpacity style={styles.loginButton} onPress={() => {
                         this.updateData(this.state.PhoneNumber1, this.state.user, user, this.state.Name1)
-                    }}>
+                        this.handleNotification("eiei")
+                   }}>
                         <Text style={styles.loginButtonText}>
                             อัพเดทสถานะ
                         </Text>
