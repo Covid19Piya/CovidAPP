@@ -5,6 +5,8 @@ import { FilledButton } from '../components/FilledButton';
 import { AuthContext } from '../navigaiton/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { Input, ListItem } from 'react-native-elements';
+import { ScrollView } from 'react-native-gesture-handler';
+
 
 class ShowData extends Component {
     constructor() {
@@ -84,6 +86,7 @@ class ShowData extends Component {
 
         this.fireStoreData = firestore().collection("Patient").doc({ user }.user.phoneNumber).collection("Case");
         return (
+            <ScrollView>
             <View>
                 <Text> ผู้ป่วยที่ต้องการความช่วยเหลือ </Text>
                 {
@@ -121,6 +124,8 @@ class ShowData extends Component {
                     <Picker.Item label="อนุญาติ" value="Yes" />
                 </Picker>
             </View>
+            </ScrollView>
+
         )
     }
 

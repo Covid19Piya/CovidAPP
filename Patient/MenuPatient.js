@@ -7,17 +7,6 @@ import PushNotification from "react-native-push-notification";
 
 export default function homeScreenStudent({navigation}) {
   const {user, logout} = useContext(AuthContext);
-
-  useEffect(() => {
-    createChannels();
-    
-  })
-  const createChannels = () =>{
-    PushNotification.createChannel({
-      channelId: "patient",
-      channelName: "patient"
-    })
-  }
   
 
   return (

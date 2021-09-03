@@ -1,23 +1,22 @@
-{/*poooon*/}
+{/*poooon*/ }
 import * as React from 'react';
-import {useContext, useState, useEffect} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity,Image} from 'react-native';
-import {Input} from '../components/Input';
-import {AuthContext} from '../navigaiton/AuthProvider';
+import { useContext, useState, useEffect } from 'react';
+import { View, StyleSheet, Text, Alert, TouchableOpacity, Image } from 'react-native';
+import { Input } from '../components/Input';
+import { AuthContext } from '../navigaiton/AuthProvider';
 
-
-export default function loginScreen({navigation}) {
+export default function loginScreen({ navigation }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const {login} = useContext(AuthContext);
+  const { PhoneSignIn } = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
 
       <Image style={styles.logo} source={require('../imageLogo/logo.jpg')} />
-      
-      <Text style={styles.title}>LOGIN</Text>
+
+      <Text style={styles.title}>OTP</Text>
       <Input
         style={styles.input}
         labelValue={email}
@@ -27,24 +26,13 @@ export default function loginScreen({navigation}) {
         autoCapitalize="none"
         autoCorrect={false}
       />
-      <Input
-        style={styles.input}
-        labelValue={password}
-        onChangeText={(userPassword) => setPassword(userPassword)}
-        placeholderText="Password"
-        secureTextEntry={true}
-      />
-      <TouchableOpacity style={styles.loginButton} onPress={() => login(email, password)}>
+
+      <TouchableOpacity style={styles.loginButton} onPress={() => PhoneSignIn(email)}>
         <Text style={styles.loginButtonText}>
-          LOGIN
+          code
         </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity>
-        <Text style={styles.text} onPress={() => navigation.navigate('Register')}>
-          don't have an account? Create one
-        </Text>
-      </TouchableOpacity>
 
     </View>
   );
@@ -77,7 +65,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 5,
     backgroundColor: '#FFFFFF'
-    
+
   },
   loginButton: {
     marginVertical: 10,
@@ -94,7 +82,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#F0FFFF',
     fontWeight: 'bold',
-    fontSize:20,
+    fontSize: 20,
     padding: 15
   },
 

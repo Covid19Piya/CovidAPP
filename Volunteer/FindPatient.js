@@ -27,7 +27,7 @@ class ShowData extends Component {
     getCollection = (querySnapshot) => {
         const userArr = [];
         querySnapshot.forEach((res) => {
-            const { Name, Help, Email, Confirm, PhoneNumber1 } = res.data();
+            const { Name, Help, Email, Confirm, PhoneNumber1, gender, Age } = res.data();
             userArr.push({
                 key: res.id,
                 res,
@@ -35,7 +35,9 @@ class ShowData extends Component {
                 Help,
                 Email,
                 Confirm,
-                PhoneNumber1
+                PhoneNumber1,
+                gender,
+                Age
             })
         })
         this.setState({

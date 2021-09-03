@@ -1,18 +1,10 @@
 {/*poooon*/}
 import * as React from 'react';
-import {useContext, useState, useEffect} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity,Image, Button } from 'react-native';
-import {AuthContext} from '../navigaiton/AuthProvider';
-
-import auth from '@react-native-firebase/auth';
+import {View, StyleSheet, Text, TouchableOpacity,Image } from 'react-native';
 
 
 
 export default function loginScreen({navigation}) {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-
-  const {login} = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
@@ -21,7 +13,7 @@ export default function loginScreen({navigation}) {
       
       <Text style={styles.title}>อาสาสมัคร </Text>
 
-      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('LoginSelectPatient')}>
+      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('LoginEmail')}>
         <Text style={styles.loginButtonText}>
           Login
         </Text>

@@ -46,25 +46,10 @@ class ShowData extends Component {
     })
   }
 
-   handleNotification = (item) => {
-    PushNotification.localNotification({
-      channelId: "test",
-      title : "You "+item,
-      message: item
-    });
-    PushNotification.localNotificationSchedule({
-      channelId: "test",
-      title : "You "+item+"3000",
-      message: item,
-      date: new Date(Date.now() + 10 *1000)
-    })
-    
-  }
-
 
   render() {
 
-    const { text, user } = this.props.route.params
+    const { user } = this.props.route.params
     let patientConfirm = true
     let patientConfirmTxt = "รอการอนุมัติ"
     this.fireStoreData = firestore().collection("Volunteer").doc({ user }.user.email).collection("Case");
@@ -94,7 +79,7 @@ class ShowData extends Component {
 
                     <TouchableOpacity disabled={patientConfirm} style={styles.loginButton} onPress={() => {
                       this.props.navigation.navigate('DeepDetail', { text: item.Name, user: user });
-                      this.handleNotification(item.Name);
+                      
                     }}>
                       <Text style={styles.loginButtonText}>
                         {patientConfirmTxt}

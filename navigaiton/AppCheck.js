@@ -38,9 +38,12 @@ var teacher = null;
 const list = [];
 const loopdata = (user) => {
   list.map((each) => {
+    console.log(user)
     if (each.Email == user.email && each.Teacher) {
       teacher = true;
     } else if (each.Email == user.email && !each.Teacher) {
+      teacher = false;
+    } else if (user.phoneNumber!=null){
       teacher = false;
     }
   });
@@ -54,6 +57,7 @@ export default function checkRoleScreen() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    
     const fetchData = async () => {
       try {
         await firestore()
