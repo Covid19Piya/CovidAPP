@@ -2,14 +2,19 @@ import * as React from 'react';
 import { useContext, Component, useEffect } from 'react';
 import { Image, View, StyleSheet, Text, Alert, TouchableOpacity } from 'react-native';
 import { AuthContext } from '../navigaiton/AuthProvider';
+<<<<<<< HEAD
 import PushNotification from "react-native-push-notification";
 import { Directions } from 'react-native-gesture-handler';
 import { Center } from 'native-base';
+=======
+
+>>>>>>> cfb0b6aca1133c267a32a390d1cafaa924ed5582
 
 
 export default function homeScreen({ navigation }) {
   const { user, logout } = useContext(AuthContext);
 
+<<<<<<< HEAD
   useEffect(() => {
     createChannels();
   })
@@ -47,6 +52,43 @@ export default function homeScreen({ navigation }) {
         <Text style={styles.head}>
           <Image source={require('./user.png')} style={{ width: 34, height: 34, }} />
           "{user.email}"
+=======
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.welcome}> Welcome Volunteer </Text>
+      <Text style={styles.head}>"{user.email}"</Text>
+
+      <TouchableOpacity style={styles.loginButton} onPress={() => {navigation.navigate('Find Patient', { user: user });
+    }}>
+        <Text style={styles.loginButtonText}>
+          Looking for patient
+        </Text>
+      </TouchableOpacity>
+
+
+      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Your Case', {user: user })}>
+        <Text style={styles.loginButtonText}>
+          Patient Case
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Post Donate')}>
+        <Text style={styles.loginButtonText}>
+          Post for donate
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('News Donate')}>
+        <Text style={styles.loginButtonText}>
+          News
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.logoutButton} onPress={() => logout()}>
+        <Text style={styles.loginButtonText}>
+          Logout
+>>>>>>> cfb0b6aca1133c267a32a390d1cafaa924ed5582
         </Text>
       </View>
       <View style={{ flexDirection: "row" }}>

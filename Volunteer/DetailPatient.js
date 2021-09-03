@@ -15,6 +15,7 @@ class ShowData extends Component {
       Help: '',
       Address: '',
       PhoneNumber: '',
+      gender:''
     }
 
   }
@@ -32,7 +33,7 @@ class ShowData extends Component {
   getCollection = (querySnapshot) => {
     const userArr = [];
     querySnapshot.forEach((res) => {
-      const { Name, Help, Address, Age, PhoneNumber1,Status, Request } = res.data();
+      const { Name, Help, Address, Age, PhoneNumber1,Status, Request, gender } = res.data();
       userArr.push({
         key: res.id,
         res,
@@ -42,7 +43,8 @@ class ShowData extends Component {
         Address,
         PhoneNumber1,
         Status,
-        Request
+        Request,
+        gender
       })
     })
     this.setState({
@@ -73,7 +75,8 @@ class ShowData extends Component {
         Address: this.state.Address,
         PhoneNumber1: this.state.PhoneNumber1,
         Status: "waiting",
-        Confirm: "No"
+        Confirm: "No",
+        gender: this.state.gender
       })
       .then((res) => {
         this.setState({
@@ -114,6 +117,7 @@ class ShowData extends Component {
               this.state.Help = item.Help
               this.state.Address = item.Address
               this.state.PhoneNumber1 = item.PhoneNumber1
+              this.state.gender = item.gender
 
               if(item.Request == { user }.user.email){
                 checkDuplicateCaseText = "คุณมีเคสนี้เเล้ว"
@@ -126,9 +130,10 @@ class ShowData extends Component {
                   bottomDivider>
                   <ListItem.Content>
                     <ListItem.Title>ชื่อ : {item.Name}</ListItem.Title>
+                    <ListItem.Title>อายุ : {item.Age}</ListItem.Title>
+                    <ListItem.Title>เพศ : {item.gender}</ListItem.Title>
                     <ListItem.Title>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
                     <ListItem.Title>สถานะการช่วยเหลือ : {item.Status}</ListItem.Title>
-                    <ListItem.Title>เบอร์โทร : {item.PhoneNumber1}</ListItem.Title>
 
                     <TouchableOpacity disabled={checkDuplicateCase} style={styles.loginButton} onPress={() => {
                       this.props.navigation.navigate('Your Case', { text: { text }.text, user: user });

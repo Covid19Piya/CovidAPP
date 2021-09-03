@@ -52,14 +52,6 @@ class ShowData extends Component {
     }
 
 
-    handleNotification = (item) => {
-        PushNotification.localNotification({
-            channelId: "patient",
-            title: "You " + item,
-            message: item
-        })
-        console.log(item)
-    }
 
     updateData(phone, status, user, name) {
 
@@ -127,7 +119,7 @@ class ShowData extends Component {
                     </Picker>
                     <TouchableOpacity style={styles.loginButton} onPress={() => {
                         this.updateData(this.state.PhoneNumber1, this.state.user, user, this.state.Name1)
-                        this.handleNotification("eiei")
+                        
                    }}>
                         <Text style={styles.loginButtonText}>
                             อัพเดทสถานะ

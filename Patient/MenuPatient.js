@@ -5,6 +5,7 @@ import { AuthContext } from '../navigaiton/AuthProvider';
 import PushNotification from "react-native-push-notification";
 
 
+<<<<<<< HEAD
 export default function homeScreenStudent({ navigation }) {
   const { user, logout } = useContext(AuthContext);
 
@@ -19,6 +20,11 @@ export default function homeScreenStudent({ navigation }) {
     })
   }
 
+=======
+export default function homeScreenStudent({navigation}) {
+  const {user, logout} = useContext(AuthContext);
+  
+>>>>>>> cfb0b6aca1133c267a32a390d1cafaa924ed5582
 
   return (
     <View style={styles.container}>

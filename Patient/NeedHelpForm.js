@@ -2,8 +2,9 @@ import * as React from 'react';
 import { Component } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import { Input} from 'react-native-elements';
+import { Input } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Box, NativeBaseProvider } from 'native-base';
 
 
 class Data extends Component {
@@ -18,6 +19,7 @@ class Data extends Component {
       PhoneNumber1: '',
       Address: '',
       Status: '',
+      gender: ''
     };
   }
 
@@ -28,7 +30,7 @@ class Data extends Component {
   };
 
   storeUser() {
-      this.case
+    this.case
       .set({
         Name: this.state.Name,
         Age: this.state.Age,
@@ -37,7 +39,8 @@ class Data extends Component {
         Address: this.state.Address,
         Status: "waiting",
         Request: '',
-        Confirm: 'No'
+        Confirm: 'No',
+        gender: this.state.gender
       })
       .then((res) => {
         this.setState({
@@ -48,7 +51,8 @@ class Data extends Component {
           Address: '',
           Status: 'waiting',
           Request: '',
-          Confirm: 'No'
+          Confirm: 'No',
+          gender: ''
         });
       })
       .catch((err) => {
@@ -58,7 +62,7 @@ class Data extends Component {
         });
       });
 
-      this.case2
+    this.case2
       .add({
         Name: this.state.Name,
         Age: this.state.Age,
@@ -67,7 +71,8 @@ class Data extends Component {
         Address: this.state.Address,
         Status: "waiting",
         Request: '',
-        Confirm: 'No'
+        Confirm: 'No',
+        gender: this.state.gender
       })
       .then((res) => {
         this.setState({
@@ -78,7 +83,8 @@ class Data extends Component {
           Address: '',
           Status: 'waiting',
           Request: '',
-          Confirm: 'No'
+          Confirm: 'No',
+          gender: ''
         });
       })
       .catch((err) => {
@@ -88,8 +94,8 @@ class Data extends Component {
         });
       });
 
-     
-    }
+
+  }
 
 
   render() {
@@ -97,60 +103,88 @@ class Data extends Component {
     const { user } = this.props.route.params;
     this.state.PhoneNumber1 = user.phoneNumber
     console.log(this.state.PhoneNumber1)
-    
+
     this.case = firestore().collection('Patient').doc(this.state.PhoneNumber1);
     this.case2 = firestore().collection('Patient').doc(this.state.PhoneNumber1).collection("Case");
 
 
 
     return (
-      <ScrollView>
-        <View style={styles.container}>
-          <Input
-            placeholder="กรุณาใส่ชื่อของคุณ "
-            leftIcon={{ type: 'font-awesome', name: 'book' }}
-            style={styles}
-            value={this.state.Name}
-            onChangeText={(val) => this.inputValueUpdate(val, 'Name')}
-          />
-          <Input
-            placeholder="อายุ"
-            leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-            style={styles}
-            value={this.state.Age}
-            onChangeText={(val) => this.inputValueUpdate(val, 'Age')}
-          />
-          <Input
-            placeholder="ต้องการความช่วยเหลือเรื่องใด"
-            leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-            style={styles}
-            value={this.state.Help}
-            onChangeText={(val) => this.inputValueUpdate(val, 'Help')}
-          />
+      <NativeBaseProvider config={config}>
+        <ScrollView>
+          <View style={styles.container}>
+            <Input
+              placeholder="กรุณาใส่ชื่อของคุณ "
+              leftIcon={{ type: 'font-awesome', name: 'book' }}
+              style={styles}
+              value={this.state.Name}
+              onChangeText={(val) => this.inputValueUpdate(val, 'Name')}
+            />
 
-          <Input
-            placeholder="ที่อยู่ของคุณ"
-            leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-            style={styles}
-            value={this.state.Address}
-            onChangeText={(val) => this.inputValueUpdate(val, 'Address')}
-          />
+            <Input
+              placeholder="เพศ"
+              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+              style={styles}
+              value={this.state.gender}
+              onChangeText={(val) => this.inputValueUpdate(val, 'gender')}
+            />
+
+            <Input
+              placeholder="อายุ"
+              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+              style={styles}
+              value={this.state.Age}
+              onChangeText={(val) => this.inputValueUpdate(val, 'Age')}
+            />
+            <Input
+              placeholder="ต้องการความช่วยเหลือเรื่องใด"
+              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+              style={styles}
+              value={this.state.Help}
+              onChangeText={(val) => this.inputValueUpdate(val, 'Help')}
+            />
+
+            <Input
+              placeholder="ที่อยู่ของคุณ"
+              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+              style={styles}
+              value={this.state.Address}
+              onChangeText={(val) => this.inputValueUpdate(val, 'Address')}
+            />
 
 
 
-          <TouchableOpacity style={styles.loginButton} onPress={() => {
-            this.props.navigation.navigate('Menu');
-            this.storeUser()
-          }}>
-            <Text style={styles.loginButtonText}>
-              ยืนยัน
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+            <TouchableOpacity onPress={() => {
+              this.props.navigation.navigate('Menu');
+              this.storeUser()
+            }}>
+              <Box
+                bg={{
+                  linearGradient: {
+                    colors: ['lightBlue.300', 'violet.800'],
+                    start: [0, 0],
+                    end: [1, 0],
+                  },
+                }}
+                p={7}
+                rounded="lg"
+                _text={{ fontSize: 'md', fontWeight: 'bold', color: 'white' }}
+              >
+                ยืนยัน
+              </Box>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </NativeBaseProvider>
     );
   }
 }
+
+const config = {
+  dependencies: {
+    'linear-gradient': require('react-native-linear-gradient').default,
+  },
+};
 
 const styles = StyleSheet.create({
   title: {
@@ -171,6 +205,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 5,
     shadowRadius: 5,
     elevation: 5,
+    textAlign: 'center',
   },
   loginButtonText: {
     textAlign: 'center',

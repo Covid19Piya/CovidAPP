@@ -1,16 +1,9 @@
 {/*poooon*/ }
 import * as React from 'react';
-import { useContext, useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image, Alert, Modal, Pressable } from 'react-native';
-import { Input } from '../components/Input';
-import { AuthContext } from '../navigaiton/AuthProvider';
+import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 
 
 export default function loginScreen({ navigation }) {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-
-  const { login } = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
@@ -18,7 +11,7 @@ export default function loginScreen({ navigation }) {
       <Image style={styles.logo} source={require('../imageLogo/logo.jpg')} />
 
 
-      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('patientLoginOrRegis')}>
+      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('PhoneAuth')}>
         <Text style={styles.loginButtonText}>
           ผู้ป่วย
         </Text>
