@@ -3,30 +3,21 @@ import { useContext, useEffect } from 'react';
 import { Image, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { AuthContext } from '../navigaiton/AuthProvider';
 import PushNotification from "react-native-push-notification";
+import LinearGradient from 'react-native-linear-gradient'
 
 
-<<<<<<< HEAD
 export default function homeScreenStudent({ navigation }) {
   const { user, logout } = useContext(AuthContext);
 
-  useEffect(() => {
-    createChannels();
-
-  })
-  const createChannels = () => {
-    PushNotification.createChannel({
-      channelId: "patient",
-      channelName: "patient"
-    })
-  }
-
-=======
-export default function homeScreenStudent({navigation}) {
-  const {user, logout} = useContext(AuthContext);
-  
->>>>>>> cfb0b6aca1133c267a32a390d1cafaa924ed5582
 
   return (
+    <View style={styles.container}>
+    <LinearGradient
+           colors={['pink', 'white']}
+           style={styles.container}
+           start={{ x: 0, y: 0 }}
+           end={{ x: 1, y: 1 }}
+         >
     <View style={styles.container}>
       <View style={styles.profile}>
         <View style={{ flexDirection: "row" }}>
@@ -35,19 +26,19 @@ export default function homeScreenStudent({navigation}) {
             width: 40, height: 40, marginTop: 25,
             marginLeft: '47%',
           }}>
-            <Image source={require('./chat.png')} style={{
+            <Image source={require('../photoMenuPatient/chat.png')} style={{
               width: 40, height: 40
             }} />
           </TouchableOpacity>
         </View>
         <Text style={styles.head}>
-          <Image source={require('./user.png')} style={{ width: 34, height: 34, }} />
+          <Image source={require('../photoMenuPatient/user.png')} style={{ width: 34, height: 34, }} />
           "{user.phoneNumber}"
         </Text>
       </View>
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('PatientForm', { user: user })}>
-          <Image source={require('./search.png')} style={{ width: 80, height: 80, marginTop: 15, marginBottom: 15, }} />
+          <Image source={require('../photoMenuPatient/search.png')} style={{ width: 80, height: 80, marginTop: 15, marginBottom: 15, }} />
           <Text style={styles.loginButtonText}>
             ค้นหาผู้ให้
           </Text>
@@ -57,7 +48,7 @@ export default function homeScreenStudent({navigation}) {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('PatientForm', { user: user })}>
-          <Image source={require('./help.png')} style={{ width: 92, height:80, marginTop: 15, marginBottom: 15, }} />
+          <Image source={require('../photoMenuPatient/help.png')} style={{ width: 92, height:80, marginTop: 15, marginBottom: 15, }} />
           <Text style={styles.loginButtonText}>
             โพสขอ
           </Text>
@@ -69,7 +60,7 @@ export default function homeScreenStudent({navigation}) {
 
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('PatientStatus', { user: user })}>
-          <Image source={require('./status.png')} style={{ width: 70, height: 90, marginTop: 15, marginBottom: 8, }} />
+          <Image source={require('../photoMenuPatient/status.png')} style={{ width: 70, height: 90, marginTop: 15, marginBottom: 8, }} />
           <Text style={styles.loginButtonText}>
           คำขอ
           </Text>
@@ -79,7 +70,7 @@ export default function homeScreenStudent({navigation}) {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('PatientChat', { user: user })}>
-          <Image source={require('./news.png')} style={{ width: 99, height: 90, marginTop: 15, marginBottom: 15, }} />
+          <Image source={require('../photoMenuPatient/news.png')} style={{ width: 99, height: 90, marginTop: 15, marginBottom: 15, }} />
           <Text style={styles.loginButtonText}>
             ข่าวสาร
           </Text>
@@ -92,6 +83,8 @@ export default function homeScreenStudent({navigation}) {
           </Text>
         </TouchableOpacity>
       </View>
+    </View>
+    </LinearGradient>
     </View>
   );
 }
@@ -108,7 +101,7 @@ const styles = StyleSheet.create({
   },
 
   profile: {
-    backgroundColor: '#5BC0DE',
+    backgroundColor: '#fbd',
   },
 
   welcome: {
@@ -139,7 +132,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 4,
     marginVertical: 10,
-    backgroundColor: '#5BC0DE',
+    backgroundColor: '#fbd',
     width: 180,
     height: 181,
     borderRadius: 10,
@@ -171,6 +164,12 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: '#B5DBFD',
+  },
+
+  linearGradient: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+
   },
 });

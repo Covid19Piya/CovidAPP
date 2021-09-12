@@ -2,40 +2,20 @@ import * as React from 'react';
 import { useContext, Component, useEffect } from 'react';
 import { Image, View, StyleSheet, Text, Alert, TouchableOpacity } from 'react-native';
 import { AuthContext } from '../navigaiton/AuthProvider';
-<<<<<<< HEAD
-import PushNotification from "react-native-push-notification";
-import { Directions } from 'react-native-gesture-handler';
-import { Center } from 'native-base';
-=======
-
->>>>>>> cfb0b6aca1133c267a32a390d1cafaa924ed5582
+import LinearGradient from 'react-native-linear-gradient'
 
 
 export default function homeScreen({ navigation }) {
   const { user, logout } = useContext(AuthContext);
-
-<<<<<<< HEAD
-  useEffect(() => {
-    createChannels();
-  })
-
-  const createChannels = () => {
-    PushNotification.createChannel({
-      channelId: "test",
-      channelName: "test"
-    })
-  }
-
-  const handleNotification = (item) => {
-    PushNotification.localNotification({
-      channelId: "test",
-      title: "You " + item,
-      message: item
-    })
-    console.log("eiei")
-  }
-
+console.log(user)
   return (
+    <View style={styles.container}>
+ <LinearGradient
+        colors={['pink', 'white']}
+        style={styles.container}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
     <View style={styles.container}>
       <View style={styles.profile}>
         <View style={{ flexDirection: "row" }}>
@@ -44,59 +24,21 @@ export default function homeScreen({ navigation }) {
             width: 40, height: 40, marginTop: 25,
             marginLeft: '47%',
           }}>
-            <Image source={require('./chat.png')} style={{
+            <Image source={require('../photoInMenu/chat.png')} style={{
               width: 40, height: 40
             }} />
           </TouchableOpacity>
         </View>
         <Text style={styles.head}>
-          <Image source={require('./user.png')} style={{ width: 34, height: 34, }} />
+          <Image source={require('../photoInMenu/user.png')} style={{ width: 34, height: 34, }} />
           "{user.email}"
-=======
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}> Welcome Volunteer </Text>
-      <Text style={styles.head}>"{user.email}"</Text>
-
-      <TouchableOpacity style={styles.loginButton} onPress={() => {navigation.navigate('Find Patient', { user: user });
-    }}>
-        <Text style={styles.loginButtonText}>
-          Looking for patient
-        </Text>
-      </TouchableOpacity>
-
-
-      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Your Case', {user: user })}>
-        <Text style={styles.loginButtonText}>
-          Patient Case
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Post Donate')}>
-        <Text style={styles.loginButtonText}>
-          Post for donate
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('News Donate')}>
-        <Text style={styles.loginButtonText}>
-          News
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.logoutButton} onPress={() => logout()}>
-        <Text style={styles.loginButtonText}>
-          Logout
->>>>>>> cfb0b6aca1133c267a32a390d1cafaa924ed5582
         </Text>
       </View>
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity style={styles.loginButton} onPress={() => {
           navigation.navigate('Find Patient', { user: user });
-          handleNotification("eiei")
         }}>
-          <Image source={require('./search.png')} style={{ width: 80, height: 80, marginTop: 15, marginBottom: 15, }} />
+          <Image source={require('../photoInMenu/search.png')} style={{ width: 80, height: 80, marginTop: 15, marginBottom: 15, }} />
           <Text style={styles.loginButtonText}>
             ค้นหาคนที่ต้องการ
           </Text>
@@ -106,7 +48,7 @@ export default function homeScreen({ navigation }) {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Your Case', { user: user })}>
-          <Image source={require('./aid.png')} style={{ width: 90, height: 90, marginTop: 15, marginBottom: 15, }} />
+          <Image source={require('../photoInMenu/aid.png')} style={{ width: 90, height: 90, marginTop: 15, marginBottom: 15, }} />
           <Text style={styles.loginButtonText}>
             สถานะ
           </Text>
@@ -115,7 +57,7 @@ export default function homeScreen({ navigation }) {
 
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Post Donate')}>
-          <Image source={require('./donate.png')} style={{ width: 100, height: 80, marginTop: 15, marginBottom: 15, }} />
+          <Image source={require('../photoInMenu/donate.png')} style={{ width: 100, height: 80, marginTop: 15, marginBottom: 15, }} />
           <Text style={styles.loginButtonText}>
             โพสให้
           </Text>
@@ -126,7 +68,7 @@ export default function homeScreen({ navigation }) {
 
 
         <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('News Donate')}>
-          <Image source={require('./news.png')} style={{ width: 99, height: 90, marginTop: 15, marginBottom: 15, }} />
+          <Image source={require('../photoInMenu/news.png')} style={{ width: 99, height: 90, marginTop: 15, marginBottom: 15, }} />
           <Text style={styles.loginButtonText}>
             ข่าวสาร
           </Text>
@@ -140,6 +82,8 @@ export default function homeScreen({ navigation }) {
           </Text>
         </TouchableOpacity>
       </View>
+    </View>
+    </LinearGradient>
     </View>
 
   );
@@ -157,7 +101,7 @@ const styles = StyleSheet.create({
   },
 
   profile: {
-    backgroundColor: '#5BC0DE',
+    backgroundColor: '#fbd',
   },
 
   welcome: {
@@ -188,7 +132,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 4,
     marginVertical: 10,
-    backgroundColor: '#5BC0DE',
+    backgroundColor: '#fbd',
     width: 180,
     height: 181,
     borderRadius: 10,
@@ -220,6 +164,12 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: '#B5DBFD',
+  },
+
+  linearGradient: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+
   },
 });
