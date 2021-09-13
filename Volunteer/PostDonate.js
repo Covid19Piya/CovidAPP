@@ -28,6 +28,7 @@ let arrayDictStudents = [];
 let urlUser = '';
 let fileType = '';
 let fileName = '';
+let nameHw = '';
 class Hw extends React.Component {
   static contextType = AuthContext;
 
@@ -39,22 +40,51 @@ class Hw extends React.Component {
     };
   }
 
-
+  //]]////////////////////////////////////use for read data/////////////////////////
+  componentDidMount() {
+    this.unsubscribe = this.fireStoreData.onSnapshot(this.getCollection);
+  }
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+  getCollection = (querySnapshot) => {
+    const userArr = [];
+    querySnapshot.forEach((res) => {
+      const {name, question} = res.data();
+      userArr.push({
+        key: res.id,
+        res,
+        name,
+        question,
+      });
+    });
+    this.setState({
+      userArr,
+    });
+  };
   ////////////////////////////////////////////////////////////////////////////////////
 
   //////////////////// Upload file ///////////////////////////////////////////////////
+
   FileUpload = (props) => {
+
     const storage = firebaseStorage();
     async function chooseFile() {
-      // Pick a single file
+      // Pick a single file.
       try {
         const file = await DocumentPicker.pick({
           type: [DocumentPicker.types.allFiles],
         });
-        const path = await normalizationPath(file.uri);
+        console.log(file)
+
+        console.log(file[0]["uri"])
+        const path = await normalizationPath(file[0]["uri"]);
         const result = await RNFetchBlob.fs.readFile(path, 'base64');
         uploadFileToFirebaseStorage(result, file);
+        console.log("errorrrrrrrrrrr")
       } catch (err) {
+        console.log("test and it error")
+        console.log(err)
         if (DocumentPicker.isCancel(err)) {
           // User cancelled the picker, exit any dialogs or menus and move on
         } else {
@@ -65,11 +95,15 @@ class Hw extends React.Component {
 
     async function normalizationPath(path) {
       if (Platform.OS === 'android' || Platform.OS === 'ios') {
-        const filePrefix = 'file://';
+        console.log("innnn")
+        const filePrefix = 'content://';
         if (path.startsWith(filePrefix)) {
-          path = path.substring(filePrefix.length);
+          console.log("it in get path")
+          console.log(path)
           try {
             path = decodeURI(path);
+            console.log("In decode ",path)
+
           } catch (e) {}
         }
       }
@@ -78,12 +112,12 @@ class Hw extends React.Component {
     }
 
     async function uploadFileToFirebaseStorage(result, file) {
-      const name = 'allFiles/subject_Math/'+ file.name;
-      console.log(file.name);
+      const name = 'allFiles/subject_code/' + nameHw + '/' + file[0]["name"];
+      console.log( file[0]["name"]);
 
       const uploadTask = firebaseStorage()
         .ref(name)
-        .putString(result, 'base64', {contentType: file.type});
+        .putString(result, 'base64', {contentType: file[0]["type"]});
 
       uploadTask.on(
         'state_changed',
@@ -111,10 +145,10 @@ class Hw extends React.Component {
           // Handle successful uploads on complete
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-            //console.log('File available at', downloadURL);
+            console.log('File available at', downloadURL);
             urlUser = downloadURL;
-            fileType = file.type;
-            fileName = file.name;
+            fileType = file[0]["type"];
+            fileName = file[0]["name"];
             alert('Finish');
           });
         },
@@ -140,7 +174,7 @@ class Hw extends React.Component {
               <>
                 <Text style={styles.nameAndfile}>
                   <Text style={styles.title}>Name: </Text>
-                  {eachStudent.name}
+                  {eachStudent.name}{' '}
                 </Text>
                 <Text style={styles.nameAndfile}>
                   <Text style={styles.title}>Question: </Text>
@@ -174,7 +208,6 @@ class Hw extends React.Component {
                       isLoading: false,
                     });
                   });
-                this.props.navigation.navigate('Home Student');
               }}>
               <Text style={styles.textButton}>Done</Text>
             </TouchableOpacity>
@@ -185,7 +218,35 @@ class Hw extends React.Component {
   };
 
   render() {
+    
+    //แก้ไม่ให้ขึ้นข้อสอบซ้ำ
+    if (arrayDictStudents.length != 0) {
+      arrayDictStudents = [];
+    }
 
+    // get col name form firestore //
+    nameHw = "test";
+    // put data
+    this.usersCollectionRef = firestore()
+      .collection('subject_Code')
+      .doc(nameHw)
+      .collection('ans');
+    //show data
+    this.fireStoreData = firestore()
+      .collection('subject_Code')
+      .doc(nameHw)
+      .collection('homeWorkDetail');
+    /////////////////////////////////
+
+    ////// loop data in local array /////
+    {
+      this.state.userArr.map((item, i) => {
+        arrayDictStudents.push({
+          name: item.name,
+          question: item.question,
+        });
+      });
+    }
     /////////////////////////////////////
     return (
       <ScrollView style={styles.bg}>
@@ -249,5 +310,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-//math
+//code
 export default Hw;

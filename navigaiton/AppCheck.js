@@ -10,6 +10,7 @@ import MenuPatient from '../Patient/MenuPatient';
 import PatientForm from '../Patient/NeedHelpForm';
 import PatientStatus from '../Patient/PatientStatus';
 import PatientStatusIn from '../Patient/PatientStatusIn';
+import testNoti from '../Patient/testNoti';
 import PatientChat from '../chat/ChatPatient';
 
 
@@ -120,6 +121,7 @@ export default function checkRoleScreen() {
         <Stack.Screen name="PatientStatus" component={PatientStatus} />
         <Stack.Screen name="PatientStatusIn" component={PatientStatusIn} />
         <Stack.Screen name="PatientChat" component={PatientChat} />
+        <Stack.Screen name="testNoti" component={testNoti} />
 
 
       </Stack.Navigator>

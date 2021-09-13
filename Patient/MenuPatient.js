@@ -25,7 +25,7 @@ export default function homeScreenStudent({ navigation }) {
           <TouchableOpacity style={{
             width: 40, height: 40, marginTop: 25,
             marginLeft: '47%',
-          }}>
+          }} onPress={() => navigation.navigate('PatientChat', { user: user })}>
             <Image source={require('../photoMenuPatient/chat.png')} style={{
               width: 40, height: 40
             }} />
@@ -69,7 +69,7 @@ export default function homeScreenStudent({ navigation }) {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('PatientChat', { user: user })}>
+        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('testNoti', { user: user })}>
           <Image source={require('../photoMenuPatient/news.png')} style={{ width: 99, height: 90, marginTop: 15, marginBottom: 15, }} />
           <Text style={styles.loginButtonText}>
             ข่าวสาร
