@@ -1,18 +1,17 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { Input } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Box, NativeBaseProvider } from 'native-base';
 
 
 class Data extends Component {
   constructor(props) {
     super(props);
 
+    // state use for get input from user
     this.state = {
-      text: '',
       Name: '',
       Age: '',
       Help: '',
@@ -23,12 +22,14 @@ class Data extends Component {
     };
   }
 
+  // get input and put in to state
   inputValueUpdate = (val, prop) => {
     const state = this.state;
     state[prop] = val;
     this.setState(state);
   };
 
+  // store data from input user to firebase
   storeUser() {
     this.case
       .set({
@@ -93,98 +94,79 @@ class Data extends Component {
           isLoading: false,
         });
       });
-
-
   }
 
 
   render() {
 
+    // Recive data from menu page 
     const { user } = this.props.route.params;
-    this.state.PhoneNumber1 = user.phoneNumber
-    console.log(this.state.PhoneNumber1)
 
+    // Get numberphone use for create database on firebase
+    this.state.PhoneNumber1 = user.phoneNumber
+
+    // Call firestore waiting for push
     this.case = firestore().collection('Patient').doc(this.state.PhoneNumber1);
     this.case2 = firestore().collection('Patient').doc(this.state.PhoneNumber1).collection("Case");
 
 
 
     return (
-      <NativeBaseProvider config={config}>
-        <ScrollView>
-          <View style={styles.container}>
-            <Input
-              placeholder="กรุณาใส่ชื่อของคุณ "
-              leftIcon={{ type: 'font-awesome', name: 'book' }}
-              style={styles}
-              value={this.state.Name}
-              onChangeText={(val) => this.inputValueUpdate(val, 'Name')}
-            />
+      <ScrollView>
+        <View style={styles.container}>
+          <Input
+            placeholder="กรุณาใส่ชื่อของคุณ "
+            leftIcon={{ type: 'font-awesome', name: 'book' }}
+            style={styles}
+            value={this.state.Name}
+            onChangeText={(val) => this.inputValueUpdate(val, 'Name')}
+          />
 
-            <Input
-              placeholder="เพศ"
-              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-              style={styles}
-              value={this.state.gender}
-              onChangeText={(val) => this.inputValueUpdate(val, 'gender')}
-            />
+          <Input
+            placeholder="เพศ"
+            leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+            style={styles}
+            value={this.state.gender}
+            onChangeText={(val) => this.inputValueUpdate(val, 'gender')}
+          />
 
-            <Input
-              placeholder="อายุ"
-              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-              style={styles}
-              value={this.state.Age}
-              onChangeText={(val) => this.inputValueUpdate(val, 'Age')}
-            />
-            <Input
-              placeholder="ต้องการความช่วยเหลือเรื่องใด"
-              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-              style={styles}
-              value={this.state.Help}
-              onChangeText={(val) => this.inputValueUpdate(val, 'Help')}
-            />
+          <Input
+            placeholder="อายุ"
+            leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+            style={styles}
+            value={this.state.Age}
+            onChangeText={(val) => this.inputValueUpdate(val, 'Age')}
+          />
+          <Input
+            placeholder="ต้องการความช่วยเหลือเรื่องใด"
+            leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+            style={styles}
+            value={this.state.Help}
+            onChangeText={(val) => this.inputValueUpdate(val, 'Help')}
+          />
 
-            <Input
-              placeholder="ที่อยู่ของคุณ"
-              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-              style={styles}
-              value={this.state.Address}
-              onChangeText={(val) => this.inputValueUpdate(val, 'Address')}
-            />
+          <Input
+            placeholder="ที่อยู่ของคุณ"
+            leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+            style={styles}
+            value={this.state.Address}
+            onChangeText={(val) => this.inputValueUpdate(val, 'Address')}
+          />
 
+          <TouchableOpacity onPress={() => {
+            this.props.navigation.navigate('Menu');
+            this.storeUser()
+          }}>
+            <Text>
+            ยืนยัน
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
 
-
-            <TouchableOpacity onPress={() => {
-              this.props.navigation.navigate('Menu');
-              this.storeUser()
-            }}>
-              <Box
-                bg={{
-                  linearGradient: {
-                    colors: ['lightBlue.300', 'violet.800'],
-                    start: [0, 0],
-                    end: [1, 0],
-                  },
-                }}
-                p={7}
-                rounded="lg"
-                _text={{ fontSize: 'md', fontWeight: 'bold', color: 'white' }}
-              >
-                ยืนยัน
-              </Box>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </NativeBaseProvider>
     );
   }
 }
-
-const config = {
-  dependencies: {
-    'linear-gradient': require('react-native-linear-gradient').default,
-  },
-};
 
 const styles = StyleSheet.create({
   title: {

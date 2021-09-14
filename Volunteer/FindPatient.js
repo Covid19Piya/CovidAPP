@@ -46,11 +46,9 @@ class ShowData extends Component {
     }
     render() {
         const {user} = this.props.route.params;
-        console.log({user})
-   
+           
         return (
             <ScrollView>
-
             <View>
                 <Text> ผู้ป่วยที่ต้องการความช่วยเหลือ </Text>
                 {
@@ -80,10 +78,8 @@ class ShowData extends Component {
                 }
             </View>
             </ScrollView>
-
         )
     }
-
 }
 
 

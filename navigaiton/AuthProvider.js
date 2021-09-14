@@ -7,6 +7,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
 
+  ///////////// Login and Register and logout on this page /////////////
   return (
     <AuthContext.Provider
       value={{
@@ -61,3 +62,5 @@ export const AuthProvider = ({children}) => {
     </AuthContext.Provider>
   );
 };
+
+///////////////////////////////////////////////////////////////////////////

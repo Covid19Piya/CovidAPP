@@ -80,29 +80,22 @@ class chat extends React.Component {
 
       return (
         <ScrollView >
-
             <ScrollView style={stylesTest.massage}>
                 <View >
                 {
                     this.state.textArr.map((item, i) => {
                         return (
-
                             <View>
-
                                 <Text style={stylesTest.namechat}>
                                     {item.name}
                                 </Text>
-
                                 <ListItem key={i} bottomDivider >
-
                                     <ListItem.Content >
                                     <Text >
                                         {item.chat}
                                     </Text>
                                     </ListItem.Content>
-
                                 </ListItem>
-
                             </View>
                         );
                     })

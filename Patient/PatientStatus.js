@@ -1,26 +1,26 @@
 import * as React from 'react';
-import { useContext, Component } from 'react'
+import { Component } from 'react'
 import { View, StyleSheet, Text, Picker, TouchableOpacity } from 'react-native';
-import { FilledButton } from '../components/FilledButton';
-import { AuthContext } from '../navigaiton/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
-import { Input, ListItem } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
 class ShowData extends Component {
     constructor() {
         super();
-
         this.state = {
             userArr: []
         }
     }
 
+    // Use for update status from user
     state = { user: 'No' }
     updateUser = (user) => {
         this.setState({ user: user })
     }
+
+    ///////// use in firestore show data ///////////
 
     componentDidMount() {
         this.unsubscribe = this.fireStoreData.onSnapshot(this.getCollection);
@@ -52,6 +52,10 @@ class ShowData extends Component {
         })
     }
 
+    ///////// use in firestore show data ///////////
+
+    ////// Update data from user select and change data on firestore //////
+
     updateData(name, status, user) {
         firestore().collection("Volunteer").doc(user).collection("Case")
             .get().then(function (querySnapshot) {
@@ -80,10 +84,14 @@ class ShowData extends Component {
             });
     }
 
-    render() {
-        const { user } = this.props.route.params;
-        console.log({ user }.user.phoneNumber)
+    /////////////////////////////////////////////////////////////// //////
 
+    render() {
+
+        // Recive data user from menu 
+        const { user } = this.props.route.params;
+
+        // Call firestore for each user that have same phonenumber with login
         this.fireStoreData = firestore().collection("Patient").doc({ user }.user.phoneNumber).collection("Case");
         return (
             <ScrollView>
@@ -91,9 +99,7 @@ class ShowData extends Component {
                 <Text> ผู้ป่วยที่ต้องการความช่วยเหลือ </Text>
                 {
                     this.state.userArr.map((item, i) => {
-                       
                             return (
-
                                 <ListItem
                                     key={i}
                                     bottomDivider>
@@ -108,7 +114,6 @@ class ShowData extends Component {
 
                                         <TouchableOpacity style={styles.loginButton} onPress={() => {
                                             this.updateData(item.Name, this.state.user, item.Request)
-
                                         }}>
                                             <Text style={styles.loginButtonText}>
                                                 อัพเดทสถานะ
@@ -141,10 +146,6 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         marginBottom: 15,
     },
-    loginButton: {
-        marginVertical: 32,
-    },
-
     container: {
         flex: 1,
         justifyContent: 'center',

@@ -8,18 +8,17 @@ import {
   Button,
   Right,
   Icon,
-  ListItem,
   Text,
   View,
 } from 'native-base';
 import DocumentPicker from 'react-native-document-picker';
-import {ScrollView} from 'react-native-gesture-handler';
-import {Platform, TouchableOpacity} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { Platform, TouchableOpacity, StyleSheet } from 'react-native';
 import RNFetchBlob from 'rn-fetch-blob';
 import firebaseStorage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
-import {AuthContext} from '../navigaiton/AuthProvider';
-import {StyleSheet} from 'react-native';
+import { AuthContext } from '../navigaiton/AuthProvider';
+import { Input } from 'react-native-elements';
 
 // Collect data from firestrore
 let arrayDictStudents = [];
@@ -28,43 +27,37 @@ let arrayDictStudents = [];
 let urlUser = '';
 let fileType = '';
 let fileName = '';
-let nameHw = '';
+
 class Hw extends React.Component {
+
   static contextType = AuthContext;
 
   constructor(props) {
+
+    // Data wait for user input
     super(props);
     this.state = {
       students: arrayDictStudents,
       userArr: [],
+      Name: '',
+      Topic: '',
+      Detail: '',
+      Address: '',
+      PhoneNumber: '',
+      other: ''
     };
   }
 
-  //]]////////////////////////////////////use for read data/////////////////////////
-  componentDidMount() {
-    this.unsubscribe = this.fireStoreData.onSnapshot(this.getCollection);
-  }
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-  getCollection = (querySnapshot) => {
-    const userArr = [];
-    querySnapshot.forEach((res) => {
-      const {name, question} = res.data();
-      userArr.push({
-        key: res.id,
-        res,
-        name,
-        question,
-      });
-    });
-    this.setState({
-      userArr,
-    });
-  };
-  ////////////////////////////////////////////////////////////////////////////////////
 
-  //////////////////// Upload file ///////////////////////////////////////////////////
+  // get input from user send it to state
+  inputValueUpdate = (val, prop) => {
+    const state = this.state;
+    state[prop] = val;
+    this.setState(state);
+  };
+
+
+  //////////////////// Upload file ///////////////////////////////
 
   FileUpload = (props) => {
 
@@ -75,16 +68,13 @@ class Hw extends React.Component {
         const file = await DocumentPicker.pick({
           type: [DocumentPicker.types.allFiles],
         });
-        console.log(file)
 
-        console.log(file[0]["uri"])
         const path = await normalizationPath(file[0]["uri"]);
         const result = await RNFetchBlob.fs.readFile(path, 'base64');
         uploadFileToFirebaseStorage(result, file);
-        console.log("errorrrrrrrrrrr")
+
       } catch (err) {
-        console.log("test and it error")
-        console.log(err)
+
         if (DocumentPicker.isCancel(err)) {
           // User cancelled the picker, exit any dialogs or menus and move on
         } else {
@@ -95,29 +85,22 @@ class Hw extends React.Component {
 
     async function normalizationPath(path) {
       if (Platform.OS === 'android' || Platform.OS === 'ios') {
-        console.log("innnn")
         const filePrefix = 'content://';
         if (path.startsWith(filePrefix)) {
-          console.log("it in get path")
-          console.log(path)
           try {
             path = decodeURI(path);
-            console.log("In decode ",path)
-
-          } catch (e) {}
+          } catch (e) { }
         }
       }
-
       return path;
     }
 
     async function uploadFileToFirebaseStorage(result, file) {
-      const name = 'allFiles/subject_code/' + nameHw + '/' + file[0]["name"];
-      console.log( file[0]["name"]);
+      const name = 'allFiles/subject_code/' + '/' + file[0]["name"];
 
       const uploadTask = firebaseStorage()
         .ref(name)
-        .putString(result, 'base64', {contentType: file[0]["type"]});
+        .putString(result, 'base64', { contentType: file[0]["type"] });
 
       uploadTask.on(
         'state_changed',
@@ -154,14 +137,15 @@ class Hw extends React.Component {
         },
       );
     }
-    ////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
+
 
     return (
       <ScrollView>
         <Container>
-          <Header style={styles.bgHeader}>
+          <Header >
             <Body>
-              <Title style={styles.textHeader}>Upload</Title>
+              <Title>Upload</Title>
             </Body>
             <Right>
               <Button transparent onPress={chooseFile}>
@@ -170,29 +154,60 @@ class Hw extends React.Component {
             </Right>
           </Header>
           <Content>
-            {this.state.students.map((eachStudent) => (
-              <>
-                <Text style={styles.nameAndfile}>
-                  <Text style={styles.title}>Name: </Text>
-                  {eachStudent.name}{' '}
-                </Text>
-                <Text style={styles.nameAndfile}>
-                  <Text style={styles.title}>Question: </Text>
-                  {eachStudent.question}{' '}
-                </Text>
-                <Text> </Text>
-              </>
-            ))}
+
+            <Input
+              placeholder="Name"
+              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+              value={this.state.Name}
+              onChangeText={(val) => this.inputValueUpdate(val, 'Name')}
+            />
+
+            <Input
+              placeholder="Topic"
+              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+              value={this.state.Topic}
+              onChangeText={(val) => this.inputValueUpdate(val, 'Topic')}
+            />
+            <Input
+              placeholder="Detail"
+              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+              value={this.state.Detail}
+              onChangeText={(val) => this.inputValueUpdate(val, 'Detail')}
+            />
+            <Input
+              placeholder="Address"
+              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+              value={this.state.Address}
+              onChangeText={(val) => this.inputValueUpdate(val, 'Address')}
+            />
+            <Input
+              placeholder="PhoneNumber"
+              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+              value={this.state.PhoneNumber}
+              onChangeText={(val) => this.inputValueUpdate(val, 'PhoneNumber')}
+            />
+
+            <Input
+              placeholder="Other"
+              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+              value={this.state.Other}
+              onChangeText={(val) => this.inputValueUpdate(val, 'Other')}
+            />
+
             <TouchableOpacity
-              style={styles.button}
               onPress={() => {
                 this.usersCollectionRef
                   .add({
-                    name: this.context.user.email,
+                    name: this.state.Name,
                     url: urlUser,
                     fileName: fileName,
                     fileType: fileType,
                     timestamp: firestore.FieldValue.serverTimestamp(),
+                    topic: this.state.Topic,
+                    detail: this.state.Detail,
+                    address: this.state.Address,
+                    phoneNumber: this.state.PhoneNumber,
+                    other: this.state.other
                   })
                   .then((res) => {
                     this.setState({
@@ -208,8 +223,9 @@ class Hw extends React.Component {
                       isLoading: false,
                     });
                   });
+                this.props.navigation.navigate('Menu Volunteer');
               }}>
-              <Text style={styles.textButton}>Done</Text>
+              <Text>Done</Text>
             </TouchableOpacity>
           </Content>
         </Container>
@@ -218,39 +234,14 @@ class Hw extends React.Component {
   };
 
   render() {
-    
-    //แก้ไม่ให้ขึ้นข้อสอบซ้ำ
-    if (arrayDictStudents.length != 0) {
-      arrayDictStudents = [];
-    }
 
     // get col name form firestore //
-    nameHw = "test";
-    // put data
-    this.usersCollectionRef = firestore()
-      .collection('subject_Code')
-      .doc(nameHw)
-      .collection('ans');
-    //show data
-    this.fireStoreData = firestore()
-      .collection('subject_Code')
-      .doc(nameHw)
-      .collection('homeWorkDetail');
-    /////////////////////////////////
+    this.usersCollectionRef = firestore().collection("PostDonate");
 
-    ////// loop data in local array /////
-    {
-      this.state.userArr.map((item, i) => {
-        arrayDictStudents.push({
-          name: item.name,
-          question: item.question,
-        });
-      });
-    }
-    /////////////////////////////////////
+    
     return (
-      <ScrollView style={styles.bg}>
-        <View style={styles.container}>{this.FileUpload()}</View>
+      <ScrollView >
+        <View>{this.FileUpload()}</View>
       </ScrollView>
     );
   }
@@ -259,56 +250,7 @@ class Hw extends React.Component {
 //UI PART
 
 const styles = StyleSheet.create({
-  title: {
-    fontWeight: 'bold',
-  },
 
-  nameAndfile: {
-    fontSize: 18,
-    paddingLeft: 20,
-  },
-
-  bg: {
-    backgroundColor: '#E2FCFA',
-  },
-
-  bgHeader: {
-    backgroundColor: '#00CABA',
-  },
-
-  container: {
-    marginTop: 20,
-    marginLeft: 20,
-    marginRight: 20,
-    marginBottom: 20,
-  },
-
-  button: {
-    marginTop: 20,
-    marginLeft: 255,
-    backgroundColor: '#00CABA',
-    width: 80,
-    height: 40,
-    borderRadius: 5,
-    shadowColor: '#000000',
-    shadowOpacity: 5,
-    shadowRadius: 5,
-    elevation: 5,
-    alignItems: 'center',
-  },
-
-  textButton: {
-    color: '#F0FFFF',
-    marginTop: 8,
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-
-  textHeader: {
-    color: '#F0FFFF',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
 });
-//code
+
 export default Hw;

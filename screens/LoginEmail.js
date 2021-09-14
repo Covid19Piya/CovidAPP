@@ -6,10 +6,12 @@ import { Input } from '../components/Input';
 import { AuthContext } from '../navigaiton/AuthProvider';
 
 export default function loginScreen({ navigation }) {
+
+  // Variable use for Login get email and password 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
   const { login } = useContext(AuthContext);
+
 
   return (
     <View style={styles.container}>
@@ -38,7 +40,6 @@ export default function loginScreen({ navigation }) {
           LOGIN
         </Text>
       </TouchableOpacity>
-
 
     </View>
   );
@@ -98,10 +99,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingTop: 50,
-  },
-
-  text: {
-    color: '#00CABA',
-    fontSize: 18
-  },
+  }
 });

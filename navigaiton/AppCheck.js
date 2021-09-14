@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useContext, useState, useEffect, View, Text, Button} from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { AuthContext } from './AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 
@@ -9,10 +9,7 @@ import firestore from '@react-native-firebase/firestore';
 import MenuPatient from '../Patient/MenuPatient';
 import PatientForm from '../Patient/NeedHelpForm';
 import PatientStatus from '../Patient/PatientStatus';
-import PatientStatusIn from '../Patient/PatientStatusIn';
-import testNoti from '../Patient/testNoti';
 import PatientChat from '../chat/ChatPatient';
-
 
 
 
@@ -28,15 +25,18 @@ import DeepDetail from '../Volunteer/DeepDetail'
 import VolunteerChat from '../chat/ChatVolunteer'
 
 
-
 // PhoneAuth
-
 import MainPhoneAuth from '../PhoneAuth/Main'
 
 
+// Create stack
 const Stack = createStackNavigator();
+
+// Variable use to check user
 var teacher = null;
 const list = [];
+
+// Loop data for check if volunteer
 const loopdata = (user) => {
   list.map((each) => {
     console.log(user)
@@ -44,21 +44,22 @@ const loopdata = (user) => {
       teacher = true;
     } else if (each.Email == user.email && !each.Teacher) {
       teacher = false;
-    } else if (user.phoneNumber!=null){
+    } else if (user.phoneNumber != null) {
       teacher = false;
     }
   });
 };
 
 
-
+// Check role user 
 export default function checkRoleScreen() {
+
   const { user } = useContext(AuthContext);
   const [Email, setEmail] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    
+
     const fetchData = async () => {
       try {
         await firestore()
@@ -75,7 +76,6 @@ export default function checkRoleScreen() {
               });
             });
           });
-          
         setEmail(list);
         if (loading) {
           setLoading(false);
@@ -91,39 +91,32 @@ export default function checkRoleScreen() {
 
   loopdata(user);
 
+
+  // Split teacher and user 
   return teacher ? (
+    // Teacher page
     <>
       <Stack.Navigator initialRouteName="HomeTeacher">
-
-      <Stack.Screen name="Menu Volunteer" component={MenuVolunteer} />
-      <Stack.Screen name="Find Patient" component={FindPatient} />
-      <Stack.Screen name="DetailPatient" component={DetailPatient} />
-      <Stack.Screen name="Your Case" component={CasetoTakeCare} />
-      <Stack.Screen name="Post Donate" component={PostDonate} />
-      <Stack.Screen name="News Donate" component={NewsDonate} />
-      <Stack.Screen name="DeepDetail" component={DeepDetail} />
-      <Stack.Screen name="VolunteerChat" component={VolunteerChat} />
-
-      <Stack.Screen name="MainPhoneAuth" component={MainPhoneAuth} />
-
-
+        <Stack.Screen name="Menu Volunteer" component={MenuVolunteer} />
+        <Stack.Screen name="Find Patient" component={FindPatient} />
+        <Stack.Screen name="DetailPatient" component={DetailPatient} />
+        <Stack.Screen name="Your Case" component={CasetoTakeCare} />
+        <Stack.Screen name="Post Donate" component={PostDonate} />
+        <Stack.Screen name="News Donate" component={NewsDonate} />
+        <Stack.Screen name="DeepDetail" component={DeepDetail} />
+        <Stack.Screen name="VolunteerChat" component={VolunteerChat} />
+        <Stack.Screen name="MainPhoneAuth" component={MainPhoneAuth} />
       </Stack.Navigator>
     </>
   ) : (
+    // Student page
     <>
       <Stack.Navigator initialRouteName="HomeStudent">
-
-
-
         <Stack.Screen name="Menu" component={MenuPatient} />
-
         <Stack.Screen name="PatientForm" component={PatientForm} />
         <Stack.Screen name="PatientStatus" component={PatientStatus} />
-        <Stack.Screen name="PatientStatusIn" component={PatientStatusIn} />
         <Stack.Screen name="PatientChat" component={PatientChat} />
-        <Stack.Screen name="testNoti" component={testNoti} />
-
-
+        <Stack.Screen name="News Donate" component={NewsDonate} />
       </Stack.Navigator>
     </>
   );

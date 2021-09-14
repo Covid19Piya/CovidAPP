@@ -4,10 +4,9 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
-import PushNotification from "react-native-push-notification";
-
 
 class ShowData extends Component {
+
   constructor() {
     super();
     this.state = {
@@ -15,17 +14,15 @@ class ShowData extends Component {
     }
   }
 
-
+  // Use for show data from firestore 
   componentDidMount() {
     this.unsubscribe = this.fireStoreData.onSnapshot(this.getCollection);
-
   }
-
 
   componentWillUnmount() {
     this.unsubscribe();
-
   }
+
   getCollection = (querySnapshot) => {
     const userArr = [];
     querySnapshot.forEach((res) => {
@@ -45,13 +42,19 @@ class ShowData extends Component {
       userArr
     })
   }
+  ///////////////////////////////////////
 
 
   render() {
 
+    // Get user email from menu for check if patient is in your case
     const { user } = this.props.route.params
+
+    // Variable use for check status of eack case
     let patientConfirm = true
     let patientConfirmTxt = "รอการอนุมัติ"
+
+    // Call firestore to show data
     this.fireStoreData = firestore().collection("Volunteer").doc({ user }.user.email).collection("Case");
 
     return (
@@ -59,6 +62,7 @@ class ShowData extends Component {
         <View>
           <Text> เคสของคุณ </Text>
           {
+            // loop data and check if patient is in your case
             this.state.userArr.map((item, i) => {
               console.log(item.Confirm)
               if (item.Confirm == "Yes") {
@@ -76,10 +80,8 @@ class ShowData extends Component {
                     <ListItem.Title>ชื่อ : {item.Name}  </ListItem.Title>
                     <ListItem.Title>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
                     <ListItem.Title>อนุญาติให้เข้าถึง : {item.Confirm}</ListItem.Title>
-
                     <TouchableOpacity disabled={patientConfirm} style={styles.loginButton} onPress={() => {
                       this.props.navigation.navigate('DeepDetail', { text: item.Name, user: user });
-                      
                     }}>
                       <Text style={styles.loginButtonText}>
                         {patientConfirmTxt}
@@ -99,10 +101,8 @@ class ShowData extends Component {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
     )
   }
-
 }
 
 
@@ -115,17 +115,12 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginBottom: 15,
   },
-  loginButton: {
-    marginVertical: 32,
-  },
-
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
     marginBottom: 100
-
   },
   loginButton: {
     marginVertical: 20,
@@ -137,9 +132,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 5,
     shadowRadius: 5,
     elevation: 5,
-
   },
-
   loginButtonText: {
     textAlign: 'center',
     color: '#000000',

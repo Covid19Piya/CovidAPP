@@ -15,7 +15,7 @@ class ShowData extends Component {
       Help: '',
       Address: '',
       PhoneNumber: '',
-      gender:''
+      gender: ''
     }
 
   }
@@ -33,7 +33,7 @@ class ShowData extends Component {
   getCollection = (querySnapshot) => {
     const userArr = [];
     querySnapshot.forEach((res) => {
-      const { Name, Help, Address, Age, PhoneNumber1,Status, Request, gender } = res.data();
+      const { Name, Help, Address, Age, PhoneNumber1, Status, Request, gender } = res.data();
       userArr.push({
         key: res.id,
         res,
@@ -52,18 +52,18 @@ class ShowData extends Component {
     })
   }
 
-  sendRequest(name, email){
+  sendRequest(name, email) {
     firestore().collection("Patient").doc(name).collection("Case")
-    .get().then(function (querySnapshot) {
+      .get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
-        
-                doc.ref.update({
-                    Request: email
-                });
-            
+
+          doc.ref.update({
+            Request: email
+          });
+
         });
-    })
-}
+      })
+  }
 
 
   storeUser() {
@@ -100,7 +100,7 @@ class ShowData extends Component {
     const { text, user } = this.props.route.params
     let checkDuplicateCase = false;
     let checkDuplicateCaseText = "ยืนยันช่วยเหลือ";
-    
+
     this.fireStoreData = firestore().collection("Patient").doc({ text }.text).collection("Case");
     this.storeData = firestore().collection("Volunteer").doc({ user }.user.email).collection("Case");
 
@@ -111,15 +111,14 @@ class ShowData extends Component {
           <Text> ผู้ป่วยที่ต้องการความช่วยเหลือ </Text>
           {
             this.state.userArr.map((item, i) => {
-
               this.state.Name = item.Name
               this.state.Age = item.Age
               this.state.Help = item.Help
               this.state.Address = item.Address
               this.state.PhoneNumber1 = item.PhoneNumber1
               this.state.gender = item.gender
-
-              if(item.Request == { user }.user.email){
+              
+              if (item.Request == { user }.user.email) {
                 checkDuplicateCaseText = "คุณมีเคสนี้เเล้ว"
                 checkDuplicateCase = true
               }
@@ -142,7 +141,7 @@ class ShowData extends Component {
                     }
                     }>
                       <Text style={styles.loginButtonText}>
-                      {checkDuplicateCaseText}
+                        {checkDuplicateCaseText}
                       </Text>
                     </TouchableOpacity>
                   </ListItem.Content>
@@ -151,11 +150,9 @@ class ShowData extends Component {
             })
           }
         </View>
-        </ScrollView >
-
+      </ScrollView >
     )
   }
-
 }
 
 

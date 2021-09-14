@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react'
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -17,54 +17,18 @@ class ShowData extends Component {
 
     }
 
-    useEffect()  {
+    useEffect() {
         requestUserPermission();
         unsubscribe = messaging().onMessage(async remoteMessage => {
-          Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+            Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
         });
         return unsubscribe;
-       }
+    }
 
     componentDidMount() {
-
         this.unsubscribe = this.fireStoreData.onSnapshot(this.getCollection);
-        // 20200626 JustCode: FCM implementation
-        messaging()
-        .requestPermission()
-        .then(authStatus => {
-          console.log('APN Status:', authStatus);
-    
-          if(authStatus === messaging.AuthorizationStatus.AUTHORIZED || authStatus === messaging.AuthorizationStatus.PROVISIONAL) {
-            messaging()
-            .getToken()
-            .then(token => {
-              console.log('messaging.getToken: ', token)
-            });
-    
-            messaging().onTokenRefresh(token => {
-              console.log('messaging.onTokenRefresh: ', token)
-            });
+    }
 
-    
-            fcmUnsubscribe = messaging().onMessage(async remoteMessage  => {
-              console.log('A new FCM message arrived!', remoteMessage );
-              this.processNotification(remoteMessage, false);
-            });
-
-            Alert.alert(
-                remoteMessage.notification.title,
-                remoteMessage.notification.body
-            )
-          }
-          else {
-            console.log('requestPermission Denied');
-          }
-        })
-        .catch(err => {
-          console.log('messaging.requestPermission Error: ', err)
-        });
-      }
-    
 
     componentWillUnmount() {
         this.unsubscribe();
@@ -73,16 +37,20 @@ class ShowData extends Component {
     getCollection = (querySnapshot) => {
         const userArr = [];
         querySnapshot.forEach((res) => {
-            const { Address, Detail, Other, PhoneNumber, Topic, Name } = res.data();
+            const { address, detail, other, phoneNumber,
+                topic, name, url, fileName, fileType } = res.data();
             userArr.push({
                 key: res.id,
                 res,
-                Address,
-                Detail,
-                Other,
-                PhoneNumber,
-                Topic,
-                Name
+                address,
+                detail,
+                other,
+                phoneNumber,
+                topic,
+                name,
+                url,
+                fileName,
+                fileType
             })
         })
         this.setState({
@@ -94,44 +62,49 @@ class ShowData extends Component {
 
         this.fireStoreData = firestore().collection("PostDonate");
 
+        // VAriable use for download photo from firebase storage
+        let getFileType = "";
+        let source = "";
+
         return (
+
             <ScrollView>
-                <View>
+                <View >
                     <Text> ข่าวสารการเเจกของ </Text>
                     {
                         this.state.userArr.map((item, i) => {
+                            getFileType = item.fileType
+                            source = item.url
+                            console.log(getFileType, source)
                             return (
                                 <ListItem
                                     key={i}
                                     bottomDivider>
+                                    <Image
+                                        source={{ uri: source }}
+                                        style={{
+                                            flex: 1,
+                                            width: 200,
+                                            height: 200
+                                        }}
+                                        resizeMode={'contain'}
+                                    />
                                     <ListItem.Content>
-
-                                        <ListItem.Title>  {item.Topic}  </ListItem.Title>
-                                        <ListItem.Title>ชื่อ : {item.Name}  </ListItem.Title>
-                                        <ListItem.Title>รายละเอียด : {item.Detail}</ListItem.Title>
-                                        <ListItem.Title>สถานที่ทำการเเจกของ : {item.Address}</ListItem.Title>
-                                        <ListItem.Title>ที่อยู่ : {item.Address}</ListItem.Title>
-                                        <ListItem.Title>หมายเลขโทรศัพท์ : {item.PhoneNumber}</ListItem.Title>
-                                        <ListItem.Title>อื่นๆ : {item.Other}</ListItem.Title>
-                                    
+                                        <ListItem.Title>  {item.topic}  </ListItem.Title>
+                                        <ListItem.Title>ชื่อ : {item.name}  </ListItem.Title>
+                                        <ListItem.Title>รายละเอียด : {item.detail}</ListItem.Title>
+                                        <ListItem.Title>สถานที่ทำการเเจกของ : {item.address}</ListItem.Title>
+                                        <ListItem.Title>หมายเลขโทรศัพท์ : {item.phoneNumber}</ListItem.Title>
+                                        <ListItem.Title>อื่นๆ : {item.other}</ListItem.Title>
                                     </ListItem.Content>
                                 </ListItem>
                             );
                         })
                     }
-                    <TouchableOpacity style={styles.loginButton} onPress={() => {
-                        this.props.navigation.navigate('Menu Volunteer');
-                    }}>
-                        <Text style={styles.loginButtonText}>
-                            กลับสู่เมนู
-                        </Text>
-                    </TouchableOpacity>
                 </View>
             </ScrollView>
-
         )
     }
-
 }
 
 
@@ -156,25 +129,18 @@ const styles = StyleSheet.create({
         marginBottom: 100
 
     },
-    loginButton: {
-        marginVertical: 20,
-        backgroundColor: '#DFF17C',
-        width: 150,
-        height: 50,
-        borderRadius: 10,
-        shadowColor: "#000000",
-        shadowOpacity: 5,
-        shadowRadius: 5,
-        elevation: 5,
-
-    },
-
     loginButtonText: {
         textAlign: 'center',
         color: '#000000',
         fontWeight: 'bold',
         fontSize: 15,
         padding: 15
+    },
+
+    tinyLogo: {
+        width: 50,
+        height: 50,
+
     }
 });
 

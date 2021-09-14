@@ -10,6 +10,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 
 export default function loginScreen({navigation}) {
+  
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [name, setName] = useState();

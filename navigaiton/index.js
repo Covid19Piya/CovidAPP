@@ -7,7 +7,6 @@ const Providers = () => {
         <AuthProvider>
           <Routes />  
         </AuthProvider>
-        
     )
 }
 

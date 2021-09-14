@@ -3,7 +3,7 @@ import * as React from 'react';
 import {View, StyleSheet, Text, TouchableOpacity,Image } from 'react-native';
 
 
-
+// User choose patient or volunteer
 export default function loginScreen({navigation}) {
 
   return (
@@ -11,8 +11,6 @@ export default function loginScreen({navigation}) {
 
       <Image style={styles.logo} source={require('../imageLogo/logo.jpg')} />
       
-      <Text style={styles.title}>อาสาสมัคร </Text>
-
       <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('LoginEmail')}>
         <Text style={styles.loginButtonText}>
           Login
@@ -35,28 +33,6 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: 'stretch',
     marginBottom: 15
-  },
-
-  title: {
-    color: '#00CABA',
-    textAlign: 'left',
-    fontSize: 35,
-    width: 320,
-    marginBottom: 1,
-    fontWeight: 'bold',
-  },
-  input: {
-    marginVertical: 10,
-    width: 320,
-    height: 60,
-    fontSize: 18,
-    marginBottom: 5,
-    shadowColor: "#000000",
-    shadowOpacity: 5,
-    shadowRadius: 5,
-    elevation: 5,
-    backgroundColor: '#FFFFFF'
-    
   },
   loginButton: {
     marginVertical: 10,
@@ -85,8 +61,4 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
 
-  text: {
-    color: '#00CABA',
-    fontSize: 18
-  },
 });

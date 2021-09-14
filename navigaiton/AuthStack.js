@@ -2,35 +2,21 @@
 
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-
 import chooseRole from '../screens/chooseRole';
 import Register from '../screens/registerScreen';
 import VolunteerLoginOrRegis from '../screens/VolunteerLoginOrRegis';
 import LoginEmail from '../screens/LoginEmail';
-
 import VolunteerRegister from '../screens/VolunteerRegister';
-
 import PhoneAuth from '../PhoneAuth/Main';
-
 import phone from '../screens/phone';
-import otp from '../screens/otp';
 
-
+// Craete stack before go in menu patient or volunteer
 const Stack = createStackNavigator();
 
+// Create stack use for login and register
 function AuthStack() {
   return (
     <Stack.Navigator initialRouteName="chooseRole">
-      <Stack.Screen
-        name="otp"
-        component={otp}
-        options={({ navigation }) => ({
-          title: '',
-          headerStyle: {
-            backgroundColor: '#f9fafd',
-          },
-        })}
-      />
 
       <Stack.Screen
         name="phone"
@@ -53,11 +39,13 @@ function AuthStack() {
           },
         })}
       />
+
       <Stack.Screen
         name="chooseRole"
         component={chooseRole}
         options={{ header: () => null }}
       />
+
       <Stack.Screen
         name="Register"
         component={Register}
@@ -69,7 +57,6 @@ function AuthStack() {
         })}
       />
 
-
       <Stack.Screen
         name="VolunteerLoginOrRegis"
         component={VolunteerLoginOrRegis}
@@ -80,6 +67,7 @@ function AuthStack() {
           },
         })}
       />
+
       <Stack.Screen
         name="LoginEmail"
         component={LoginEmail}
@@ -90,7 +78,6 @@ function AuthStack() {
           },
         })}
       />
-
 
       <Stack.Screen
         name="VolunteerRegister"

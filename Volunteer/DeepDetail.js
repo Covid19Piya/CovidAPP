@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react'
-import { useState } from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Picker } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { ListItem } from 'react-native-elements';
@@ -16,21 +15,23 @@ class ShowData extends Component {
         }
     }
 
+    // Use for update data
     state = { user: '' }
     updateUser = (user) => {
         this.setState({ user: user })
     }
 
+    // use for show data
     componentDidMount() {
         this.unsubscribe = this.fireStoreData.onSnapshot(this.getCollection);
-
     }
 
-
+    // use for show data
     componentWillUnmount() {
         this.unsubscribe();
-
     }
+
+    // use for show data and put each dat a in array
     getCollection = (querySnapshot) => {
         const userArr = [];
         querySnapshot.forEach((res) => {
@@ -52,14 +53,11 @@ class ShowData extends Component {
     }
 
 
-
+    // update data on firestore //
     updateData(phone, status, user, name) {
-
         firestore().collection("Volunteer").doc({ user }.user.email).collection("Case")
             .get().then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    console.log(doc.data().Name, " ", name)
-
                     if (doc.data().Name == name) {
                         doc.ref.update({
                             Status: status
@@ -70,7 +68,6 @@ class ShowData extends Component {
         firestore().collection('Patient').doc(phone).collection("Case")
             .get().then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    console.log(doc.data().PhoneNumber1, " ", phone)
                     if (doc.data().PhoneNumber1 == phone) {
                         doc.ref.update({
                             Status: status
@@ -79,17 +76,19 @@ class ShowData extends Component {
                 });
             });
     }
+    /////////////////////////////////////
 
     render() {
 
         const { text, user } = this.props.route.params
-        console.log(text)
+        
         this.fireStoreData = firestore().collection("Volunteer").doc({ user }.user.email).collection("Case");
 
         return (
             <ScrollView>
                 <View>
                     {
+                        // loop data in array and check 
                         this.state.userArr.map((item, i) => {
                             if (item.Name == text) {
                                 this.state.PhoneNumber1 = item.PhoneNumber1
@@ -119,8 +118,8 @@ class ShowData extends Component {
                     </Picker>
                     <TouchableOpacity style={styles.loginButton} onPress={() => {
                         this.updateData(this.state.PhoneNumber1, this.state.user, user, this.state.Name1)
-                        
-                   }}>
+
+                    }}>
                         <Text style={styles.loginButtonText}>
                             อัพเดทสถานะ
                         </Text>

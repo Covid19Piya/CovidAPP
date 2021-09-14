@@ -9,7 +9,6 @@ import { Input, ListItem } from 'react-native-elements';
 class ShowData extends Component {
     constructor() {
         super();
-
         this.state = {
             userArr: []
         }
