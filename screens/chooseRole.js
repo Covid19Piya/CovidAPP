@@ -1,60 +1,98 @@
 import * as React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
+import { useContext, useEffect } from 'react';
+import { Image, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { AuthContext } from '../navigaiton/AuthProvider';
 
-export default function loginScreen({ navigation }) {
+
+
+export default function homeScreenStudent({ navigation }) {
+  const { user, logout } = useContext(AuthContext);
+
 
   return (
     <View style={styles.container}>
+      <View style={styles.profile}>
+        <Text style={styles.welcome}> ยินดีต้อนรับสู่</Text>
+        <Text style={styles.welcome}> ONE FOR ALL</Text>
+      </View>
+      <View style={{ alignItems: "center", }}>
+        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('PhoneAuth')}>
+          <Image source={require('./pat_icon.png')} style={{ width: 110, height: 110, marginTop: 10, marginBottom: 0, }} />
+          <Text style={styles.loginButtonText}>
+            ผู้ได้รับ
+          </Text>
+          <Text style={styles.loginButtonText}>
+            ผลกระทบ
+          </Text>
+        </TouchableOpacity>
 
-      <Image style={styles.logo} source={require('../imageLogo/logo.jpg')} />
-
-      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('PhoneAuth')}>
-        <Text style={styles.loginButtonText}>
-          ผู้ป่วย
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.loginButton} onPress={() =>  navigation.navigate('VolunteerLoginOrRegis')}>
-        <Text style={styles.loginButtonText}>
-          อาสาสมัคร
-        </Text>
-      </TouchableOpacity>
-
+        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('LoginEmail')}>
+          <Image source={require('./vol_icon.png')} style={{ width: 110, height: 110, marginTop: 20, marginBottom: 25, }} />
+          <Text style={styles.loginButtonText}>
+            อาสาสมัคร
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  logo: {
-    width: 200,
-    height: 200,
-    resizeMode: 'stretch',
-    marginBottom: 15
+  title: {
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+
+  input: {
+    marginVertical: 10,
+    marginBottom: 15,
+  },
+
+  profile: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginBottom: 20,
+    alignItems: "center",
+    backgroundColor: '#00C5FF',
+  },
+
+  welcome: {
+    fontWeight: 'bold',
+    fontSize: 45,
+    color: '#FFFFFF',
+  },
+
+  head: {
+    marginLeft: 15,
+    fontWeight: 'bold',
+    fontSize: 25,
+    color: '#FFFFFF',
+    marginBottom: 20,
+  },
+
+  loginButtonText: {
+    textAlign: 'center',
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+    fontSize: 30,
   },
 
   loginButton: {
-    marginVertical: 10,
-    backgroundColor: '#00CABA',
-    width: 320,
-    height: 60,
+    alignItems: "center",
+    marginVertical: 20,
+    backgroundColor: '#00C5FF',
+    width: 220,
+    height: 220,
     borderRadius: 10,
     shadowColor: "#000000",
     shadowOpacity: 5,
     shadowRadius: 5,
     elevation: 5
   },
-  loginButtonText: {
-    textAlign: 'center',
-    color: '#F0FFFF',
-    fontWeight: 'bold',
-    fontSize: 20,
-    padding: 15
-  },
+
   container: {
     flex: 1,
-    backgroundColor: '#E2FCFA',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 50,
+    backgroundColor: '#FFFFFF',
   },
 });
+
