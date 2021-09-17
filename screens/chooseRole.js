@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useContext, useEffect } from 'react';
 import { Image, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { AuthContext } from '../navigaiton/AuthProvider';
-
+import LinearGradient from 'react-native-linear-gradient'
 
 
 export default function homeScreenStudent({ navigation }) {
@@ -11,28 +11,35 @@ export default function homeScreenStudent({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.profile}>
-        <Text style={styles.welcome}> ยินดีต้อนรับสู่</Text>
-        <Text style={styles.welcome}> ONE FOR ALL</Text>
-      </View>
-      <View style={{ alignItems: "center", }}>
-        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('PhoneAuth')}>
-          <Image source={require('./pat_icon.png')} style={{ width: 110, height: 110, marginTop: 10, marginBottom: 0, }} />
-          <Text style={styles.loginButtonText}>
-            ผู้ได้รับ
-          </Text>
-          <Text style={styles.loginButtonText}>
-            ผลกระทบ
-          </Text>
-        </TouchableOpacity>
+      <LinearGradient
+        colors={['pink', 'white']}
+        style={styles.container}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        <View style={styles.profile}>
+          <Text style={styles.welcome}> ยินดีต้อนรับสู่</Text>
+          <Text style={styles.welcome}> ONE FOR ALL</Text>
+        </View>
+        <View style={{ alignItems: "center", }}>
+          <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('PhoneAuth')}>
+            <Image source={require('./pat_icon.png')} style={{ width: 110, height: 110, marginTop: 10, marginBottom: 0, }} />
+            <Text style={styles.loginButtonText}>
+              ผู้ได้รับ
+            </Text>
+            <Text style={styles.loginButtonText}>
+              ผลกระทบ
+            </Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('LoginEmail')}>
-          <Image source={require('./vol_icon.png')} style={{ width: 110, height: 110, marginTop: 20, marginBottom: 25, }} />
-          <Text style={styles.loginButtonText}>
-            อาสาสมัคร
-          </Text>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('LoginEmail')}>
+            <Image source={require('./vol_icon.png')} style={{ width: 110, height: 110, marginTop: 20, marginBottom: 25, }} />
+            <Text style={styles.loginButtonText}>
+              อาสาสมัคร
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </LinearGradient>
     </View>
   );
 }
@@ -53,7 +60,11 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     marginBottom: 20,
     alignItems: "center",
-    backgroundColor: '#00C5FF',
+    backgroundColor: '#fbd',
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5,
   },
 
   welcome: {
@@ -80,7 +91,7 @@ const styles = StyleSheet.create({
   loginButton: {
     alignItems: "center",
     marginVertical: 20,
-    backgroundColor: '#00C5FF',
+    backgroundColor: '#fbd',
     width: 220,
     height: 220,
     borderRadius: 10,

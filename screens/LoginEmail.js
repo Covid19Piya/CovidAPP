@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from 'react';
 import { View, StyleSheet, Text, Alert, TouchableOpacity, Image } from 'react-native';
 import { Input } from '../components/Input';
 import { AuthContext } from '../navigaiton/AuthProvider';
-
+import LinearGradient from 'react-native-linear-gradient'
 export default function loginScreen({ navigation }) {
 
   // Variable use for Login get email and password 
@@ -15,32 +15,52 @@ export default function loginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <LinearGradient
+        colors={['pink', 'white']}
+        style={styles.container}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        <View style={styles.profile}>
+          <Text style={styles.welcome}> ยินดีต้อนรับสู่</Text>
+          <Text style={styles.welcome}> ONE FOR ALL</Text>
+        </View>
 
-      <Image style={styles.logo} source={require('../imageLogo/logo.jpg')} />
-
-      <Text style={styles.title}>LOGIN</Text>
-      <Input
-        style={styles.input}
-        labelValue={email}
-        onChangeText={(userEmail) => setEmail(userEmail)}
-        placeholder="Email"
-        keyboardType={'email-address'}
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
-      <Input
-        style={styles.input}
-        labelValue={password}
-        onChangeText={(userPassword) => setPassword(userPassword)}
-        placeholderText="Password"
-        secureTextEntry={true}
-      />
-      <TouchableOpacity style={styles.loginButton} onPress={() => login(email, password)}>
-        <Text style={styles.loginButtonText}>
-          LOGIN
-        </Text>
-      </TouchableOpacity>
-
+        <Text style={styles.title}>อีเมล</Text>
+        <View style={{ alignItems: "center", }}>
+          <Input
+            style={styles.input}
+            labelValue={email}
+            onChangeText={(userEmail) => setEmail(userEmail)}
+            placeholder="Email"
+            keyboardType={'email-address'}
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+        </View>
+        <Text style={styles.title}>พาสเวิร์ด</Text>
+        <View style={{ alignItems: "center", }}>
+          <Input
+            style={styles.input}
+            labelValue={password}
+            onChangeText={(userPassword) => setPassword(userPassword)}
+            placeholderText="Password"
+            secureTextEntry={true}
+          />
+          <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity style={styles.loginButton} onPress={() => login(email, password)}>
+            <Text style={styles.loginButtonText}>
+              Login
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.regButton} onPress={() => navigation.navigate('VolunteerRegister')}>
+            <Text style={styles.loginButtonText}>
+              Register
+            </Text>
+          </TouchableOpacity>
+          </View>
+        </View>
+      </LinearGradient>
     </View>
   );
 }
@@ -52,21 +72,37 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
     marginBottom: 15
   },
+  profile: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginBottom: 20,
+    alignItems: "center",
+    backgroundColor: '#fbd',
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+
+  welcome: {
+    fontWeight: 'bold',
+    fontSize: 45,
+    color: '#FFFFFF',
+  },
 
   title: {
-    color: '#00CABA',
-    textAlign: 'left',
-    fontSize: 35,
-    width: 320,
-    marginBottom: 1,
+    color: '#FFFFFF',
+    fontSize: 20,
+    marginBottom: 5,
+    marginLeft: 55,
     fontWeight: 'bold',
   },
   input: {
     marginVertical: 10,
-    width: 320,
+    width: 280,
     height: 60,
     fontSize: 18,
-    marginBottom: 5,
+    marginBottom: 20,
     shadowColor: "#000000",
     shadowOpacity: 5,
     shadowRadius: 5,
@@ -75,10 +111,20 @@ const styles = StyleSheet.create({
 
   },
   loginButton: {
-    marginVertical: 10,
-    backgroundColor: '#00CABA',
-    width: 320,
-    height: 60,
+    marginRight: 40,
+    backgroundColor: '#fbd',
+    width: 110,
+    height: 50,
+    borderRadius: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5
+  },
+  regButton: {
+    backgroundColor: '#FF341E',
+    width: 110,
+    height: 50,
     borderRadius: 10,
     shadowColor: "#000000",
     shadowOpacity: 5,
@@ -90,14 +136,11 @@ const styles = StyleSheet.create({
     color: '#F0FFFF',
     fontWeight: 'bold',
     fontSize: 20,
-    padding: 15
+    padding: 10
   },
 
   container: {
     flex: 1,
     backgroundColor: '#E2FCFA',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 50,
   }
 });

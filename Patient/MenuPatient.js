@@ -81,7 +81,6 @@ export default function homeScreenStudent({ navigation }) {
 
           </View>
           <View style={{ alignItems: "center", }}>
-
             <TouchableOpacity style={styles.logoutButton} onPress={() => logout()}>
               <Text style={styles.logoutButtonText}>
                 ออกจากระบบ
@@ -107,7 +106,12 @@ const styles = StyleSheet.create({
   },
 
   profile: {
+    marginBottom: 10,
     backgroundColor: '#fbd',
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5,
   },
 
   welcome: {

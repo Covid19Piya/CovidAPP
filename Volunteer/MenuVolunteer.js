@@ -101,7 +101,12 @@ const styles = StyleSheet.create({
   },
 
   profile: {
+    marginBottom: 10,
     backgroundColor: '#fbd',
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5,
   },
 
   welcome: {
@@ -125,6 +130,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: 'bold',
     fontSize: 20,
+    
   },
 
   loginButton: {
