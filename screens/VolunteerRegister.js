@@ -9,6 +9,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import DocumentPicker from 'react-native-document-picker';
 import RNFetchBlob from 'rn-fetch-blob';
 import firebaseStorage from '@react-native-firebase/storage';
+import LinearGradient from 'react-native-linear-gradient'
 
 
 export default function loginScreen({ navigation }) {
@@ -132,45 +133,80 @@ export default function loginScreen({ navigation }) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.title}>REGISTER</Text>
-        <Input
-          style={styles.input}
-          labelValue={name}
-          onChangeText={(userName) => setName(userName)}
-          placeholder="Name"
-          autoCorrect={false}
-        />
-        <Input
-          style={styles.input}
-          labelValue={email}
-          onChangeText={(userEmail) => setEmail(userEmail)}
-          placeholder="Email"
-          keyboardType={'email-address'}
-          autoCorrect={false}
-        />
-        <Input
-          style={styles.input}
-          labelValue={password}
-          onChangeText={(userPassword) => setPassword(userPassword)}
-          placeholderText="Password"
-          secureTextEntry={true}
-        />
+        <LinearGradient
+          colors={['pink', 'white']}
+          style={styles.container}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+        >
+          <View style={styles.profile}>
+            <Text style={styles.title}>ลงทะเบียน</Text>
+          </View>
 
-        <TouchableOpacity  style={styles.loginButton} transparent onPress={chooseFile}>
-          <Text style={styles.loginButtonText}>
-          Upload your photo
-        </Text>
-        </TouchableOpacity>
-        
-      <TouchableOpacity style={styles.loginButton} onPress={() => {
-        register(email, password, name);
-        addusers();
-      }}>
-        <Text style={styles.loginButtonText}>
-          SIGN UP
-        </Text>
-      </TouchableOpacity>
+          <Text style={styles.welcome}>ชื่อ-สกุล</Text>
+          <View style={{ alignItems: "center", }}>
+            <Input
+              style={styles.input}
+              labelValue={name}
+              onChangeText={(userName) => setName(userName)}
+              placeholder="Name"
+              autoCorrect={false}
+            />
+          </View>
 
+          <Text style={styles.welcome}>อีเมล</Text>
+          <View style={{ alignItems: "center", }}>
+            <Input
+              style={styles.input}
+              labelValue={email}
+              onChangeText={(userEmail) => setEmail(userEmail)}
+              placeholder="Email"
+              keyboardType={'email-address'}
+              autoCorrect={false}
+            />
+          </View>
+
+          <Text style={styles.welcome}>พาสเวิร์ด</Text>
+          <View style={{ alignItems: "center", }}>
+            <Input
+              style={styles.input}
+              labelValue={password}
+              onChangeText={(userPassword) => setPassword(userPassword)}
+              placeholderText="Password"
+              secureTextEntry={true}
+            />
+          </View>
+
+          <Text style={styles.welcome}>ยืนยันพาสเวิร์ด</Text>
+          <View style={{ alignItems: "center", }}>
+            <Input
+              style={styles.input}
+              labelValue={password}
+              onChangeText={(userPassword) => setPassword(userPassword)}
+              placeholderText="Password"
+              secureTextEntry={true}
+            />
+          </View>
+
+          <Text style={styles.welcome}>ยืนยันตัวตนด้วยรูปถ่าย</Text>
+          <Text style={styles.welcome}>ขณะถือบัตรประชาชน</Text>
+
+          <TouchableOpacity style={styles.photoButton} transparent onPress={chooseFile}>
+            <Text style={styles.photoButtonText}>
+              อัพโหลดรูปถ่าย
+            </Text>
+          </TouchableOpacity>
+          <View style={{ alignItems: "center", }}>
+            <TouchableOpacity style={styles.loginButton} onPress={() => {
+              register(email, password, name);
+              addusers();
+            }}>
+              <Text style={styles.loginButtonText}>
+                ลงทะเบียน
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </LinearGradient>
       </View>
 
     </ScrollView>
@@ -180,20 +216,43 @@ export default function loginScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   title: {
-    color: '#00CABA',
+    textShadowColor:'#000000',
+    textShadowOffset: {width: 0, height:1},
+    textShadowRadius: 10,
+    color: '#FFFFFF',
     textAlign: 'center',
     fontSize: 35,
     width: 320,
     marginBottom: 1,
     fontWeight: 'bold',
-
+  },
+  welcome: {
+    textShadowColor:'#000000',
+    textShadowOffset: {width: 0, height:1},
+    textShadowRadius: 10,
+    color: '#FFFFFF',
+    fontSize: 20,
+    marginBottom: 5,
+    marginLeft: 55,
+    fontWeight: 'bold',
+  },
+  profile: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginBottom: 20,
+    alignItems: "center",
+    backgroundColor: '#fbd',
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5,
   },
   input: {
     marginVertical: 10,
-    width: 320,
+    width: 280,
     height: 60,
     fontSize: 18,
-    marginBottom: 5,
+    marginBottom: 20,
     shadowColor: "#000000",
     shadowOpacity: 5,
     shadowRadius: 5,
@@ -201,30 +260,54 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF'
   },
   loginButton: {
-    marginVertical: 10,
-    backgroundColor: '#00CABA',
-    width: 320,
-    height: 60,
+    backgroundColor: '#FF341E',
+    width: 130,
+    height: 50,
     borderRadius: 10,
     shadowColor: "#000000",
     shadowOpacity: 5,
     shadowRadius: 5,
-    elevation: 5
+    elevation: 5,
+    marginBottom: 20,
   },
 
   loginButtonText: {
+    textShadowColor:'#000000',
+    textShadowOffset: {width: 0, height:1},
+    textShadowRadius: 10,
     textAlign: 'center',
     color: '#F0FFFF',
     fontWeight: 'bold',
     fontSize: 20,
-    padding: 15
+    padding: 10
+  },
+  photoButton: {
+    backgroundColor: '#fbd',
+    width: 120,
+    height: 35,
+    borderRadius: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5,
+    padding: 5,
+    marginTop: 5,
+    marginBottom: 20,
+    marginLeft: 55,
+  },
+
+  photoButtonText: {
+    textShadowColor:'#000000',
+    textShadowOffset: {width: 0, height:1},
+    textShadowRadius: 10,
+    textAlign: 'center',
+    color: '#F0FFFF',
+    fontWeight: 'bold',
+    fontSize: 15,
   },
 
   container: {
     flex: 1,
-    padding: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#E2FCFA',
   },
 

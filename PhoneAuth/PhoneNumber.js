@@ -1,28 +1,85 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-
+import { StyleSheet, Text, View, Button, TextInput,TouchableOpacity } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient'
 export default function PhoneNumber(props) {
   const [phoneNumber, setPhoneNumber] = useState(null);
 
   return (
-    <View style={styles.screen}>
-      <Text style={styles.text}>Enter Phone Number</Text>
+    <View style={styles.container}>
+      <LinearGradient
+        colors={['pink', 'white']}
+        style={styles.container}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        <View style={styles.profile}>
+          <Text style={styles.welcome}> ยินดีต้อนรับสู่</Text>
+          <Text style={styles.welcome}> ONE FOR ALL</Text>
+        </View>
+        <View style={{ alignItems: "center", }}>
+      <Text style={styles.title}>กรอกหมายเลขโทรศัพท์มือถือ</Text>
       <TextInput
         autoFocus
         style={styles.input}
         value={phoneNumber}
         onChangeText={setPhoneNumber}
       />
-      <Button title="253624Sign In" onPress={() => props.onSubmit("+66"+phoneNumber)} />
+      <TouchableOpacity style={styles.loginButton} onPress={() => props.onSubmit("+66"+phoneNumber)}>
+            <Text style={styles.loginButtonText}>
+              เข้าสู่ระบบ
+            </Text>
+        </TouchableOpacity>
+        </View>
+      </LinearGradient>
     </View>
+    
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
+  container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: '#E2FCFA',
+  },
+  profile: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginBottom: 50,
+    backgroundColor: '#fbd',
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  welcome: {
+    textShadowColor:'#000000',
+    textShadowOffset: {width: 0, height:1},
+    textShadowRadius: 10,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 45,
+    color: '#FFFFFF',
+  },
+  loginButton: {
+    marginRight: 25,
+    backgroundColor: '#fbd',
+    width: 130,
+    height: 50,
+    borderRadius: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5
+  },
+  loginButtonText: {
+    textShadowColor:'#000000',
+    textShadowOffset: {width: 0, height:1},
+    textShadowRadius: 10,
+    textAlign: 'center',
+    color: '#F0FFFF',
+    fontWeight: 'bold',
+    fontSize: 20,
+    padding: 10
   },
   input: {
     borderWidth: 2,
@@ -33,7 +90,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
   },
-  text: {
+  title: {
+    textShadowColor:'#000000',
+    textShadowOffset: {width: 0, height:1},
+    textShadowRadius: 10,
+    color: '#FFFFFF',
     fontSize: 25,
+    fontWeight: 'bold',
   },
 });

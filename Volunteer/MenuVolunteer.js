@@ -110,6 +110,9 @@ const styles = StyleSheet.create({
   },
 
   welcome: {
+    textShadowColor:'#000000',
+    textShadowOffset: {width: 0, height:1},
+    textShadowRadius: 10,
     marginTop: 10,
     marginLeft: 15,
     fontWeight: 'bold',
@@ -118,6 +121,9 @@ const styles = StyleSheet.create({
   },
 
   head: {
+    textShadowColor:'#000000',
+    textShadowOffset: {width: 0, height:1},
+    textShadowRadius: 10,
     marginLeft: 15,
     fontWeight: 'bold',
     fontSize: 25,
@@ -126,6 +132,9 @@ const styles = StyleSheet.create({
   },
 
   loginButtonText: {
+    textShadowColor:'#000000',
+    textShadowOffset: {width: 0, height:1},
+    textShadowRadius: 10,
     textAlign: 'center',
     color: '#FFFFFF',
     fontWeight: 'bold',
@@ -149,6 +158,9 @@ const styles = StyleSheet.create({
   },
 
   logoutButtonText: {
+    textShadowColor:'#000000',
+    textShadowOffset: {width: 0, height:1},
+    textShadowRadius: 10,
     marginTop: 15,
     textAlign: 'center',
     color: '#FFFFFF',

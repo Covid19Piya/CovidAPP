@@ -68,6 +68,9 @@ const styles = StyleSheet.create({
   },
 
   welcome: {
+    textShadowColor:'#000000',
+    textShadowOffset: {width: 0, height:1},
+    textShadowRadius: 10,
     fontWeight: 'bold',
     fontSize: 45,
     color: '#FFFFFF',
@@ -82,6 +85,9 @@ const styles = StyleSheet.create({
   },
 
   loginButtonText: {
+    textShadowColor:'#000000',
+    textShadowOffset: {width: 0, height:0},
+    textShadowRadius: 5,
     textAlign: 'center',
     color: '#FFFFFF',
     fontWeight: 'bold',

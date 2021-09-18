@@ -50,12 +50,12 @@ export default function loginScreen({ navigation }) {
           <View style={{ flexDirection: "row" }}>
           <TouchableOpacity style={styles.loginButton} onPress={() => login(email, password)}>
             <Text style={styles.loginButtonText}>
-              Login
+              เข้าสู่ระบบ
             </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.regButton} onPress={() => navigation.navigate('VolunteerRegister')}>
             <Text style={styles.loginButtonText}>
-              Register
+              ลงทะเบียน
             </Text>
           </TouchableOpacity>
           </View>
@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 20,
     marginBottom: 20,
-    alignItems: "center",
     backgroundColor: '#fbd',
     shadowColor: "#000000",
     shadowOpacity: 5,
@@ -85,12 +84,19 @@ const styles = StyleSheet.create({
   },
 
   welcome: {
+    textShadowColor:'#000000',
+    textShadowOffset: {width: 0, height:1},
+    textShadowRadius: 10,
+    textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 45,
     color: '#FFFFFF',
   },
 
   title: {
+    textShadowColor:'#000000',
+    textShadowOffset: {width: 0, height:1},
+    textShadowRadius: 10,
     color: '#FFFFFF',
     fontSize: 20,
     marginBottom: 5,
@@ -111,9 +117,9 @@ const styles = StyleSheet.create({
 
   },
   loginButton: {
-    marginRight: 40,
+    marginRight: 25,
     backgroundColor: '#fbd',
-    width: 110,
+    width: 130,
     height: 50,
     borderRadius: 10,
     shadowColor: "#000000",
@@ -123,7 +129,7 @@ const styles = StyleSheet.create({
   },
   regButton: {
     backgroundColor: '#FF341E',
-    width: 110,
+    width: 130,
     height: 50,
     borderRadius: 10,
     shadowColor: "#000000",
@@ -132,6 +138,9 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   loginButtonText: {
+    textShadowColor:'#000000',
+    textShadowOffset: {width: 0, height:1},
+    textShadowRadius: 10,
     textAlign: 'center',
     color: '#F0FFFF',
     fontWeight: 'bold',
