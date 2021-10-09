@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { useContext, useEffect } from 'react';
-import { Image, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { useContext } from 'react';
+import { ScrollView,Image, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { AuthContext } from '../navigaiton/AuthProvider';
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -10,6 +10,7 @@ export default function homeScreenStudent({ navigation }) {
 
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <LinearGradient
         colors={['pink', 'white']}
@@ -19,7 +20,7 @@ export default function homeScreenStudent({ navigation }) {
       >
         <View style={styles.profile}>
           <Text style={styles.welcome}> ยินดีต้อนรับสู่</Text>
-          <Text style={styles.welcome}> ONE FOR ALL</Text>
+          <Image source={require('./logo.png')} style={{ width: 280, height: 100, marginTop: 10, marginBottom: 0, }} />
         </View>
         <View style={{ alignItems: "center", }}>
           <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('PhoneAuth')}>
@@ -41,6 +42,7 @@ export default function homeScreenStudent({ navigation }) {
         </View>
       </LinearGradient>
     </View>
+    </ScrollView>
   );
 }
 
@@ -56,7 +58,7 @@ const styles = StyleSheet.create({
   },
 
   profile: {
-    paddingTop: 20,
+    paddingTop: 30,
     paddingBottom: 20,
     marginBottom: 20,
     alignItems: "center",
@@ -68,9 +70,10 @@ const styles = StyleSheet.create({
   },
 
   welcome: {
+    marginBottom: 0,
     textShadowColor:'#000000',
     textShadowOffset: {width: 0, height:1},
-    textShadowRadius: 10,
+    textShadowRadius: 5,
     fontWeight: 'bold',
     fontSize: 45,
     color: '#FFFFFF',

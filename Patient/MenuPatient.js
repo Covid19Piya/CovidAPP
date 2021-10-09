@@ -38,7 +38,7 @@ export default function homeScreenStudent({ navigation }) {
           </View>
           <View style={{ flexDirection: "row" }}>
 
-            <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('PatientForm', { user: user })}>
+            <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('News Donate', { user: user })}>
               <Image source={require('../photoMenuPatient/search.png')} style={{ width: 80, height: 80, marginTop: 15, marginBottom: 15, }} />
               <Text style={styles.loginButtonText}>
                 ค้นหาผู้ให้

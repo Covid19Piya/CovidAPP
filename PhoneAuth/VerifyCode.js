@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput,TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'
 export default function OTP(props) {
   const [code, setCode] = useState('');
@@ -14,7 +14,7 @@ export default function OTP(props) {
       >
         <View style={styles.profile}>
           <Text style={styles.welcome}> ยินดีต้อนรับสู่</Text>
-          <Text style={styles.welcome}> ONE FOR ALL</Text>
+          <Image source={require('./logo.png')} style={{ width: 280, height: 100, marginTop: 10, marginBottom: 0, }} />
         </View>
         <View style={{ alignItems: "center", }}>
       <Text style={styles.title}>กรอกหมาย OTP</Text>
@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E2FCFA',
   },
   profile: {
+    alignItems: "center",
     paddingTop: 20,
     paddingBottom: 20,
     marginBottom: 50,
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
   welcome: {
     textShadowColor:'#000000',
     textShadowOffset: {width: 0, height:1},
-    textShadowRadius: 10,
+    textShadowRadius: 5,
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 45,
@@ -91,8 +92,8 @@ const styles = StyleSheet.create({
   },
   title: {
     textShadowColor:'#000000',
-    textShadowOffset: {width: 0, height:1},
-    textShadowRadius: 10,
+    textShadowOffset: {width: 0, height:0.5},
+    textShadowRadius: 8,
     color: '#FFFFFF',
     fontSize: 25,
     fontWeight: 'bold',

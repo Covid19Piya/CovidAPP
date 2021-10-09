@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   title: {
     textShadowColor:'#000000',
     textShadowOffset: {width: 0, height:1},
-    textShadowRadius: 10,
+    textShadowRadius: 5,
     color: '#FFFFFF',
     textAlign: 'center',
     fontSize: 35,
@@ -228,8 +228,8 @@ const styles = StyleSheet.create({
   },
   welcome: {
     textShadowColor:'#000000',
-    textShadowOffset: {width: 0, height:1},
-    textShadowRadius: 10,
+    textShadowOffset: {width: 0, height:0.5},
+    textShadowRadius: 8,
     color: '#FFFFFF',
     fontSize: 20,
     marginBottom: 5,

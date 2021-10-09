@@ -1,6 +1,6 @@
 {/*poooon*/ }
 import * as React from 'react';
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import { View, StyleSheet, Text, Alert, TouchableOpacity, Image } from 'react-native';
 import { Input } from '../components/Input';
 import { AuthContext } from '../navigaiton/AuthProvider';
@@ -23,7 +23,7 @@ export default function loginScreen({ navigation }) {
       >
         <View style={styles.profile}>
           <Text style={styles.welcome}> ยินดีต้อนรับสู่</Text>
-          <Text style={styles.welcome}> ONE FOR ALL</Text>
+          <Image source={require('./logo.png')} style={{ width: 280, height: 100, marginTop: 10, marginBottom: 0, }} />
         </View>
 
         <Text style={styles.title}>อีเมล</Text>
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   profile: {
+    alignItems: "center",
     paddingTop: 20,
     paddingBottom: 20,
     marginBottom: 20,
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
   welcome: {
     textShadowColor:'#000000',
     textShadowOffset: {width: 0, height:1},
-    textShadowRadius: 10,
+    textShadowRadius: 5,
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 45,
@@ -95,8 +96,8 @@ const styles = StyleSheet.create({
 
   title: {
     textShadowColor:'#000000',
-    textShadowOffset: {width: 0, height:1},
-    textShadowRadius: 10,
+    textShadowOffset: {width: 0, height:0.5},
+    textShadowRadius: 8,
     color: '#FFFFFF',
     fontSize: 20,
     marginBottom: 5,
