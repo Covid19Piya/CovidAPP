@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 import { useState, useContext } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
 import { Input } from '../components/Input';
 import { AuthContext } from '../navigaiton/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
@@ -17,6 +17,7 @@ export default function loginScreen({ navigation }) {
   // Variable for input data
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [rePassword, setRePassword] = useState();
   const [name, setName] = useState();
   const storage = firebaseStorage();
 
@@ -101,7 +102,7 @@ export default function loginScreen({ navigation }) {
           urlUser = downloadURL;
           fileType = file[0]["type"];
           fileName = file[0]["name"];
-          alert('Finish');
+          Alert('Finish');
         });
       },
     );
@@ -109,7 +110,35 @@ export default function loginScreen({ navigation }) {
 
   //////////////////////////////Upload photo //////////////////////////////////////
 
+  const showAlert = () => {
 
+    if (name == "") {
+      Alert.alert(
+        "Alert ",
+        "Please full fill your name!",
+      );
+    }
+    else if (email == "") {
+      Alert.alert(
+        "Alert ",
+        "Please full fill your email!",
+      );
+    }
+
+    else if (password == "") {
+      Alert.alert(
+        "Alert ",
+        "Please full fill your password!",
+      );
+    }
+
+    else if (password != rePassword) {
+      Alert.alert(
+        "Alert ",
+        "Your password is not match",
+      );
+    }
+  }
 
   // add data to firestore
   const addusers = () => {
@@ -181,8 +210,8 @@ export default function loginScreen({ navigation }) {
           <View style={{ alignItems: "center", }}>
             <Input
               style={styles.input}
-              labelValue={password}
-              onChangeText={(userPassword) => setPassword(userPassword)}
+              labelValue={rePassword}
+              onChangeText={(userPassword) => setRePassword(userPassword)}
               placeholderText="Password"
               secureTextEntry={true}
             />
@@ -198,8 +227,13 @@ export default function loginScreen({ navigation }) {
           </TouchableOpacity>
           <View style={{ alignItems: "center", }}>
             <TouchableOpacity style={styles.loginButton} onPress={() => {
-              register(email, password, name);
-              addusers();
+              if (password != rePassword) {
+                showAlert()
+              } else {
+                register(email, password, name);
+                addusers();
+              }
+
             }}>
               <Text style={styles.loginButtonText}>
                 ลงทะเบียน
@@ -216,8 +250,8 @@ export default function loginScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   title: {
-    textShadowColor:'#000000',
-    textShadowOffset: {width: 0, height:1},
+    textShadowColor: '#000000',
+    textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 5,
     color: '#FFFFFF',
     textAlign: 'center',
@@ -227,8 +261,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   welcome: {
-    textShadowColor:'#000000',
-    textShadowOffset: {width: 0, height:0.5},
+    textShadowColor: '#000000',
+    textShadowOffset: { width: 0, height: 0.5 },
     textShadowRadius: 8,
     color: '#FFFFFF',
     fontSize: 20,
@@ -272,8 +306,8 @@ const styles = StyleSheet.create({
   },
 
   loginButtonText: {
-    textShadowColor:'#000000',
-    textShadowOffset: {width: 0, height:1},
+    textShadowColor: '#000000',
+    textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 10,
     textAlign: 'center',
     color: '#F0FFFF',
@@ -297,8 +331,8 @@ const styles = StyleSheet.create({
   },
 
   photoButtonText: {
-    textShadowColor:'#000000',
-    textShadowOffset: {width: 0, height:1},
+    textShadowColor: '#000000',
+    textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 10,
     textAlign: 'center',
     color: '#F0FFFF',

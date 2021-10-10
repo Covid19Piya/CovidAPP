@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react'
-import { View, StyleSheet, Text, Picker, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Button, TouchableOpacity } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -15,10 +15,8 @@ class ShowData extends Component {
     }
 
     // Use for update status from user
-    state = { user: 'No' }
-    updateUser = (user) => {
-        this.setState({ user: user })
-    }
+
+
 
     ///////// use in firestore show data ///////////
 
@@ -68,20 +66,6 @@ class ShowData extends Component {
                     }
                 });
             });
-
-        firestore().collection('Patient').doc(name).collection("Case")
-            .get().then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
-                    console.log("In fn" + name, status);
-                    if (doc.data().Name == name) {
-                        doc.ref.update({
-                            Status: status,
-                            Confirm: status
-
-                        });
-                    }
-                });
-            });
     }
 
     /////////////////////////////////////////////////////////////// //////
@@ -93,12 +77,14 @@ class ShowData extends Component {
 
         // Call firestore for each user that have same phonenumber with login
         this.fireStoreData = firestore().collection("Patient").doc({ user }.user.phoneNumber).collection("Case");
+        let state = ""
         return (
             <ScrollView>
-            <View>
-                <Text> ผู้ป่วยที่ต้องการความช่วยเหลือ </Text>
-                {
-                    this.state.userArr.map((item, i) => {
+                <View>
+                    <Text> ผู้ป่วยที่ต้องการความช่วยเหลือ </Text>
+                    {
+                        this.state.userArr.map((item, i) => {
+                            state = item.Confirm
                             return (
                                 <ListItem
                                     key={i}
@@ -111,24 +97,31 @@ class ShowData extends Component {
                                         <ListItem.Title>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
                                         <ListItem.Title>ผู้ติดต่อต้องการช่วยเหลือ : {item.Request}</ListItem.Title>
                                         <ListItem.Title>สถานะเคส : {item.Status}</ListItem.Title>
-
+                                        <Text>อนุญาติให้อาสาสมัครท่านนี้เข้าถึงข้อมูลคุณหรือไม่ ?</Text>
+                                        <Button
+                                            onPress={() => state = "Yes"} title="ตกลง"
+                                            color="#841584"
+                                            accessibilityLabel="Learn more about this purple button"
+                                        /><Button
+                                            onPress={() => state = "No"} title="ปฏิเสธ"
+                                            color="#841584"
+                                            accessibilityLabel="Learn more about this purple button"
+                                        />
                                         <TouchableOpacity style={styles.loginButton} onPress={() => {
-                                            this.updateData(item.Name, this.state.user, item.Request)
+                                            this.updateData(item.Name, state, item.Request)
                                         }}>
                                             <Text style={styles.loginButtonText}>
                                                 อัพเดทสถานะ
                                             </Text>
                                         </TouchableOpacity>
+
                                     </ListItem.Content>
                                 </ListItem>
                             );
-                    })
-                }
-                <Picker selectedValue={this.state.user} onValueChange={this.updateUser}>
-                    <Picker.Item label="ไม่อนุญาติ" value="No" />
-                    <Picker.Item label="อนุญาติ" value="Yes" />
-                </Picker>
-            </View>
+                        })
+                    }
+
+                </View>
             </ScrollView>
 
         )
