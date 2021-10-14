@@ -4,6 +4,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
+import LinearGradient from 'react-native-linear-gradient';
 
 class ShowData extends Component {
   constructor() {
@@ -105,98 +106,129 @@ class ShowData extends Component {
     this.storeData = firestore().collection("Volunteer").doc({ user }.user.email).collection("Case");
 
     return (
-      <ScrollView >
+      <View style={styles.container}>
+        <LinearGradient
+          colors={['pink', 'white']}
+          style={styles.container}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+        >
+          <ScrollView >
+            <View style={styles.profile}>
+              <Text style={styles.title}>ผู้ป่วยที่ต้องการความช่วยเหลือ</Text>
+            </View>
+            {
+              this.state.userArr.map((item, i) => {
+                this.state.Name = item.Name
+                this.state.Age = item.Age
+                this.state.Help = item.Help
+                this.state.Address = item.Address
+                this.state.PhoneNumber1 = item.PhoneNumber1
+                this.state.gender = item.gender
 
-        <View>
-          <Text> ผู้ป่วยที่ต้องการความช่วยเหลือ </Text>
-          {
-            this.state.userArr.map((item, i) => {
-              this.state.Name = item.Name
-              this.state.Age = item.Age
-              this.state.Help = item.Help
-              this.state.Address = item.Address
-              this.state.PhoneNumber1 = item.PhoneNumber1
-              this.state.gender = item.gender
-              
-              if (item.Request == { user }.user.email) {
-                checkDuplicateCaseText = "คุณมีเคสนี้เเล้ว"
-                checkDuplicateCase = true
-              }
+                if (item.Request == { user }.user.email) {
+                  checkDuplicateCaseText = "คุณมีเคสนี้เเล้ว"
+                  checkDuplicateCase = true
+                }
 
-              return (
-                <ListItem
-                  key={i}
-                  bottomDivider>
-                  <ListItem.Content>
-                    <ListItem.Title>ชื่อ : {item.Name}</ListItem.Title>
-                    <ListItem.Title>อายุ : {item.Age}</ListItem.Title>
-                    <ListItem.Title>เพศ : {item.gender}</ListItem.Title>
-                    <ListItem.Title>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
-                    <ListItem.Title>สถานะการช่วยเหลือ : {item.Status}</ListItem.Title>
+                return (
+                    <ListItem.Content style={styles.item}>
+                      <ListItem.Title style={styles.itemtext}>ชื่อ : {item.Name}</ListItem.Title>
+                      <ListItem.Title style={styles.itemtext}>อายุ : {item.Age}</ListItem.Title>
+                      <ListItem.Title style={styles.itemtext}>เพศ : {item.gender}</ListItem.Title>
+                      <ListItem.Title style={styles.itemtext}>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
+                      <ListItem.Title style={styles.itemtext}>สถานะการช่วยเหลือ : {item.Status}</ListItem.Title>
 
-                    <TouchableOpacity disabled={checkDuplicateCase} style={styles.loginButton} onPress={() => {
-                      this.props.navigation.navigate('Your Case', { text: { text }.text, user: user });
-                      this.storeUser();
-                      this.sendRequest(item.PhoneNumber1, { user }.user.email);
-                    }
-                    }>
-                      <Text style={styles.loginButtonText}>
-                        {checkDuplicateCaseText}
-                      </Text>
-                    </TouchableOpacity>
-                  </ListItem.Content>
-                </ListItem>
-              );
-            })
-          }
-        </View>
-      </ScrollView >
+                      <TouchableOpacity disabled={checkDuplicateCase} style={styles.loginButton} onPress={() => {
+                        this.props.navigation.navigate('Your Case', { text: { text }.text, user: user });
+                        this.storeUser();
+                        this.sendRequest(item.PhoneNumber1, { user }.user.email);
+                      }
+                      }>
+                        <Text style={styles.loginButtonText}>
+                          {checkDuplicateCaseText}
+                        </Text>
+                      </TouchableOpacity>
+                    </ListItem.Content>
+                );
+              })
+            }
+          </ScrollView >
+        </LinearGradient>
+      </View>
+
     )
   }
 }
 
 
 const styles = StyleSheet.create({
-  title: {
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  input: {
-    marginVertical: 10,
-    marginBottom: 15,
-  },
-  loginButton: {
-    marginVertical: 32,
-  },
-
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    marginBottom: 100
-
-  },
-  loginButton: {
-    marginVertical: 20,
-    backgroundColor: '#DFF17C',
-    width: 150,
-    height: 50,
+  item: {
     borderRadius: 10,
     shadowColor: "#000000",
     shadowOpacity: 5,
     shadowRadius: 5,
     elevation: 5,
-
+    margin: 10,
+    padding: 10,
+    backgroundColor: '#F2F3F4'
   },
-
-  loginButtonText: {
-    textAlign: 'center',
-    color: '#000000',
+  itemtext: {
+    color: '#424949',
     fontWeight: 'bold',
-    fontSize: 15,
-    padding: 15
-  }
+    fontSize: 20,
+  },
+  title: {
+    textShadowColor: '#000000',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 5,
+    color: '#FFFFFF',
+    textAlign: 'center',
+    fontSize: 35,
+    width: 320,
+    marginBottom: 1,
+    fontWeight: 'bold',
+  },
+  profile: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginBottom: 20,
+    alignItems: "center",
+    backgroundColor: '#fbd',
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  input: {
+    marginVertical: 10,
+    marginBottom: 15,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#E2FCFA',
+  },
+  loginButton: {
+    marginTop: 15,
+    backgroundColor: '#fbd',
+    width: 200,
+    height: 50,
+    borderRadius: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5
+  },
+  loginButtonText: {
+    textShadowColor: '#000000',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 10,
+    textAlign: 'center',
+    color: '#F0FFFF',
+    fontWeight: 'bold',
+    fontSize: 20,
+    padding: 10
+  },
 });
 
 

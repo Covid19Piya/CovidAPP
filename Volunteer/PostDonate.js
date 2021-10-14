@@ -19,6 +19,7 @@ import firebaseStorage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import { AuthContext } from '../navigaiton/AuthProvider';
 import { Input } from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient'
 
 // Collect data from firestrore
 let arrayDictStudents = [];
@@ -141,60 +142,63 @@ class Hw extends React.Component {
 
 
     return (
-      <ScrollView>
-        <Container>
-          <Header >
-            <Body>
-              <Title>Upload</Title>
-            </Body>
-            <Right>
-              <Button transparent onPress={chooseFile}>
-                <Icon name="cloud-upload" type="MaterialIcons" />
-              </Button>
-            </Right>
-          </Header>
-          <Content>
+      <View style={styles.container}>
+        <LinearGradient
+          colors={['pink', 'white']}
+          style={styles.container}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+        >
+          <ScrollView>
+            <View style={styles.profile}>
+              <Text style={styles.title}>โพสให้การช่วยเหลือ</Text>
+            </View>
 
             <Input
-              placeholder="Name"
+              placeholder="ชื่อ"
               leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
               value={this.state.Name}
               onChangeText={(val) => this.inputValueUpdate(val, 'Name')}
             />
 
             <Input
-              placeholder="Topic"
+              placeholder="หัวข้อ"
               leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
               value={this.state.Topic}
               onChangeText={(val) => this.inputValueUpdate(val, 'Topic')}
             />
             <Input
-              placeholder="Detail"
+              placeholder="รายละเอียด"
               leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
               value={this.state.Detail}
               onChangeText={(val) => this.inputValueUpdate(val, 'Detail')}
             />
             <Input
-              placeholder="Address"
+              placeholder="สถานที่"
               leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
               value={this.state.Address}
               onChangeText={(val) => this.inputValueUpdate(val, 'Address')}
             />
             <Input
-              placeholder="PhoneNumber"
+              placeholder="เบอร์โทรติดต่อ"
               leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
               value={this.state.PhoneNumber}
               onChangeText={(val) => this.inputValueUpdate(val, 'PhoneNumber')}
             />
 
             <Input
-              placeholder="Other"
+              placeholder="หมายเหคุ"
               leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
               value={this.state.Other}
               onChangeText={(val) => this.inputValueUpdate(val, 'Other')}
             />
+            <TouchableOpacity style={styles.photoButton} transparent onPress={chooseFile}>
+            <Text style={styles.photoButtonText}>
+              อัพโหลดรูปถ่าย
+            </Text>
+          </TouchableOpacity>
 
-            <TouchableOpacity
+            <TouchableOpacity style={styles.loginButton}
               onPress={() => {
                 this.usersCollectionRef
                   .add({
@@ -225,11 +229,11 @@ class Hw extends React.Component {
                   });
                 this.props.navigation.navigate('Menu Volunteer');
               }}>
-              <Text>Done</Text>
+              <Text style={styles.loginButtonText}>ยืนยัน</Text>
             </TouchableOpacity>
-          </Content>
-        </Container>
-      </ScrollView>
+          </ScrollView>
+        </LinearGradient>
+      </View>
     );
   };
 
@@ -238,7 +242,7 @@ class Hw extends React.Component {
     // get col name form firestore //
     this.usersCollectionRef = firestore().collection("PostDonate");
 
-    
+
     return (
       <ScrollView >
         <View>{this.FileUpload()}</View>
@@ -250,7 +254,76 @@ class Hw extends React.Component {
 //UI PART
 
 const styles = StyleSheet.create({
+  title: {
+    textShadowColor: '#000000',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 5,
+    color: '#FFFFFF',
+    textAlign: 'center',
+    fontSize: 35,
+    width: 320,
+    marginBottom: 1,
+    fontWeight: 'bold',
+  },
+  profile: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginBottom: 20,
+    alignItems: "center",
+    backgroundColor: '#fbd',
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#E2FCFA',
+  },
 
+  loginButton: {
+    backgroundColor: '#FF341E',
+    width: 130,
+    height: 50,
+    borderRadius: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5,
+    marginTop: 20,
+    marginBottom: 20,
+    marginLeft: 10,
+  },
+
+  loginButtonText: {
+    textShadowColor: '#000000',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 10,
+    textAlign: 'center',
+    color: '#F0FFFF',
+    fontWeight: 'bold',
+    fontSize: 20,
+    padding: 10
+  },
+  photoButton: {
+    backgroundColor: '#D0D3D4',
+    width: 120,
+    height: 35,
+    borderRadius: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5,
+    padding: 5,
+    marginTop: 5,
+    marginLeft: 15,
+  },
+  photoButtonText: {
+    textAlign: 'center',
+    color: '#424949',
+    fontWeight: 'bold',
+    fontSize: 15,
+  },
 });
 
 export default Hw;

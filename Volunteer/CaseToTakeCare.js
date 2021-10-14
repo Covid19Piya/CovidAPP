@@ -4,7 +4,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
-
+import LinearGradient from 'react-native-linear-gradient';
 class ShowData extends Component {
 
   constructor() {
@@ -58,28 +58,34 @@ class ShowData extends Component {
     this.fireStoreData = firestore().collection("Volunteer").doc({ user }.user.email).collection("Case");
 
     return (
-      <ScrollView>
-        <View>
-          <Text> เคสของคุณ </Text>
-          {
-            // loop data and check if patient is in your case
-            this.state.userArr.map((item, i) => {
-              console.log(item.Confirm)
-              if (item.Confirm == "Yes") {
-                patientConfirm = false
-                patientConfirmTxt = "ตรวจสอบเคส"
-              } else {
-                patientConfirm = true
-                patientConfirmTxt = "รอการอนุมัติ"
-              }
-              return (
-                <ListItem
-                  key={i}
-                  bottomDivider>
-                  <ListItem.Content>
-                    <ListItem.Title>ชื่อ : {item.Name}  </ListItem.Title>
-                    <ListItem.Title>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
-                    <ListItem.Title>อนุญาติให้เข้าถึง : {item.Confirm}</ListItem.Title>
+
+      <View style={styles.container}>
+        <LinearGradient
+          colors={['pink', 'white']}
+          style={styles.container}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+        >
+          <ScrollView>
+            <View style={styles.profile}>
+              <Text style={styles.title}>เคสของคุณ</Text>
+            </View>
+            {
+              // loop data and check if patient is in your case
+              this.state.userArr.map((item, i) => {
+                console.log(item.Confirm)
+                if (item.Confirm == "Yes") {
+                  patientConfirm = false
+                  patientConfirmTxt = "ตรวจสอบเคส"
+                } else {
+                  patientConfirm = true
+                  patientConfirmTxt = "รอการอนุมัติ"
+                }
+                return (
+                  <ListItem.Content style={styles.item}>
+                    <ListItem.Title style={styles.itemtext}>ชื่อ : {item.Name}  </ListItem.Title>
+                    <ListItem.Title style={styles.itemtext}>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
+                    <ListItem.Title style={styles.itemtext}>อนุญาติให้เข้าถึง : {item.Confirm}</ListItem.Title>
                     <TouchableOpacity disabled={patientConfirm} style={styles.loginButton} onPress={() => {
                       this.props.navigation.navigate('DeepDetail', { text: item.Name, user: user });
                     }}>
@@ -88,58 +94,80 @@ class ShowData extends Component {
                       </Text>
                     </TouchableOpacity>
                   </ListItem.Content>
-                </ListItem>
-              );
-            })
-          }
-          <TouchableOpacity style={styles.loginButton} onPress={() => {
-            this.props.navigation.navigate('Menu Volunteer');
-          }}>
-            <Text style={styles.loginButtonText}>
-              กลับสู่เมนู
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+                );
+              })
+            }
+          </ScrollView>
+        </LinearGradient>
+      </View>
     )
   }
 }
 
 
 const styles = StyleSheet.create({
-  title: {
-    marginBottom: 20,
-    textAlign: 'center',
+  item: {
+    borderRadius: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5,
+    margin: 10,
+    padding: 10,
+    backgroundColor: '#F2F3F4'
   },
-  input: {
-    marginVertical: 10,
-    marginBottom: 15,
+  itemtext: {
+    color: '#424949',
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  title: {
+    textShadowColor: '#000000',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 5,
+    color: '#FFFFFF',
+    textAlign: 'center',
+    fontSize: 35,
+    width: 320,
+    marginBottom: 1,
+    fontWeight: 'bold',
+  },
+  profile: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginBottom: 20,
+    alignItems: "center",
+    backgroundColor: '#fbd',
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5,
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    marginBottom: 100
+    backgroundColor: '#E2FCFA',
   },
   loginButton: {
-    marginVertical: 20,
-    backgroundColor: '#DFF17C',
+    marginTop: 15,
+    backgroundColor: '#fbd',
     width: 150,
     height: 50,
     borderRadius: 10,
     shadowColor: "#000000",
     shadowOpacity: 5,
     shadowRadius: 5,
-    elevation: 5,
+    elevation: 5
   },
   loginButtonText: {
+    textShadowColor: '#000000',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 10,
     textAlign: 'center',
-    color: '#000000',
+    color: '#F0FFFF',
     fontWeight: 'bold',
-    fontSize: 15,
-    padding: 15
-  }
+    fontSize: 20,
+    padding: 10
+  },
 });
 
 

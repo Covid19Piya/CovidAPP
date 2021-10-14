@@ -4,7 +4,7 @@ import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { Input } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
-
+import LinearGradient from 'react-native-linear-gradient'
 
 class Data extends Component {
   constructor(props) {
@@ -112,57 +112,67 @@ class Data extends Component {
 
 
     return (
-      <ScrollView>
-        <View style={styles.container}>
-          <Input
-            placeholder="กรุณาใส่ชื่อของคุณ "
-            leftIcon={{ type: 'font-awesome', name: 'book' }}
-            style={styles}
-            value={this.state.Name}
-            onChangeText={(val) => this.inputValueUpdate(val, 'Name')}
-          />
+      <View style={styles.container}>
+        <LinearGradient
+          colors={['pink', 'white']}
+          style={styles.container}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+        >
+          <ScrollView>
+          <View style={styles.profile}>
+              <Text style={styles.title}>โพสขอความช่วยเหลือ</Text>
+            </View>
 
-          <Input
-            placeholder="เพศ"
-            leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-            style={styles}
-            value={this.state.gender}
-            onChangeText={(val) => this.inputValueUpdate(val, 'gender')}
-          />
+            <Input
+              placeholder="กรุณาใส่ชื่อของคุณ "
+              leftIcon={{ type: 'font-awesome', name: 'book' }}
+              style={styles}
+              value={this.state.Name}
+              onChangeText={(val) => this.inputValueUpdate(val, 'Name')}
+            />
 
-          <Input
-            placeholder="อายุ"
-            leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-            style={styles}
-            value={this.state.Age}
-            onChangeText={(val) => this.inputValueUpdate(val, 'Age')}
-          />
-          <Input
-            placeholder="ต้องการความช่วยเหลือเรื่องใด"
-            leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-            style={styles}
-            value={this.state.Help}
-            onChangeText={(val) => this.inputValueUpdate(val, 'Help')}
-          />
+            <Input
+              placeholder="เพศ"
+              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+              style={styles}
+              value={this.state.gender}
+              onChangeText={(val) => this.inputValueUpdate(val, 'gender')}
+            />
 
-          <Input
-            placeholder="ที่อยู่ของคุณ"
-            leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-            style={styles}
-            value={this.state.Address}
-            onChangeText={(val) => this.inputValueUpdate(val, 'Address')}
-          />
+            <Input
+              placeholder="อายุ"
+              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+              style={styles}
+              value={this.state.Age}
+              onChangeText={(val) => this.inputValueUpdate(val, 'Age')}
+            />
+            <Input
+              placeholder="ต้องการความช่วยเหลือเรื่องใด"
+              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+              style={styles}
+              value={this.state.Help}
+              onChangeText={(val) => this.inputValueUpdate(val, 'Help')}
+            />
 
-          <TouchableOpacity onPress={() => {
-            this.props.navigation.navigate('Menu');
-            this.storeUser()
-          }}>
-            <Text>
-            ยืนยัน
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+            <Input
+              placeholder="ที่อยู่ของคุณ"
+              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+              style={styles}
+              value={this.state.Address}
+              onChangeText={(val) => this.inputValueUpdate(val, 'Address')}
+            />
+
+            <TouchableOpacity style={styles.loginButton} onPress={() => {
+              this.props.navigation.navigate('Menu');
+              this.storeUser()
+            }}>
+              <Text style={styles.loginButtonText}>ยืนยัน</Text>
+            </TouchableOpacity>
+          </ScrollView>
+        </LinearGradient>
+      </View>
+
 
     );
   }
@@ -170,40 +180,55 @@ class Data extends Component {
 
 const styles = StyleSheet.create({
   title: {
-    marginBottom: 20,
+    textShadowColor: '#000000',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 5,
+    color: '#FFFFFF',
     textAlign: 'center',
-  },
-  input: {
-    marginVertical: 10,
-    marginBottom: 15,
-  },
-  loginButton: {
-    marginVertical: 10,
-    backgroundColor: '#00CABA',
+    fontSize: 35,
     width: 320,
-    height: 60,
-    borderRadius: 10,
-    shadowColor: '#000000',
+    marginBottom: 1,
+    fontWeight: 'bold',
+  },
+  profile: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    marginBottom: 20,
+    alignItems: "center",
+    backgroundColor: '#fbd',
+    shadowColor: "#000000",
     shadowOpacity: 5,
     shadowRadius: 5,
     elevation: 5,
-    textAlign: 'center',
   },
+  container: {
+    flex: 1,
+    backgroundColor: '#E2FCFA',
+  },
+
+  loginButton: {
+    backgroundColor: '#FF341E',
+    width: 130,
+    height: 50,
+    borderRadius: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5,
+    marginTop: 20,
+    marginBottom: 20,
+    marginLeft: 10,
+  },
+
   loginButtonText: {
+    textShadowColor: '#000000',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 10,
     textAlign: 'center',
     color: '#F0FFFF',
     fontWeight: 'bold',
     fontSize: 20,
-    padding: 15,
-  },
-
-  container: {
-    flex: 1,
-    backgroundColor: '#E2FCFA',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 20,
-    paddingBottom: 127.5,
+    padding: 10
   },
 });
 export default Data;

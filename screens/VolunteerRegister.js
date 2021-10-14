@@ -160,14 +160,15 @@ export default function loginScreen({ navigation }) {
 
   // UI for get input data and upload photo
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <LinearGradient
-          colors={['pink', 'white']}
-          style={styles.container}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-        >
+
+    <View style={styles.container}>
+      <LinearGradient
+        colors={['pink', 'white']}
+        style={styles.container}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        <ScrollView>
           <View style={styles.profile}>
             <Text style={styles.title}>ลงทะเบียน</Text>
           </View>
@@ -240,11 +241,9 @@ export default function loginScreen({ navigation }) {
               </Text>
             </TouchableOpacity>
           </View>
-        </LinearGradient>
-      </View>
-
-    </ScrollView>
-
+        </ScrollView>
+      </LinearGradient>
+    </View>
   );
 }
 
@@ -316,7 +315,7 @@ const styles = StyleSheet.create({
     padding: 10
   },
   photoButton: {
-    backgroundColor: '#fbd',
+    backgroundColor: '#D0D3D4',
     width: 120,
     height: 35,
     borderRadius: 10,
@@ -326,16 +325,12 @@ const styles = StyleSheet.create({
     elevation: 5,
     padding: 5,
     marginTop: 5,
-    marginBottom: 20,
+    marginBottom: 15,
     marginLeft: 55,
   },
-
   photoButtonText: {
-    textShadowColor: '#000000',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 10,
     textAlign: 'center',
-    color: '#F0FFFF',
+    color: '#424949',
     fontWeight: 'bold',
     fontSize: 15,
   },

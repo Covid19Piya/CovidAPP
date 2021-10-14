@@ -6,6 +6,7 @@ import { AuthContext } from '../navigaiton/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { Input, ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
+import LinearGradient from 'react-native-linear-gradient';
 
 class ShowData extends Component {
     constructor() {
@@ -45,70 +46,100 @@ class ShowData extends Component {
         })
     }
     render() {
-        const {user} = this.props.route.params;
-           
+        const { user } = this.props.route.params;
+
         return (
-            <ScrollView>
-            <View>
-                <Text> ผู้ป่วยที่ต้องการความช่วยเหลือ </Text>
-                {
-                    this.state.userArr.map((item, i) => {
-                     
-                        return (
-                            
-                            <ListItem
-                                key={i}
-                                bottomDivider>
-                                <ListItem.Content>
-                                    <ListItem.Title>ชื่อ : {item.Name}</ListItem.Title>
-                                    <ListItem.Title>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
-                                    <TouchableOpacity style={styles.loginButton} onPress={() => {
-                                        this.props.navigation.navigate('DetailPatient', { text: item.PhoneNumber1 , user: user});
-                                        console.log(item.PhoneNumber1)
-                                    }
-                                    }>
-                                        <Text style={styles.loginButtonText}>
-                                            ต้องการติดต่อ
-                                        </Text>
-                                    </TouchableOpacity>
-                                </ListItem.Content>
-                            </ListItem>
-                        );
-                    })
-                }
+            <View style={styles.container}>
+                <LinearGradient
+                    colors={['pink', 'white']}
+                    style={styles.container}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                >
+                    <ScrollView>
+                        <View style={styles.profile}>
+                            <Text style={styles.title}>ผู้ป่วยที่ต้องการความช่วยเหลือ</Text>
+                        </View>
+                        {
+
+                            this.state.userArr.map((item, i) => {
+
+                                return (
+                                        <ListItem.Content style={styles.item}>
+                                            <ListItem.Title style={styles.itemtext}>ชื่อ : {item.Name}</ListItem.Title>
+                                            <ListItem.Title style={styles.itemtext}>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
+                                            <TouchableOpacity style={styles.loginButton} onPress={() => {
+                                                this.props.navigation.navigate('DetailPatient', { text: item.PhoneNumber1, user: user });
+                                                console.log(item.PhoneNumber1)
+                                            }
+                                            }>
+                                                <Text style={styles.loginButtonText}>
+                                                    ต้องการติดต่อ
+                                                </Text>
+                                            </TouchableOpacity>
+                                        </ListItem.Content>
+                                );
+                            })
+                        }
+                    </ScrollView>
+                </LinearGradient>
             </View>
-            </ScrollView>
         )
     }
 }
 
 
 const styles = StyleSheet.create({
+    item:{
+        borderRadius: 10,
+        shadowColor: "#000000",
+        shadowOpacity: 5,
+        shadowRadius: 5,
+        elevation: 5,
+        margin:10,
+        padding:10,
+        backgroundColor:'#F2F3F4'
+    },
+    itemtext:{
+        color: '#424949',
+        fontWeight: 'bold',
+        fontSize: 20,
+    },
     title: {
-        marginBottom: 20,
+        textShadowColor: '#000000',
+        textShadowOffset: { width: 0, height: 1 },
+        textShadowRadius: 5,
+        color: '#FFFFFF',
         textAlign: 'center',
+        fontSize: 35,
+        width: 320,
+        marginBottom: 1,
+        fontWeight: 'bold',
+    },
+    profile: {
+        paddingTop: 20,
+        paddingBottom: 20,
+        marginBottom: 20,
+        alignItems: "center",
+        backgroundColor: '#fbd',
+        shadowColor: "#000000",
+        shadowOpacity: 5,
+        shadowRadius: 5,
+        elevation: 5,
     },
     input: {
         marginVertical: 10,
         marginBottom: 15,
     },
-    loginButton: {
-        marginVertical: 32,
-    },
-
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-        marginBottom: 100
-
+        backgroundColor: '#E2FCFA',
     },
     loginButton: {
-        marginVertical: 10,
-        backgroundColor: '#DFF17C',
-        width: 320,
-        height: 60,
+        marginTop: 15,
+        backgroundColor: '#fbd',
+        width: 150,
+        height: 50,
         borderRadius: 10,
         shadowColor: "#000000",
         shadowOpacity: 5,
@@ -116,12 +147,16 @@ const styles = StyleSheet.create({
         elevation: 5
       },
       loginButtonText: {
+        textShadowColor:'#000000',
+        textShadowOffset: {width: 0, height:1},
+        textShadowRadius: 10,
         textAlign: 'center',
-        color: '#000000',
+        color: '#F0FFFF',
         fontWeight: 'bold',
-        fontSize:15,
-        padding: 15
-      }
+        fontSize: 20,
+        padding: 10
+      },
+    
 });
 
 
