@@ -112,20 +112,20 @@ export default function loginScreen({ navigation }) {
 
   const showAlert = () => {
 
-    if (name == "") {
+    if (name == undefined) {
       Alert.alert(
         "Alert ",
         "Please full fill your name!",
       );
     }
-    else if (email == "") {
+    else if (email == undefined) {
       Alert.alert(
         "Alert ",
         "Please full fill your email!",
       );
     }
 
-    else if (password == "") {
+    else if (password == undefined) {
       Alert.alert(
         "Alert ",
         "Please full fill your password!",
@@ -228,7 +228,8 @@ export default function loginScreen({ navigation }) {
           </TouchableOpacity>
           <View style={{ alignItems: "center", }}>
             <TouchableOpacity style={styles.loginButton} onPress={() => {
-              if (password != rePassword) {
+
+              if (password != rePassword || name==undefined || email==undefined || password==undefined) {
                 showAlert()
               } else {
                 register(email, password, name);

@@ -12,7 +12,23 @@ export default function loginScreen({ navigation }) {
   const [password, setPassword] = useState();
   const { login } = useContext(AuthContext);
 
+  const showAlert = () => {
+    if (email == undefined) {
+      Alert.alert(
+        "Alert ",
+        "Please full fill your email!",
+      );
+    }
 
+    else if (password == undefined) {
+      Alert.alert(
+        "Alert ",
+        "Please full fill your password!",
+      );
+    }
+
+  }
+  
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -48,7 +64,13 @@ export default function loginScreen({ navigation }) {
             secureTextEntry={true}
           />
           <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity style={styles.loginButton} onPress={() => login(email, password)}>
+          <TouchableOpacity style={styles.loginButton} onPress={() => {
+            if (email==undefined || password==undefined) {
+              console.log(email)
+              showAlert()
+            } else {
+              login(email, password)
+            }}}>
             <Text style={styles.loginButtonText}>
               เข้าสู่ระบบ
             </Text>

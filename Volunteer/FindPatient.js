@@ -63,7 +63,7 @@ class ShowData extends Component {
                         {
 
                             this.state.userArr.map((item, i) => {
-
+                                console.log(item.Name)
                                 return (
                                         <ListItem.Content style={styles.item}>
                                             <ListItem.Title style={styles.itemtext}>ชื่อ : {item.Name}</ListItem.Title>

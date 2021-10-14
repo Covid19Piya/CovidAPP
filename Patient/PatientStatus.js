@@ -10,11 +10,13 @@ class ShowData extends Component {
     constructor() {
         super();
         this.state = {
-            userArr: []
+            userArr: [],
+            showTheThing: true
         }
     }
 
     // Use for update status from user
+
 
 
 
@@ -78,12 +80,21 @@ class ShowData extends Component {
         // Call firestore for each user that have same phonenumber with login
         this.fireStoreData = firestore().collection("Patient").doc({ user }.user.phoneNumber).collection("Case");
         let state = ""
+        let checkButtonReq = true
         return (
             <ScrollView>
                 <View>
                     <Text> ผู้ป่วยที่ต้องการความช่วยเหลือ </Text>
                     {
                         this.state.userArr.map((item, i) => {
+                            console.log(item.Request)
+                            if(item.Request != "" ){
+                                checkButtonReq = false
+                                console.log("In")
+                            }else{
+                                checkButtonReq = true
+
+                            }
                             state = item.Confirm
                             return (
                                 <ListItem
@@ -98,11 +109,14 @@ class ShowData extends Component {
                                         <ListItem.Title>ผู้ติดต่อต้องการช่วยเหลือ : {item.Request}</ListItem.Title>
                                         <ListItem.Title>สถานะเคส : {item.Status}</ListItem.Title>
                                         <Text>อนุญาติให้อาสาสมัครท่านนี้เข้าถึงข้อมูลคุณหรือไม่ ?</Text>
+
                                         <Button
+                                            disabled={checkButtonReq}
                                             onPress={() => state = "Yes"} title="ตกลง"
                                             color="#841584"
                                             accessibilityLabel="Learn more about this purple button"
                                         /><Button
+                                            disabled={checkButtonReq}
                                             onPress={() => state = "No"} title="ปฏิเสธ"
                                             color="#841584"
                                             accessibilityLabel="Learn more about this purple button"
