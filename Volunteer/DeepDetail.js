@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Component } from 'react'
-import { View, StyleSheet, Text, TouchableOpacity, Picker } from 'react-native';
+import { Image, View, StyleSheet, Text, TouchableOpacity, Picker } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
+import LinearGradient from 'react-native-linear-gradient';
 
 class ShowData extends Component {
     constructor() {
@@ -81,67 +82,102 @@ class ShowData extends Component {
     render() {
 
         const { text, user } = this.props.route.params
-        
+
         this.fireStoreData = firestore().collection("Volunteer").doc({ user }.user.email).collection("Case");
 
         return (
-            <ScrollView>
-                <View>
-                    {
-                        // loop data in array and check 
-                        this.state.userArr.map((item, i) => {
-                            if (item.Name == text) {
-                                this.state.PhoneNumber1 = item.PhoneNumber1
-                                this.state.Name1 = item.Name
-                                return (
-                                    <ListItem
-                                        key={i}
-                                        bottomDivider>
-                                        <ListItem.Content>
-                                            <Text> รายละเอียดผู้ป่วย </Text>
-                                            <ListItem.Title>ชื่อ : {item.Name}  </ListItem.Title>
-                                            <ListItem.Title>อายุ : {item.Age}</ListItem.Title>
-                                            <ListItem.Title>ที่อยู่ : {item.Address}</ListItem.Title>
-                                            <ListItem.Title>หมายเลขโทรศัพท์ : {item.PhoneNumber1}</ListItem.Title>
-                                            <ListItem.Title>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
-                                            <ListItem.Title>สถานะ : {item.Status}</ListItem.Title>
+            <View style={styles.container}>
+                <LinearGradient
+                    colors={['pink', 'white']}
+                    style={styles.container}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                >
+                    <ScrollView >
+                        <View style={styles.profile}>
+                            <Text style={styles.title}>ข้อมูลส่วนตัวผู้ป่วย</Text>
+                        </View>
+                        {
+                            // loop data in array and check 
+                            this.state.userArr.map((item, i) => {
+                                if (item.Name == text) {
+                                    this.state.PhoneNumber1 = item.PhoneNumber1
+                                    this.state.Name1 = item.Name
+                                    return (
+                                        <ListItem.Content style={styles.item}>
+                                            <View style={{ flexDirection: "row" }}>
+                                                <Text style={styles.itemtexthead}> รายละเอียดผู้ป่วย </Text>
+                                                <TouchableOpacity style={{
+                                                    marginTop: 5,
+                                                    backgroundColor: '#fbd',
+                                                    width: 100,
+                                                    height: 35,
+                                                    borderRadius: 10,
+                                                    shadowColor: "#000000",
+                                                    shadowOpacity: 5,
+                                                    shadowRadius: 5,
+                                                    elevation: 5,
+                                                }} onPress={() => {
+                                                    this.props.navigation.navigate('VolunteerChat', { phone: this.state.PhoneNumber1 });
+                                                }}><View style={{ flexDirection: "row" }}>
+                                                        <Text style={{
+                                                            textShadowColor: '#000000',
+                                                            textShadowOffset: { width: 0, height: 1 },
+                                                            textShadowRadius: 10,
+                                                            textAlign: 'center',
+                                                            color: '#F0FFFF',
+                                                            fontWeight: 'bold',
+                                                            fontSize: 20,
+                                                            padding: 1,
+                                                            marginLeft:9
+                                                        }}>
+                                                            พูดคุย
+                                                        </Text>
+                                                        <Image source={require('../photoInMenu/chat.png')} style={{
+                                                            width: 20, height: 20, marginTop: 7, marginLeft: 6
+                                                        }} />
+                                                    </View>
+                                                </TouchableOpacity>
+                                            </View>
+                                            <ListItem.Title style={styles.itemtext}>ชื่อ : {item.Name}  </ListItem.Title>
+                                            <ListItem.Title style={styles.itemtext}>อายุ : {item.Age}</ListItem.Title>
+                                            <ListItem.Title style={styles.itemtext}>ที่อยู่ : {item.Address}</ListItem.Title>
+                                            <ListItem.Title style={styles.itemtext}>หมายเลขโทรศัพท์ : {item.PhoneNumber1}</ListItem.Title>
+                                            <ListItem.Title style={styles.itemtext}>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
+                                            <ListItem.Title style={styles.itemtext}>สถานะ : {item.Status}</ListItem.Title>
                                         </ListItem.Content>
-                                    </ListItem>
-                                );
-                            }
-                        })
-                    }
-                    <Picker selectedValue={this.state.user} onValueChange={this.updateUser}>
-                        <Picker.Item label="รอ" value="Waiting" />
-                        <Picker.Item label="อยู่ระหว่างดำเนินการ" value="On Process" />
-                        <Picker.Item label="เสร็จสิ้น" value="Finish" />
-                    </Picker>
-                    <TouchableOpacity style={styles.loginButton} onPress={() => {
-                        this.updateData(this.state.PhoneNumber1, this.state.user, user, this.state.Name1)
+                                    );
+                                }
+                            })
+                        }
+                        <View style={{ flexDirection: "row" }}>
+                            <View style={{
+                                borderRadius: 10,
+                                shadowColor: "#000000",
+                                shadowOpacity: 5,
+                                shadowRadius: 5,
+                                elevation: 5,
+                                margin: 15,
+                                backgroundColor: '#F2F3F4'
+                            }}>
+                                <Picker style={{ height: 50, width: 190, marginLeft: 10 }} selectedValue={this.state.user} onValueChange={this.updateUser}>
+                                    <Picker.Item label="รอ" value="Waiting" />
+                                    <Picker.Item label="ระหว่างดำเนินการ" value="On Process" />
+                                    <Picker.Item label="เสร็จสิ้น" value="Finish" />
+                                </Picker>
+                            </View>
+                            <TouchableOpacity style={styles.loginButton} onPress={() => {
+                                this.updateData(this.state.PhoneNumber1, this.state.user, user, this.state.Name1)
 
-                    }}>
-                        <Text style={styles.loginButtonText}>
-                            อัพเดทสถานะ
-                        </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.loginButton} onPress={() => {
-                        this.props.navigation.navigate('VolunteerChat', { phone: this.state.PhoneNumber1 });
-                    }}>
-                        <Text style={styles.loginButtonText}>
-                            พูดคุย
-                        </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.loginButton} onPress={() => {
-                        this.props.navigation.navigate('Menu Volunteer');
-                    }}>
-                        <Text style={styles.loginButtonText}>
-                            กลับสู่เมนู
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-            </ScrollView>
+                            }}>
+                                <Text style={styles.loginButtonText}>
+                                    อัพเดทสถานะ
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </ScrollView>
+                </LinearGradient>
+            </View>
         )
     }
 
@@ -149,51 +185,78 @@ class ShowData extends Component {
 
 
 const styles = StyleSheet.create({
+    item: {
+        borderRadius: 10,
+        shadowColor: "#000000",
+        shadowOpacity: 5,
+        shadowRadius: 5,
+        elevation: 5,
+        margin: 10,
+        padding: 10,
+        backgroundColor: '#F2F3F4'
+    },
+    itemtext: {
+        color: '#424949',
+        fontWeight: 'bold',
+        fontSize: 20,
+    },
+    itemtexthead: {
+        color: '#424949',
+        fontWeight: 'bold',
+        fontSize: 30,
+        marginBottom: 5,
+        marginLeft: 1
+    },
     title: {
-        marginBottom: 20,
+        textShadowColor: '#000000',
+        textShadowOffset: { width: 0, height: 1 },
+        textShadowRadius: 5,
+        color: '#FFFFFF',
         textAlign: 'center',
+        fontSize: 35,
+        width: 320,
+        marginBottom: 1,
+        fontWeight: 'bold',
+    },
+    profile: {
+        paddingTop: 20,
+        paddingBottom: 20,
+        marginBottom: 20,
+        alignItems: "center",
+        backgroundColor: '#fbd',
+        shadowColor: "#000000",
+        shadowOpacity: 5,
+        shadowRadius: 5,
+        elevation: 5,
     },
     input: {
         marginVertical: 10,
         marginBottom: 15,
     },
-    loginButton: {
-        marginVertical: 32,
-    },
-
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-        marginBottom: 100
-
+        backgroundColor: '#E2FCFA',
     },
     loginButton: {
-        marginVertical: 20,
-        backgroundColor: '#DFF17C',
+        marginTop: 15,
+        backgroundColor: '#fbd',
         width: 150,
         height: 50,
         borderRadius: 10,
         shadowColor: "#000000",
         shadowOpacity: 5,
         shadowRadius: 5,
-        elevation: 5,
-
+        elevation: 5
     },
-
     loginButtonText: {
+        textShadowColor: '#000000',
+        textShadowOffset: { width: 0, height: 1 },
+        textShadowRadius: 10,
         textAlign: 'center',
-        color: '#000000',
+        color: '#F0FFFF',
         fontWeight: 'bold',
-        fontSize: 15,
-        padding: 15
-    },
-    container: {
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
+        fontSize: 20,
+        padding: 10
     },
 });
 

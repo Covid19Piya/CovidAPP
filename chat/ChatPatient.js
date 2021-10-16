@@ -82,7 +82,6 @@ class chat extends React.Component {
         return (
             <View style={styles.container}>
                 <ScrollView style={stylesTest.massage}>
-                    <View >
                         {
                             this.state.textArr.map((item, i) => {
                                 return (
@@ -105,7 +104,6 @@ class chat extends React.Component {
                                 );
                             })
                         }
-                    </View>
                 </ScrollView>
                 <View style={stylesTest.bg}>
                     <View style={stylesTest.container}>
