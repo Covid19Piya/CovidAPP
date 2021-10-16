@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   profile: {
     paddingTop: 30,
     paddingBottom: 20,
-    marginBottom: 20,
+    marginBottom: 10,
     alignItems: "center",
     backgroundColor: '#fbd',
     shadowColor: "#000000",
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
 
   loginButton: {
     alignItems: "center",
-    marginVertical: 20,
+    marginVertical: 10,
     backgroundColor: '#fbd',
     width: 220,
     height: 220,
