@@ -112,22 +112,19 @@ class ShowData extends Component {
 
                                         <Button
                                             disabled={checkButtonReq}
-                                            onPress={() => state = "Yes"} title="ตกลง"
+                                            onPress={() => {state = "Yes";
+                                            this.updateData(item.Name, state, item.Request)}
+                                        } title="ตกลง"
                                             color="#841584"
                                             accessibilityLabel="Learn more about this purple button"
                                         /><Button
                                             disabled={checkButtonReq}
-                                            onPress={() => state = "No"} title="ปฏิเสธ"
+                                            onPress={() => {state = "No";
+                                            this.updateData(item.Name, state, item.Request)}} 
+                                            title="ปฏิเสธ"
                                             color="#841584"
                                             accessibilityLabel="Learn more about this purple button"
                                         />
-                                        <TouchableOpacity style={styles.loginButton} onPress={() => {
-                                            this.updateData(item.Name, state, item.Request)
-                                        }}>
-                                            <Text style={styles.loginButtonText}>
-                                                อัพเดทสถานะ
-                                            </Text>
-                                        </TouchableOpacity>
 
                                     </ListItem.Content>
                                 </ListItem>
