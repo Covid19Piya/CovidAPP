@@ -24,7 +24,7 @@ export default function PhoneNumber(props) {
         value={phoneNumber}
         onChangeText={setPhoneNumber}
       />
-      <TouchableOpacity style={styles.loginButton} onPress={() => props.onSubmit("+66"+phoneNumber)}>
+      <TouchableOpacity style={styles.loginButton} onPress={() => props.onSubmit("+1"+phoneNumber)}>
             <Text style={styles.loginButtonText}>
               เข้าสู่ระบบ
             </Text>
