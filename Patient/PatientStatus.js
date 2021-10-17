@@ -112,8 +112,11 @@ class ShowData extends Component {
                                         <ListItem.Title style={styles.itemtext}>ที่อยู่ : {item.Address}</ListItem.Title>
                                         <ListItem.Title style={styles.itemtext}>เบอร์ติดต่อ : {item.PhoneNumber}</ListItem.Title>
                                         <ListItem.Title style={styles.itemtext}>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
-                                        <ListItem.Title style={styles.itemtext}>ผู้ติดต่อต้องการช่วยเหลือ : {item.Request}</ListItem.Title>
+                                        <View style = {{marginBottom:10}}></View>
+                                        
+                                        <ListItem.Title style={styles.itemtext}>ผู้ต้องการติดต่อช่วยเหลือ : {item.Request}</ListItem.Title>
                                         <ListItem.Title style={styles.itemtext}>สถานะเคส : {item.Status}</ListItem.Title>
+
                                         <Text style={{
                                             color: '#424949',
                                             fontWeight: 'bold',

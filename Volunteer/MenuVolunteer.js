@@ -18,17 +18,7 @@ console.log(user)
       >
     <View style={styles.container}>
       <View style={styles.profile}>
-        <View style={{ flexDirection: "row" }}>
           <Text style={styles.welcome}> สวัสดี</Text>
-          <TouchableOpacity style={{
-            width: 40, height: 40, marginTop: 25,
-            marginLeft: '47%',
-          }}>
-            <Image source={require('../photoInMenu/chat.png')} style={{
-              width: 40, height: 40
-            }} />
-          </TouchableOpacity>
-        </View>
         <Text style={styles.head}>
           <Image source={require('../photoInMenu/user.png')} style={{ width: 34, height: 34, }} />
           "{user.email}"
