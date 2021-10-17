@@ -157,12 +157,12 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     backgroundColor: '#fbd',
     width: 370,
-    height: 181,
     borderRadius: 10,
     shadowColor: "#000000",
     shadowOpacity: 5,
     shadowRadius: 5,
-    elevation: 5
+    elevation: 5,
+    paddingBottom:15
   },
 
   logoutButtonText: {
