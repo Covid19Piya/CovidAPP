@@ -5,6 +5,7 @@ import firestore from '@react-native-firebase/firestore';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
+import { padding, paddingTop } from 'styled-system';
 
 class ShowData extends Component {
     constructor() {
@@ -110,13 +111,14 @@ class ShowData extends Component {
                                                 <TouchableOpacity style={{
                                                     marginTop: 5,
                                                     backgroundColor: '#fbd',
-                                                    width: 100,
                                                     height: 35,
                                                     borderRadius: 10,
                                                     shadowColor: "#000000",
                                                     shadowOpacity: 5,
                                                     shadowRadius: 5,
                                                     elevation: 5,
+                                                    padding:5,
+                                                    paddingTop:0
                                                 }} onPress={() => {
                                                     this.props.navigation.navigate('VolunteerChat', { phone: this.state.PhoneNumber1 });
                                                 }}><View style={{ flexDirection: "row" }}>
@@ -129,7 +131,7 @@ class ShowData extends Component {
                                                             fontWeight: 'bold',
                                                             fontSize: 20,
                                                             padding: 1,
-                                                            marginLeft:9
+                                                            
                                                         }}>
                                                             พูดคุย
                                                         </Text>
