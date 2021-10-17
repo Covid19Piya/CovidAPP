@@ -316,7 +316,7 @@ const styles = StyleSheet.create({
   },
   photoButton: {
     backgroundColor: '#D0D3D4',
-    width: 120,
+    width: 160,
     height: 35,
     borderRadius: 10,
     shadowColor: "#000000",
