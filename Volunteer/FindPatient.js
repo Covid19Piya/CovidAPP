@@ -138,7 +138,6 @@ const styles = StyleSheet.create({
     loginButton: {
         marginTop: 15,
         backgroundColor: '#fbd',
-        width: 150,
         height: 50,
         borderRadius: 10,
         shadowColor: "#000000",

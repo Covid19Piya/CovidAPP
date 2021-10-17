@@ -2,9 +2,10 @@ import * as React from 'react';
 import { Component } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Picker } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import { Input } from 'react-native-elements';
+import { Input,Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient'
+import { textColor } from 'styled-system';
 
 class Data extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class Data extends Component {
 
   state = { user: 'No' }
   updateUser = (user) => {
-      this.setState({ user: user })
+    this.setState({ user: user })
   }
 
   // get input and put in to state
@@ -110,7 +111,7 @@ class Data extends Component {
 
     // Get numberphone use for create database on firebase
     this.state.PhoneNumber1 = user.phoneNumber
-    
+
 
     // Call firestore waiting for push
     this.case = firestore().collection('Patient').doc(this.state.PhoneNumber1);
@@ -139,33 +140,42 @@ class Data extends Component {
               value={this.state.Name}
               onChangeText={(val) => this.inputValueUpdate(val, 'Name')}
             />
-
-
-            <Picker selectedValue={this.state.user} onValueChange={this.updateUser }>
-              <Picker.Item label="เพศ" value="java" />
-              <Picker.Item label="ชาย" value="Male" />
-              <Picker.Item label="หญง" value="Female" />
-            </Picker>
-
+            <View style={{ flexDirection: "row" }}>
+            <Text style ={{fontSize:20,color:'#979A9A',margin:20,marginTop:9}}>เพศ</Text>
+            <View style={{
+              width: 96,
+              height:20,
+              borderRadius: 10,
+              shadowColor: "#000000",
+              shadowOpacity: 5,
+              shadowRadius: 5,
+              elevation: 5,
+              marginTop:0,
+              paddingBottom:50,
+              backgroundColor: '#EAC5E9'
+            }}>
+              <Picker selectedValue={this.state.user} onValueChange={this.updateUser}>
+                <Picker.Item label="ชาย" value="Male" />
+                <Picker.Item label="หญิง" value="Female" />
+              </Picker>
+            </View>
+            </View>
             <Input
               placeholder="อายุ"
-              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-              style={styles}
+              style={{marginLeft:10}}
               value={this.state.Age}
               onChangeText={(val) => this.inputValueUpdate(val, 'Age')}
             />
             <Input
               placeholder="ต้องการความช่วยเหลือเรื่องใด"
-              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-              style={styles}
+              style={{marginLeft:10}}
               value={this.state.Help}
               onChangeText={(val) => this.inputValueUpdate(val, 'Help')}
             />
 
             <Input
               placeholder="ที่อยู่ของคุณ"
-              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-              style={styles}
+              style={{marginLeft:10}}
               value={this.state.Address}
               onChangeText={(val) => this.inputValueUpdate(val, 'Address')}
             />

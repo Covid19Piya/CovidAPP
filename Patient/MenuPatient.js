@@ -36,46 +36,38 @@ export default function homeScreenStudent({ navigation }) {
               "{user.phoneNumber}"
             </Text>
           </View>
-          <View style={{ flexDirection: "row" }}>
-
-            <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('News Donate', { user: user })}>
-              <Image source={require('../photoMenuPatient/search.png')} style={{ width: 80, height: 80, marginTop: 15, marginBottom: 15, }} />
-              <Text style={styles.loginButtonText}>
-                ค้นหาผู้ให้
-              </Text>
-              <Text style={styles.loginButtonText}>
-                ความช่วยเหลือ
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('PatientForm', { user: user })}>
-              <Image source={require('../photoMenuPatient/help.png')} style={{ width: 92, height: 80, marginTop: 15, marginBottom: 15, }} />
-              <Text style={styles.loginButtonText}>
-                โพสขอ
-              </Text>
-              <Text style={styles.loginButtonText}>
-                ความช่วยเหลือ
-              </Text>
-            </TouchableOpacity>
-
+          <View style={{ alignItems: "center", }}>
+            <View style={{ flexDirection: "row" }}>
+              <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('News Donate', { user: user })}>
+                <Image source={require('../photoMenuPatient/search.png')} style={{ width: 80, height: 80, marginTop: 15, marginBottom: 15, }} />
+                <Text style={styles.loginButtonText}>
+                  ค้นหาผู้ให้
+                </Text>
+                <Text style={styles.loginButtonText}>
+                  ความช่วยเหลือ
+                </Text>
+              </TouchableOpacity>
+              <View style={{ margin:5 }}></View>
+              <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('PatientForm', { user: user })}>
+                <Image source={require('../photoMenuPatient/help.png')} style={{ width: 92, height: 80, marginTop: 15, marginBottom: 15, }} />
+                <Text style={styles.loginButtonText}>
+                  โพสขอ
+                </Text>
+                <Text style={styles.loginButtonText}>
+                  ความช่วยเหลือ
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
 
-          <View style={{ flexDirection: "row" }}>
-
-            <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('PatientStatus', { user: user })}>
+          <View style={{ alignItems: "center", }}>
+            <TouchableOpacity style={styles.loginButton2} onPress={() => navigation.navigate('PatientStatus', { user: user })}>
               <Image source={require('../photoMenuPatient/status.png')} style={{ width: 70, height: 90, marginTop: 15, marginBottom: 8, }} />
               <Text style={styles.loginButtonText}>
                 สถานะ
               </Text>
               <Text style={styles.loginButtonText}>
                 ความช่วยเหลือ
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('News Donate', { user: user })}>
-              <Image source={require('../photoMenuPatient/news.png')} style={{ width: 99, height: 90, marginTop: 15, marginBottom: 15, }} />
-              <Text style={styles.loginButtonText}>
-                ข่าวสาร
               </Text>
             </TouchableOpacity>
 
@@ -86,7 +78,7 @@ export default function homeScreenStudent({ navigation }) {
                 ออกจากระบบ
               </Text>
             </TouchableOpacity>
-            
+
           </View>
         </View>
       </LinearGradient>
@@ -115,8 +107,8 @@ const styles = StyleSheet.create({
   },
 
   welcome: {
-    textShadowColor:'#000000',
-    textShadowOffset: {width: 0, height:1},
+    textShadowColor: '#000000',
+    textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 10,
     marginTop: 10,
     marginLeft: 15,
@@ -126,8 +118,8 @@ const styles = StyleSheet.create({
   },
 
   head: {
-    textShadowColor:'#000000',
-    textShadowOffset: {width: 0, height:1},
+    textShadowColor: '#000000',
+    textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 10,
     marginLeft: 15,
     fontWeight: 'bold',
@@ -137,8 +129,8 @@ const styles = StyleSheet.create({
   },
 
   loginButtonText: {
-    textShadowColor:'#000000',
-    textShadowOffset: {width: 0, height:1},
+    textShadowColor: '#000000',
+    textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 10,
     textAlign: 'center',
     color: '#FFFFFF',
@@ -148,11 +140,23 @@ const styles = StyleSheet.create({
 
   loginButton: {
     alignItems: "center",
-    marginLeft: 10,
-    marginRight: 4,
     marginVertical: 10,
     backgroundColor: '#fbd',
     width: 180,
+    borderRadius: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5,
+    paddingBottom:15
+  },
+  loginButton2: {
+    alignItems: "center",
+    marginLeft: 5,
+    marginRight: 4,
+    marginVertical: 5,
+    backgroundColor: '#fbd',
+    width: 370,
     height: 181,
     borderRadius: 10,
     shadowColor: "#000000",
@@ -162,8 +166,8 @@ const styles = StyleSheet.create({
   },
 
   logoutButtonText: {
-    textShadowColor:'#000000',
-    textShadowOffset: {width: 0, height:1},
+    textShadowColor: '#000000',
+    textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 10,
     marginTop: 15,
     textAlign: 'center',
