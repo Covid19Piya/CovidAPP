@@ -10,7 +10,6 @@ export default function homeScreenStudent({ navigation }) {
 
 
   return (
-    <ScrollView>
     <View style={styles.container}>
       <LinearGradient
         colors={['pink', 'white']}
@@ -18,6 +17,7 @@ export default function homeScreenStudent({ navigation }) {
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
       >
+    <ScrollView>
         <View style={styles.profile}>
           <Text style={styles.welcome}> ยินดีต้อนรับสู่</Text>
           <Image source={require('./logo.png')} style={{ width: 280, height: 100, marginTop: 10, marginBottom: 0, }} />
@@ -40,9 +40,9 @@ export default function homeScreenStudent({ navigation }) {
             </Text>
           </TouchableOpacity>
         </View>
+        </ScrollView>
       </LinearGradient>
     </View>
-    </ScrollView>
   );
 }
 
