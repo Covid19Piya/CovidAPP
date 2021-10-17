@@ -82,40 +82,38 @@ class chat extends React.Component {
         return (
             <View style={styles.container}>
                 <ScrollView style={stylesTest.massage}>
-                        {
-                            this.state.textArr.map((item, i) => {
-                                return (
-                                    <LinearGradient
-                                        colors={['pink', 'white']}
-                                        style={styles.container}
-                                        start={{ x: 0, y: 0 }}
-                                        end={{ x: 1, y: 1 }}
-                                    >
-                                        <Text style={stylesTest.namechat}>
-                                            {item.name}
-                                        </Text>
+                    {
+                        this.state.textArr.map((item, i) => {
+                            return (
+                                <LinearGradient
+                                    colors={['pink', 'white']}
+                                    style={styles.container}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 1 }}
+                                >
+                                    <Text style={stylesTest.namechat}>
+                                        {item.name}
+                                    </Text>
 
-                                        <ListItem.Content style={styles.item} >
-                                            <Text style={{fontSize: 18}}  >
-                                                {item.chat}
-                                            </Text>
-                                        </ListItem.Content>
-                                    </LinearGradient>
-                                );
-                            })
-                        }
+                                    <ListItem.Content style={styles.item} >
+                                        <Text style={{ fontSize: 18 }}  >
+                                            {item.chat}
+                                        </Text>
+                                    </ListItem.Content>
+                                </LinearGradient>
+                            );
+                        })
+                    }
                 </ScrollView>
                 <View style={stylesTest.bg}>
                     <View style={stylesTest.container}>
-                        <View style={stylesTest.mainContainer}>
-                            <TextInput
-                                placeholder="Aa"
-                                style={styles.textInput}
-                                multiline
-                                value={this.state.chat}
-                                onChangeText={(val) => this.inputValueUpdate(val, 'chat')}
-                            />
-                        </View>
+                        <TextInput
+                            placeholder="Aa"
+                            style={stylesTest.mainContainer}
+                            multiline
+                            value={this.state.chat}
+                            onChangeText={(val) => this.inputValueUpdate(val, 'chat')}
+                        />
                         <View style={stylesTest.buttonContainer}>
                             <Image
                                 source={{ uri: 'https://cdn.pixabay.com/photo/2018/02/04/01/54/paper-planes-3128885_1280.png' }}
@@ -173,11 +171,6 @@ const stylesTest = StyleSheet.create({
         marginLeft: 10,
         flex: 1,
         alignItems: 'center',
-    },
-
-    textInput: {
-        flex: 1,
-        marginHorizontal: 10,
     },
 
     buttonContainer: {

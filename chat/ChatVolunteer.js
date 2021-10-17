@@ -109,15 +109,13 @@ class chat extends React.Component {
                 </ScrollView>
                 <View style={stylesTest.bg}>
                     <View style={stylesTest.container}>
-                        <View style={stylesTest.mainContainer}>
                             <TextInput
                                 placeholder="Aa"
-                                style={styles.textInput}
+                                style={stylesTest.mainContainer}
                                 multiline
                                 value={this.state.chat}
                                 onChangeText={(val) => this.inputValueUpdate(val, 'chat')}
                             />
-                        </View>
                         <View style={stylesTest.buttonContainer}>
                             <Image
                                 source={{ uri: 'https://cdn.pixabay.com/photo/2018/02/04/01/54/paper-planes-3128885_1280.png' }}
@@ -176,11 +174,6 @@ const stylesTest = StyleSheet.create({
         marginLeft: 10,
         flex: 1,
         alignItems: 'center',
-    },
-
-    textInput: {
-        flex: 1,
-        marginHorizontal: 10,
     },
 
     buttonContainer: {

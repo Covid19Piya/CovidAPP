@@ -17,7 +17,7 @@ export default function OTP(props) {
           <Image source={require('./logo.png')} style={{ width: 280, height: 100, marginTop: 10, marginBottom: 0, }} />
         </View>
         <View style={{ alignItems: "center", }}>
-      <Text style={styles.title}>กรอกหมาย OTP</Text>
+      <Text style={styles.title}>กรอกหมายเลข OTP</Text>
       <TextInput
         autoFocus
         value={code}
