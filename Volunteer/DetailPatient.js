@@ -23,6 +23,7 @@ class ShowData extends Component {
 
   componentDidMount() {
     this.unsubscribe = this.fireStoreData.onSnapshot(this.getCollection);
+    
 
   }
 
@@ -53,13 +54,14 @@ class ShowData extends Component {
     })
   }
 
-  sendRequest(name, email) {
+  sendRequest(name, email, nameVol, urlPhotoVolunteer) {
     firestore().collection("Patient").doc(name).collection("Case")
       .get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
-
           doc.ref.update({
-            Request: email
+            Request: email,
+            NameVol : nameVol,
+            url :urlPhotoVolunteer
           });
 
         });
@@ -101,9 +103,16 @@ class ShowData extends Component {
     const { text, user } = this.props.route.params
     let checkDuplicateCase = false;
     let checkDuplicateCaseText = "ยืนยันช่วยเหลือ";
-
+    let nameVol = ""
+    let urlPhotoVolunteer = ""
     this.fireStoreData = firestore().collection("Patient").doc({ text }.text).collection("Case");
     this.storeData = firestore().collection("Volunteer").doc({ user }.user.email).collection("Case");
+    firestore().collection("Volunteer").doc({ user }.user.email)
+      .onSnapshot(documentSnapshot => {
+        nameVol = documentSnapshot.data().Name
+        urlPhotoVolunteer = documentSnapshot.data().urlUser
+        console.log(urlPhotoVolunteer);
+      });
 
     return (
       <View style={styles.container}>
@@ -142,7 +151,7 @@ class ShowData extends Component {
                       <TouchableOpacity disabled={checkDuplicateCase} style={styles.loginButton} onPress={() => {
                         this.props.navigation.navigate('Your Case', { text: { text }.text, user: user });
                         this.storeUser();
-                        this.sendRequest(item.PhoneNumber1, { user }.user.email);
+                        this.sendRequest(item.PhoneNumber1, { user }.user.email, nameVol, urlPhotoVolunteer);
                       }
                       }>
                         <Text style={styles.loginButtonText}>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Picker } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { Input } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -22,6 +22,12 @@ class Data extends Component {
     };
   }
 
+
+  state = { user: 'No' }
+  updateUser = (user) => {
+      this.setState({ user: user })
+  }
+
   // get input and put in to state
   inputValueUpdate = (val, prop) => {
     const state = this.state;
@@ -41,7 +47,7 @@ class Data extends Component {
         Status: "waiting",
         Request: '',
         Confirm: 'No',
-        gender: this.state.gender
+        gender: this.state.user
       })
       .then((res) => {
         this.setState({
@@ -73,7 +79,7 @@ class Data extends Component {
         Status: "waiting",
         Request: '',
         Confirm: 'No',
-        gender: this.state.gender
+        gender: this.state.user
       })
       .then((res) => {
         this.setState({
@@ -104,6 +110,7 @@ class Data extends Component {
 
     // Get numberphone use for create database on firebase
     this.state.PhoneNumber1 = user.phoneNumber
+    
 
     // Call firestore waiting for push
     this.case = firestore().collection('Patient').doc(this.state.PhoneNumber1);
@@ -120,9 +127,10 @@ class Data extends Component {
           end={{ x: 1, y: 1 }}
         >
           <ScrollView>
-          <View style={styles.profile}>
+            <View style={styles.profile}>
               <Text style={styles.title}>โพสขอความช่วยเหลือ</Text>
             </View>
+
 
             <Input
               placeholder="กรุณาใส่ชื่อของคุณ "
@@ -132,13 +140,12 @@ class Data extends Component {
               onChangeText={(val) => this.inputValueUpdate(val, 'Name')}
             />
 
-            <Input
-              placeholder="เพศ"
-              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-              style={styles}
-              value={this.state.gender}
-              onChangeText={(val) => this.inputValueUpdate(val, 'gender')}
-            />
+
+            <Picker selectedValue={this.state.user} onValueChange={this.updateUser }>
+              <Picker.Item label="เพศ" value="java" />
+              <Picker.Item label="ชาย" value="Male" />
+              <Picker.Item label="หญง" value="Female" />
+            </Picker>
 
             <Input
               placeholder="อายุ"

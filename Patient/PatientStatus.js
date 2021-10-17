@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react'
-import { View, StyleSheet, Text, Button, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -32,7 +32,7 @@ class ShowData extends Component {
     getCollection = (querySnapshot) => {
         const userArr = [];
         querySnapshot.forEach((res) => {
-            const { Name, Help, Email, Confirm, Age, PhoneNumber, Address, Request, Status } = res.data();
+            const { Name, Help, Email, Confirm, Age, PhoneNumber, Address, Request, Status, NameVol, url } = res.data();
             userArr.push({
                 key: res.id,
                 res,
@@ -44,7 +44,9 @@ class ShowData extends Component {
                 Address,
                 PhoneNumber,
                 Request,
-                Status
+                Status,
+                NameVol,
+                url
             })
         })
         this.setState({
@@ -81,6 +83,10 @@ class ShowData extends Component {
         this.fireStoreData = firestore().collection("Patient").doc({ user }.user.phoneNumber).collection("Case");
         let state = ""
         let checkButtonReq = true
+        let photo = ""
+        let buttonYes = ""
+        let buttonNo = ""
+        let headTextGetVollunteerYet = ""
         return (
             <View style={styles.container}>
                 <LinearGradient
@@ -98,12 +104,72 @@ class ShowData extends Component {
                                 console.log(item.Request)
                                 if (item.Request != "") {
                                     checkButtonReq = false
-                                    console.log("In")
+                                    photo = 
+                                    <Image
+                                    source={{ uri: item.url }}
+                                    style={{
+                                        flex: 1,
+                                        width: 200,
+                                        height: 200
+                                    }}
+                                />  
+                                    buttonYes =                                             
+                                    <TouchableOpacity style={styles.loginButton} disabled={checkButtonReq} onPress={() => {
+                                        state = "Yes";
+                                        this.updateData(item.Name, state, item.Request)      
+                                        Alert.alert(
+                                            "เเจ้งตือน ",
+                                            "ยืนยันให้ผู้ช่วยเหลือเข้าถึงข้อมูล",
+                                          );                          
+                                    }}>
+                                        <Text style={styles.loginButtonText}>
+                                            ตกลง
+                                        </Text>
+                                    </TouchableOpacity>
+
+                                    buttonNo = 
+                                    <TouchableOpacity disabled={checkButtonReq} style={{
+                                        marginTop: 15,
+                                        marginLeft: 40,
+                                        backgroundColor: '#FF341E',
+                                        width: 150,
+                                        height: 50,
+                                        borderRadius: 10,
+                                        shadowColor: "#000000",
+                                        shadowOpacity: 5,
+                                        shadowRadius: 5,
+                                        elevation: 5
+                                    }} disabled={checkButtonReq}
+                                        onPress={() => {
+                                            state = "No";
+                                            this.updateData(item.Name, state, item.Request)
+                                            Alert.alert(
+                                                "เเจ้งตือน ",
+                                                "ไม่อนุมัติให้เข้าถึงข้อมูล",
+                                              );   
+                                        }}>
+                                        <Text style={styles.loginButtonText}>
+                                            ปฏิเสธ
+                                        </Text>
+                                    </TouchableOpacity>
+                                    
+                                    headTextGetVollunteerYet = 
+                                    <Text style={{
+                                        color: '#424949',
+                                        fontWeight: 'bold',
+                                        fontSize: 18,
+                                        marginTop: 15
+                                    }}>อนุญาติให้อาสาสมัครท่านนี้เข้าถึงข้อมูลคุณหรือไม่ ?</Text>
+
                                 } else {
                                     checkButtonReq = true
-
+                                    photo = <Text></Text>
+                                    buttonYes = <Text></Text>
+                                    buttonNo = <Text></Text>
+                                    headTextGetVollunteerYet = <Text style={styles.itemtext}>ยังไม่มีผู้ติดต่อ</Text>
                                 }
                                 state = item.Confirm
+
                                 return (
                                     <ListItem.Content style={styles.item}>
                                         <Text style={styles.itemtexthead}> รายละเอียดผู้ป่วย </Text>
@@ -112,49 +178,21 @@ class ShowData extends Component {
                                         <ListItem.Title style={styles.itemtext}>ที่อยู่ : {item.Address}</ListItem.Title>
                                         <ListItem.Title style={styles.itemtext}>เบอร์ติดต่อ : {item.PhoneNumber}</ListItem.Title>
                                         <ListItem.Title style={styles.itemtext}>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
-                                        <ListItem.Title style={styles.itemtext}>ผู้ติดต่อต้องการช่วยเหลือ : {item.Request}</ListItem.Title>
                                         <ListItem.Title style={styles.itemtext}>สถานะเคส : {item.Status}</ListItem.Title>
-                                        <Text style={{
-                                            color: '#424949',
-                                            fontWeight: 'bold',
-                                            fontSize: 18,
-                                            marginTop: 15
-                                        }}>อนุญาติให้อาสาสมัครท่านนี้เข้าถึงข้อมูลคุณหรือไม่ ?</Text>
+                                        <ListItem.Title style={styles.itemtext}>ชื่อผู้ต้องการช่วยเหลือ : {item.NameVol}</ListItem.Title>
+                                        <ListItem.Title style={styles.itemtext}>อีเมลของผู้ต้องการช่วยเหลือ : {item.Request}</ListItem.Title>
+                                        {photo}    
+                                        {headTextGetVollunteerYet}
                                         <View style={{ flexDirection: "row" }}>
-                                            <TouchableOpacity style={styles.loginButton} disabled={checkButtonReq} onPress={() => {
-                                                state = "Yes";
-                                                this.updateData(item.Name, state, item.Request)
-                                            }}>
-                                                <Text style={styles.loginButtonText}>
-                                                    ตกลง
-                                                </Text>
-                                            </TouchableOpacity>
-
-                                            <TouchableOpacity style={{
-                                                marginTop: 15,
-                                                marginLeft: 40,
-                                                backgroundColor: '#FF341E',
-                                                width: 150,
-                                                height: 50,
-                                                borderRadius: 10,
-                                                shadowColor: "#000000",
-                                                shadowOpacity: 5,
-                                                shadowRadius: 5,
-                                                elevation: 5
-                                            }} disabled={checkButtonReq}
-                                                onPress={() => {
-                                                    state = "No";
-                                                    this.updateData(item.Name, state, item.Request)
-                                                }}>
-                                                <Text style={styles.loginButtonText}>
-                                                    ปฏิเสธ
-                                                </Text>
-                                            </TouchableOpacity>
+                                        {buttonYes}                 
+                                        {buttonNo}
                                         </View>
                                     </ListItem.Content>
                                 );
                             })
                         }
+                
+
                     </ScrollView>
                 </LinearGradient>
             </View>

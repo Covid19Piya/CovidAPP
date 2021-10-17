@@ -123,8 +123,12 @@ class chat extends React.Component {
                                 source={{ uri: 'https://cdn.pixabay.com/photo/2018/02/04/01/54/paper-planes-3128885_1280.png' }}
                                 style={{ width: 50, height: 50 }}
                                 onPress={() => {
-                                    this.storeUser()
-                                }
+                                    if(this.state.chat == ''){
+                                        alert("Say someting!!")
+                                    }else{
+                                        this.storeUser()
+
+                                    }                                }
                                 }
                             />
                         </View>

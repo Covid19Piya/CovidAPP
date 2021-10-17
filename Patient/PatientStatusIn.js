@@ -17,6 +17,7 @@ class ShowData extends Component {
     state = { user: 'No' }
     updateUser = (user) => {
         this.setState({ user: user })
+        
     }
 
     componentDidMount() {
@@ -103,6 +104,7 @@ class ShowData extends Component {
                                         <ListItem.Title>สถานะเคส : {item.Status}</ListItem.Title>
 
                                         <TouchableOpacity style={styles.loginButton} onPress={() => {
+                                            alert(this.state.user)
                                             this.updateData(item.Name, this.state.user, item.Request)
 
                                         }}>
