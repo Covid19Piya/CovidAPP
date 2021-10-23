@@ -173,14 +173,30 @@ class ShowData extends Component {
                                 return (
                                     <ListItem.Content style={styles.item}>
                                         <Text style={styles.itemtexthead}> รายละเอียดผู้ป่วย </Text>
-                                        <ListItem.Title style={styles.itemtext}>ชื่อ : {item.Name}</ListItem.Title>
-                                        <ListItem.Title style={styles.itemtext}>อายุ : {item.Age}</ListItem.Title>
-                                        <ListItem.Title style={styles.itemtext}>ที่อยู่ : {item.Address}</ListItem.Title>
+                                        <View style={{ flexDirection: "row" }}>
+                                        <ListItem.Title style={styles.itemtext}>ชื่อ : </ListItem.Title>
+                                        <ListItem.Title style={styles.itemtextcon}>{item.Name}</ListItem.Title>
+                                        </View>
+                                        <View style={{ flexDirection: "row" }}>
+                                        <ListItem.Title style={styles.itemtext}>อายุ : </ListItem.Title>
+                                        <ListItem.Title style={styles.itemtextcon}>{item.Age}</ListItem.Title>
+                                        </View>
+                                        <ListItem.Title style={styles.itemtext}>ที่อยู่ : </ListItem.Title>
+                                        <ListItem.Title style={styles.itemtextcon}>{item.Address}</ListItem.Title>
+                                        <View style={{ flexDirection: "row" }}>
                                         <ListItem.Title style={styles.itemtext}>เบอร์ติดต่อ : {item.PhoneNumber}</ListItem.Title>
-                                        <ListItem.Title style={styles.itemtext}>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
-                                        <ListItem.Title style={styles.itemtext}>สถานะเคส : {item.Status}</ListItem.Title>
-                                        <ListItem.Title style={styles.itemtext}>ชื่อผู้ต้องการช่วยเหลือ : {item.NameVol}</ListItem.Title>
-                                        <ListItem.Title style={styles.itemtext}>อีเมลของผู้ต้องการช่วยเหลือ : {item.Request}</ListItem.Title>
+                                        <ListItem.Title style={styles.itemtextcon}>{item.Name}</ListItem.Title>
+                                        </View>
+                                        <ListItem.Title style={styles.itemtext}>ความช่วยเหลือที่ต้องการ : </ListItem.Title>
+                                        <ListItem.Title style={styles.itemtextcon}>{item.Help}</ListItem.Title>
+                                        <View style={{ flexDirection: "row" }}>
+                                        <ListItem.Title style={styles.itemtext}>สถานะเคส : </ListItem.Title>
+                                        <ListItem.Title style={styles.itemtextcon}>{item.Status}</ListItem.Title>
+                                        </View>
+                                        <ListItem.Title style={styles.itemtext}>ชื่อผู้ต้องการช่วยเหลือ : </ListItem.Title>
+                                        <ListItem.Title style={styles.itemtextcon}>{item.NameVol}</ListItem.Title>
+                                        <ListItem.Title style={styles.itemtext}>อีเมลของผู้ต้องการช่วยเหลือ : </ListItem.Title>
+                                        <ListItem.Title style={styles.itemtextcon}>{item.Request}</ListItem.Title>
                                         {photo}    
                                         {headTextGetVollunteerYet}
                                         <View style={{ flexDirection: "row" }}>
@@ -217,6 +233,10 @@ const styles = StyleSheet.create({
     itemtext: {
         color: '#424949',
         fontWeight: 'bold',
+        fontSize: 20,
+    },
+    itemtextcon: {
+        color: '#424949',
         fontSize: 20,
     },
     itemtexthead: {

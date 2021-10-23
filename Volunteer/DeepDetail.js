@@ -141,12 +141,26 @@ class ShowData extends Component {
                                                     </View>
                                                 </TouchableOpacity>
                                             </View>
-                                            <ListItem.Title style={styles.itemtext}>ชื่อ : {item.Name}  </ListItem.Title>
-                                            <ListItem.Title style={styles.itemtext}>อายุ : {item.Age}</ListItem.Title>
-                                            <ListItem.Title style={styles.itemtext}>ที่อยู่ : {item.Address}</ListItem.Title>
-                                            <ListItem.Title style={styles.itemtext}>หมายเลขโทรศัพท์ : {item.PhoneNumber1}</ListItem.Title>
-                                            <ListItem.Title style={styles.itemtext}>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
-                                            <ListItem.Title style={styles.itemtext}>สถานะ : {item.Status}</ListItem.Title>
+                                            <View style={{ flexDirection: "row" }}>
+                                            <ListItem.Title style={styles.itemtext}>ชื่อ : </ListItem.Title>
+                                            <ListItem.Title style={styles.itemtextcon}>{item.Name}</ListItem.Title>
+                                            </View>
+                                            <View style={{ flexDirection: "row" }}>
+                                            <ListItem.Title style={styles.itemtext}>อายุ : </ListItem.Title>
+                                            <ListItem.Title style={styles.itemtextcon}>{item.Age}</ListItem.Title>
+                                            </View>
+                                            <ListItem.Title style={styles.itemtext}>ที่อยู่ : </ListItem.Title>
+                                            <ListItem.Title style={styles.itemtextcon}>{item.Address}</ListItem.Title>
+                                            <View style={{ flexDirection: "row" }}>
+                                            <ListItem.Title style={styles.itemtext}>หมายเลขโทรศัพท์ : </ListItem.Title>
+                                            <ListItem.Title style={styles.itemtextcon}>{item.PhoneNumber1}</ListItem.Title>
+                                            </View>
+                                            <ListItem.Title style={styles.itemtext}>ความช่วยเหลือที่ต้องการ : </ListItem.Title>
+                                            <ListItem.Title style={styles.itemtextcon}>{item.Help}</ListItem.Title>
+                                            <View style={{ flexDirection: "row" }}>
+                                            <ListItem.Title style={styles.itemtext}>สถานะ : </ListItem.Title>
+                                            <ListItem.Title style={styles.itemtextcon}>{item.Status}</ListItem.Title>
+                                            </View>
                                         </ListItem.Content>
                                     );
                                 }
@@ -200,6 +214,10 @@ const styles = StyleSheet.create({
     itemtext: {
         color: '#424949',
         fontWeight: 'bold',
+        fontSize: 20,
+    },
+    itemtextcon: {
+        color: '#424949',
         fontSize: 20,
     },
     itemtexthead: {

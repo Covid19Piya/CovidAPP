@@ -142,11 +142,24 @@ class ShowData extends Component {
 
                 return (
                     <ListItem.Content style={styles.item}>
-                      <ListItem.Title style={styles.itemtext}>ชื่อ : {item.Name}</ListItem.Title>
-                      <ListItem.Title style={styles.itemtext}>อายุ : {item.Age}</ListItem.Title>
-                      <ListItem.Title style={styles.itemtext}>เพศ : {item.gender}</ListItem.Title>
-                      <ListItem.Title style={styles.itemtext}>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
-                      <ListItem.Title style={styles.itemtext}>สถานะการช่วยเหลือ : {item.Status}</ListItem.Title>
+                      <View style={{ flexDirection: "row" }}>
+                      <ListItem.Title style={styles.itemtext}>ชื่อ : </ListItem.Title>
+                      <ListItem.Title style={styles.itemtextcon}>{item.Name}</ListItem.Title>
+                      </View>
+                      <View style={{ flexDirection: "row" }}>
+                      <ListItem.Title style={styles.itemtext}>อายุ : </ListItem.Title>
+                      <ListItem.Title style={styles.itemtextcon}>{item.Age}</ListItem.Title>
+                      </View>
+                      <View style={{ flexDirection: "row" }}>
+                      <ListItem.Title style={styles.itemtext}>เพศ : </ListItem.Title>
+                      <ListItem.Title style={styles.itemtextcon}>{item.gender}</ListItem.Title>
+                      </View>
+                      <ListItem.Title style={styles.itemtext}>ความช่วยเหลือที่ต้องการ : </ListItem.Title>
+                      <ListItem.Title style={styles.itemtextcon}>{item.Help}</ListItem.Title>
+                      <View style={{ flexDirection: "row" }}>
+                      <ListItem.Title style={styles.itemtext}>สถานะการช่วยเหลือ : </ListItem.Title>
+                      <ListItem.Title style={styles.itemtextcon}>{item.Status}</ListItem.Title>
+                      </View>
 
                       <TouchableOpacity disabled={checkDuplicateCase} style={styles.loginButton} onPress={() => {
                         this.props.navigation.navigate('Your Case', { text: { text }.text, user: user });
@@ -185,6 +198,10 @@ const styles = StyleSheet.create({
   itemtext: {
     color: '#424949',
     fontWeight: 'bold',
+    fontSize: 20,
+  },
+  itemtextcon: {
+    color: '#424949',
     fontSize: 20,
   },
   title: {

@@ -66,8 +66,12 @@ class ShowData extends Component {
                                 console.log(item.Name)
                                 return (
                                         <ListItem.Content style={styles.item}>
-                                            <ListItem.Title style={styles.itemtext}>ชื่อ : {item.Name}</ListItem.Title>
-                                            <ListItem.Title style={styles.itemtext}>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
+                                            <View style={{ flexDirection: "row" }}>
+                                            <ListItem.Title style={styles.itemtext}>ชื่อ : </ListItem.Title>
+                                            <ListItem.Title style={styles.itemtextcon}>{item.Name}</ListItem.Title>
+                                            </View>
+                                            <ListItem.Title style={styles.itemtext}>ความช่วยเหลือที่ต้องการ : </ListItem.Title>
+                                            <ListItem.Title style={styles.itemtextcon}>{item.Help}</ListItem.Title>
                                             <TouchableOpacity style={styles.loginButton} onPress={() => {
                                                 this.props.navigation.navigate('DetailPatient', { text: item.PhoneNumber1, user: user });
                                                 console.log(item.PhoneNumber1)
@@ -103,6 +107,10 @@ const styles = StyleSheet.create({
     itemtext:{
         color: '#424949',
         fontWeight: 'bold',
+        fontSize: 20,
+    },
+    itemtextcon:{
+        color: '#424949',
         fontSize: 20,
     },
     title: {

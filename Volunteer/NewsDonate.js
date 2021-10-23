@@ -100,11 +100,20 @@ class ShowData extends Component {
                                             />
                                             <ListItem.Content style={styles.item}>
                                                 <ListItem.Title style={styles.itemtexthead}>  {item.topic}  </ListItem.Title>
-                                                <ListItem.Title style={styles.itemtext}>ชื่อ : {item.name}  </ListItem.Title>
-                                                <ListItem.Title style={styles.itemtext}>รายละเอียด : {item.detail}</ListItem.Title>
-                                                <ListItem.Title style={styles.itemtext}>สถานที่ทำการเเจกของ : {item.address}</ListItem.Title>
-                                                <ListItem.Title style={styles.itemtext}>หมายเลขโทรศัพท์ : {item.phoneNumber}</ListItem.Title>
-                                                <ListItem.Title style={styles.itemtext}>หมายเหตุ : {item.other}</ListItem.Title>
+                                                <View style={{ flexDirection: "row" }}>
+                                                <ListItem.Title style={styles.itemtext}>ชื่อ : </ListItem.Title>
+                                                <ListItem.Title style={styles.itemtextcon}>{item.name}</ListItem.Title>
+                                                </View>
+                                                <ListItem.Title style={styles.itemtext}>รายละเอียด : </ListItem.Title>
+                                                <ListItem.Title style={styles.itemtextcon}>{item.detail}</ListItem.Title>
+                                                <ListItem.Title style={styles.itemtext}>สถานที่ทำการเเจกของ : </ListItem.Title>
+                                                <ListItem.Title style={styles.itemtextcon}>{item.address}</ListItem.Title>
+                                                <View style={{ flexDirection: "row" }}>
+                                                <ListItem.Title style={styles.itemtext}>หมายเลขโทรศัพท์ : </ListItem.Title>
+                                                <ListItem.Title style={styles.itemtextcon}>{item.phoneNumber}</ListItem.Title>
+                                                </View>
+                                                <ListItem.Title style={styles.itemtext}>หมายเหตุ : </ListItem.Title>
+                                                <ListItem.Title style={styles.itemtextcon}>{item.other}</ListItem.Title>
                                             </ListItem.Content>
                                         </View>
                                     </ListItem>
@@ -140,6 +149,10 @@ const styles = StyleSheet.create({
     itemtext: {
         color: '#424949',
         fontWeight: 'bold',
+        fontSize: 20,
+    },
+    itemtextcon: {
+        color: '#424949',
         fontSize: 20,
     },
     title: {
