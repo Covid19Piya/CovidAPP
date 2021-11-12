@@ -25,7 +25,7 @@ class Data extends Component {
 
   state = { user: 'No' }
   updateUser = (user) => {
-      this.setState({ user: user })
+    this.setState({ user: user })
   }
 
   // get input and put in to state
@@ -110,7 +110,7 @@ class Data extends Component {
 
     // Get numberphone use for create database on firebase
     this.state.PhoneNumber1 = user.phoneNumber
-    
+
 
     // Call firestore waiting for push
     this.case = firestore().collection('Patient').doc(this.state.PhoneNumber1);
@@ -130,61 +130,71 @@ class Data extends Component {
             <View style={styles.profile}>
               <Text style={styles.title}>โพสขอความช่วยเหลือ</Text>
             </View>
+            <View style={{ alignItems: 'center' }}>
+              <View style={styles.item2}>
+                <Input
+                  placeholder="กรุณาใส่ชื่อของคุณ "
+                  leftIcon={{ type: 'font-awesome', name: 'book' }}
+                  style={styles}
+                  value={this.state.Name}
+                  onChangeText={(val) => this.inputValueUpdate(val, 'Name')}
+                />
 
 
-            <Input
-              placeholder="กรุณาใส่ชื่อของคุณ "
-              leftIcon={{ type: 'font-awesome', name: 'book' }}
-              style={styles}
-              value={this.state.Name}
-              onChangeText={(val) => this.inputValueUpdate(val, 'Name')}
-            />
+                <View style={{ flexDirection: "row", width: '25%' }}>
+                  <Input
+                    disabled='false'
+                    placeholder="เพศ"
+                    leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+                    style={{ color: '#313131' }}
+                  />
+                  <View style={{
+                    width: 96,
+                    height: 20,
+                    borderRadius: 10,
+                    shadowColor: "#000000",
+                    shadowOpacity: 5,
+                    shadowRadius: 5,
+                    elevation: 5,
+                    marginLeft: 10,
+                    paddingBottom: 50,
+                    backgroundColor: '#fbd'
+                  }}>
+                    <Picker style={{
+                      color: '#3F3F3F',
+                      fontWeight: 'bold',
+                    }} selectedValue={this.state.user} onValueChange={this.updateUser}>
+                      <Picker.Item label="เพศ" value="java" />
+                      <Picker.Item label="ชาย" value="Male" />
+                      <Picker.Item label="หญิง" value="Female" />
+                    </Picker>
+                  </View>
+                </View>
 
+                <Input
+                  placeholder="อายุ"
+                  leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+                  style={styles}
+                  value={this.state.Age}
+                  onChangeText={(val) => this.inputValueUpdate(val, 'Age')}
+                />
+                <Input
+                  placeholder="ต้องการความช่วยเหลือเรื่องใด"
+                  leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+                  style={styles}
+                  value={this.state.Help}
+                  onChangeText={(val) => this.inputValueUpdate(val, 'Help')}
+                />
 
-<View style={{ flexDirection: "row" }}>
-            <Text style ={{fontSize:20,color:'#979A9A',margin:20,marginTop:9}}>เพศ</Text>
-            <View style={{
-              width: 96,
-              height:20,
-              borderRadius: 10,
-              shadowColor: "#000000",
-              shadowOpacity: 5,
-              shadowRadius: 5,
-              elevation: 5,
-              marginTop:0,
-              paddingBottom:50,
-              backgroundColor: '#EAC5E9'
-            }}>
-              <Picker selectedValue={this.state.user} onValueChange={this.updateUser}>
-                <Picker.Item label="เพศ" value="java" />
-                <Picker.Item label="ชาย" value="Male" />
-                <Picker.Item label="หญิง" value="Female" />
-              </Picker>
+                <Input
+                  placeholder="ที่อยู่ของคุณ"
+                  leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
+                  style={styles}
+                  value={this.state.Address}
+                  onChangeText={(val) => this.inputValueUpdate(val, 'Address')}
+                />
+              </View>
             </View>
-            </View>
-            
-            <Input
-              placeholder="อายุ"
-              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-              style={styles}
-              value={this.state.Age}
-              onChangeText={(val) => this.inputValueUpdate(val, 'Age')}
-            />
-            <Input
-              placeholder="ต้องการความช่วยเหลือเรื่องใด"
-              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-              style={styles}
-              value={this.state.Help}
-              onChangeText={(val) => this.inputValueUpdate(val, 'Help')}
-            />
-
-            <Input
-              placeholder="ที่อยู่ของคุณ"
-              leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
-              style={styles}
-              value={this.state.Address}
-              onChangeText={(val) => this.inputValueUpdate(val, 'Address')}
-            />
 
             <TouchableOpacity style={styles.loginButton} onPress={() => {
               this.props.navigation.navigate('Menu');
@@ -194,7 +204,7 @@ class Data extends Component {
             </TouchableOpacity>
           </ScrollView>
         </LinearGradient>
-      </View>
+      </View >
 
 
     );
@@ -202,6 +212,17 @@ class Data extends Component {
 }
 
 const styles = StyleSheet.create({
+  item2: {
+    width: '95%',
+    borderRadius: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5,
+    margin: 10,
+    padding: 10,
+    backgroundColor: '#F2F3F4'
+  },
   title: {
     textShadowColor: '#000000',
     textShadowOffset: { width: 0, height: 1 },
@@ -214,9 +235,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   profile: {
-    paddingTop: 20,
-    paddingBottom: 20,
-    marginBottom: 20,
+    padding: 20,
+    marginBottom: 10,
     alignItems: "center",
     backgroundColor: '#fbd',
     shadowColor: "#000000",
@@ -238,7 +258,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 5,
     shadowRadius: 5,
     elevation: 5,
-    marginTop: 20,
+    marginTop: 10,
     marginBottom: 20,
     marginLeft: 10,
   },

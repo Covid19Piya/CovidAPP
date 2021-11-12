@@ -5,6 +5,7 @@ import firestore from '@react-native-firebase/firestore';
 import { ListItem } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
+import { and } from 'react-native-reanimated';
 
 class ShowData extends Component {
     constructor() {
@@ -197,6 +198,7 @@ class ShowData extends Component {
                                         <ListItem.Title style={styles.itemtextcon}>{item.NameVol}</ListItem.Title>
                                         <ListItem.Title style={styles.itemtext}>อีเมลของผู้ต้องการช่วยเหลือ : </ListItem.Title>
                                         <ListItem.Title style={styles.itemtextcon}>{item.Request}</ListItem.Title>
+                                        <Text style={styles.itemtext}>รูปถ่ายของอาสาสมัคร</Text>
                                         {photo}    
                                         {headTextGetVollunteerYet}
                                         <View style={{ flexDirection: "row" }}>
@@ -236,13 +238,14 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     itemtextcon: {
-        color: '#424949',
+        color: 'green',
+        fontWeight: 'bold',
         fontSize: 20,
     },
     itemtexthead: {
         color: '#424949',
         fontWeight: 'bold',
-        fontSize: 30,
+        fontSize: 40,
         marginBottom: 5,
         marginLeft: 1
     },
@@ -260,7 +263,7 @@ const styles = StyleSheet.create({
     profile: {
         paddingTop: 20,
         paddingBottom: 20,
-        marginBottom: 20,
+        marginBottom: 10,
         alignItems: "center",
         backgroundColor: '#fbd',
         shadowColor: "#000000",

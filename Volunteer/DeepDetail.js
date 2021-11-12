@@ -217,7 +217,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     itemtextcon: {
-        color: '#424949',
+        color: 'green',
+        fontWeight: 'bold',
         fontSize: 20,
     },
     itemtexthead: {
@@ -241,7 +242,7 @@ const styles = StyleSheet.create({
     profile: {
         paddingTop: 20,
         paddingBottom: 20,
-        marginBottom: 20,
+        marginBottom: 10,
         alignItems: "center",
         backgroundColor: '#fbd',
         shadowColor: "#000000",
