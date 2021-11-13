@@ -181,6 +181,8 @@ FileUpload = (props) => {
             <Text style={styles.title}>โพสให้การช่วยเหลือ</Text>
           </View>
 
+          <View style={{ alignItems: 'center'}}>
+          <View style={styles.item2}>
           <Input
             placeholder="ชื่อ"
             leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
@@ -219,6 +221,8 @@ FileUpload = (props) => {
             value={this.state.Other}
             onChangeText={(val) => this.inputValueUpdate(val, 'Other')}
           />
+          </View>
+          </View>
           <TouchableOpacity style={styles.photoButton} transparent onPress={chooseFile}>
             <Text style={styles.photoButtonText}>
               อัพโหลดรูปถ่าย
@@ -289,6 +293,18 @@ render() {
 //UI PART
 
 const styles = StyleSheet.create({
+  item2: {
+    width: '95%',
+    borderRadius: 10,
+    shadowColor: "#000000",
+    shadowOpacity: 5,
+    shadowRadius: 5,
+    elevation: 5,
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: '#F2F3F4'
+  },
   title: {
     textShadowColor: '#000000',
     textShadowOffset: { width: 0, height: 1 },
@@ -303,7 +319,7 @@ const styles = StyleSheet.create({
   profile: {
     paddingTop: 20,
     paddingBottom: 20,
-    marginBottom: 20,
+    marginBottom: 5,
     alignItems: "center",
     backgroundColor: '#fbd',
     shadowColor: "#000000",
@@ -351,7 +367,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     padding: 5,
     marginTop: 5,
-    marginLeft: 15,
+    marginLeft: 10,
   },
   photoButtonText: {
     textAlign: 'center',

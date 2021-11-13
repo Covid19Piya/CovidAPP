@@ -66,8 +66,12 @@ class ShowData extends Component {
                                 console.log(item.Name)
                                 return (
                                         <ListItem.Content style={styles.item}>
-                                            <ListItem.Title style={styles.itemtext}>ชื่อ : {item.Name}</ListItem.Title>
-                                            <ListItem.Title style={styles.itemtext}>ความช่วยเหลือที่ต้องการ : {item.Help}</ListItem.Title>
+                                            <View style={{ flexDirection: "row" }}>
+                                            <ListItem.Title style={styles.itemtext}>ชื่อ : </ListItem.Title>
+                                            <ListItem.Title style={styles.itemtextcon}>{item.Name}</ListItem.Title>
+                                            </View>
+                                            <ListItem.Title style={styles.itemtext}>ความช่วยเหลือที่ต้องการ : </ListItem.Title>
+                                            <ListItem.Title style={styles.itemtextcon}>{item.Help}</ListItem.Title>
                                             <TouchableOpacity style={styles.loginButton} onPress={() => {
                                                 this.props.navigation.navigate('DetailPatient', { text: item.PhoneNumber1, user: user });
                                                 console.log(item.PhoneNumber1)
@@ -105,6 +109,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20,
     },
+    itemtextcon:{
+        color: 'green',
+        fontWeight: 'bold',
+        fontSize: 20,
+    },
     title: {
         textShadowColor: '#000000',
         textShadowOffset: { width: 0, height: 1 },
@@ -119,7 +128,7 @@ const styles = StyleSheet.create({
     profile: {
         paddingTop: 20,
         paddingBottom: 20,
-        marginBottom: 20,
+        marginBottom: 10,
         alignItems: "center",
         backgroundColor: '#fbd',
         shadowColor: "#000000",

@@ -89,22 +89,42 @@ class ShowData extends Component {
                                         key={i}
                                         bottomDivider
                                         style={styles.item}>
-                                        <View style={{ alignItems: "center", flexDirection: "column" }}>
-                                            <Image
-                                                source={{ uri: source }}
-                                                style={{
-                                                    flex: 1,
-                                                    width: 200,
-                                                    height: 200
-                                                }}
-                                            />
-                                            <ListItem.Content style={styles.item}>
+                                        <View style={{ width: '100%', alignItems: 'center' }}>
+                                            <View style={{
+                                                alignItems:'center',
+                                                width: 215,
+                                                height: 216,
+                                                borderRadius: 10,
+                                                shadowColor: "#000000",
+                                                shadowOpacity: 1,
+                                                elevation: 5,
+                                                padding:10
+                                            }}>
+                                                <Image
+                                                    source={{ uri: source }}
+                                                    style={{
+                                                        borderRadius:7,
+                                                        width: 200,
+                                                        height: 200
+                                                    }}
+                                                />
+                                            </View>
+                                            <ListItem.Content style={styles.item2}>
                                                 <ListItem.Title style={styles.itemtexthead}>  {item.topic}  </ListItem.Title>
-                                                <ListItem.Title style={styles.itemtext}>ชื่อ : {item.name}  </ListItem.Title>
-                                                <ListItem.Title style={styles.itemtext}>รายละเอียด : {item.detail}</ListItem.Title>
-                                                <ListItem.Title style={styles.itemtext}>สถานที่ทำการเเจกของ : {item.address}</ListItem.Title>
-                                                <ListItem.Title style={styles.itemtext}>หมายเลขโทรศัพท์ : {item.phoneNumber}</ListItem.Title>
-                                                <ListItem.Title style={styles.itemtext}>หมายเหตุ : {item.other}</ListItem.Title>
+                                                <View style={{ flexDirection: "row" }}>
+                                                    <ListItem.Title style={styles.itemtext}>ชื่อ : </ListItem.Title>
+                                                    <ListItem.Title style={styles.itemtextcon}>{item.name}</ListItem.Title>
+                                                </View>
+                                                <ListItem.Title style={styles.itemtext}>รายละเอียด : </ListItem.Title>
+                                                <ListItem.Title style={styles.itemtextcon}>{item.detail}</ListItem.Title>
+                                                <ListItem.Title style={styles.itemtext}>สถานที่ทำการเเจกของ : </ListItem.Title>
+                                                <ListItem.Title style={styles.itemtextcon}>{item.address}</ListItem.Title>
+                                                <View style={{ flexDirection: "row" }}>
+                                                    <ListItem.Title style={styles.itemtext}>หมายเลขโทรศัพท์ : </ListItem.Title>
+                                                    <ListItem.Title style={styles.itemtextcon}>{item.phoneNumber}</ListItem.Title>
+                                                </View>
+                                                <ListItem.Title style={styles.itemtext}>หมายเหตุ : </ListItem.Title>
+                                                <ListItem.Title style={styles.itemtextcon}>{item.other}</ListItem.Title>
                                             </ListItem.Content>
                                         </View>
                                     </ListItem>
@@ -127,7 +147,18 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 5,
         margin: 10,
-        marginBottom: 25,
+        padding: 10,
+        backgroundColor: '#F2F3F4'
+    },
+    item2: {
+        width: '100%',
+        borderRadius: 10,
+        shadowColor: "#000000",
+        shadowOpacity: 5,
+        shadowRadius: 5,
+        elevation: 5,
+        marginTop: 20,
+        marginBottom: 5,
         padding: 10,
         backgroundColor: '#F2F3F4'
     },
@@ -135,10 +166,15 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#424949',
         fontWeight: 'bold',
-        fontSize: 40,
+        fontSize: 30,
     },
     itemtext: {
         color: '#424949',
+        fontWeight: 'bold',
+        fontSize: 20,
+    },
+    itemtextcon: {
+        color: 'green',
         fontWeight: 'bold',
         fontSize: 20,
     },
@@ -156,7 +192,7 @@ const styles = StyleSheet.create({
     profile: {
         paddingTop: 20,
         paddingBottom: 20,
-        marginBottom: 20,
+        marginBottom: 10,
         alignItems: "center",
         backgroundColor: '#fbd',
         shadowColor: "#000000",
