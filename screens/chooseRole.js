@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { ScrollView,Image, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { AuthContext } from '../navigaiton/AuthProvider';
 import LinearGradient from 'react-native-linear-gradient'
-
+console.disableYellowBox = true;
 
 export default function homeScreenStudent({ navigation }) {
   const { user, logout } = useContext(AuthContext);

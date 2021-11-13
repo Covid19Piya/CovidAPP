@@ -57,6 +57,7 @@ class ShowData extends Component {
   sendRequest(name, email, nameVol, urlPhotoVolunteer) {
     firestore().collection("Patient").doc(name).collection("Case")
       .get().then(function (querySnapshot) {
+        console.log("hi, ")
         querySnapshot.forEach(function (doc) {
           doc.ref.update({
             Request: email,

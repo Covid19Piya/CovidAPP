@@ -155,6 +155,7 @@ class Data extends Component {
               backgroundColor: '#EAC5E9'
             }}>
               <Picker selectedValue={this.state.user} onValueChange={this.updateUser}>
+                <Picker.Item label="เพศ" value="java" />
                 <Picker.Item label="ชาย" value="Male" />
                 <Picker.Item label="หญิง" value="Female" />
               </Picker>

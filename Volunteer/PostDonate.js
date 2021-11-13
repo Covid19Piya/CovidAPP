@@ -214,7 +214,7 @@ FileUpload = (props) => {
           />
 
           <Input
-            placeholder="หมายเหคุ"
+            placeholder="หมายเหตุ"
             leftIcon={{ type: 'font-awesome', name: 'caret-right' }}
             value={this.state.Other}
             onChangeText={(val) => this.inputValueUpdate(val, 'Other')}

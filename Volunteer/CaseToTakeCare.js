@@ -56,7 +56,6 @@ class ShowData extends Component {
 
     // Call firestore to show data
     this.fireStoreData = firestore().collection("Volunteer").doc({ user }.user.email).collection("Case");
-
     return (
 
       <View style={styles.container}>
@@ -73,7 +72,6 @@ class ShowData extends Component {
             {
               // loop data and check if patient is in your case
               this.state.userArr.map((item, i) => {
-                console.log(item.Name)
                 if (item.Confirm == "Yes") {
                   patientConfirm = false
                   patientConfirmTxt = "ตรวจสอบเคส"
